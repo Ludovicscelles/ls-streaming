@@ -83,4 +83,19 @@ export class MovieLibrary {
     }
     return results;
   }
+
+  // add a video to the library
+  add(video: Video) {
+    this.videos.push(video);
+  }
+
+  // add a serie to the library
+  addSerie(serie: Serie): void {
+    this.series.push(serie);
+  }
+
+  // add a tv show to the library
+  addTvShow(tvShow: TvShow): void {
+    this.tvShows.push(tvShow);
+  }
 }
