@@ -64,4 +64,23 @@ export class MovieLibrary {
 
     return match;
   }
+
+  // search episode of a series
+
+  searchEpisodeSeries(
+    episodeTitle: string
+  ): { episode: Episode; season: Season; serie: Serie }[] {
+    const searchTerm = episodeTitle.toLowerCase();
+    const results: { episode: Episode; season: Season; serie: Serie }[] = [];
+    for (const serie of this.series) {
+      for (const season of serie.season) {
+        for (const episode of season.episodes) {
+          if (episode.title.toLowerCase().includes(searchTerm)) {
+            results.push({ episode, season, serie });
+          }
+        }
+      }
+    }
+    return results;
+  }
 }
