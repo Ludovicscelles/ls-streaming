@@ -92,11 +92,13 @@ export class MovieLibrary {
   // add a serie to the library
   addSerie(serie: Serie): void {
     this.series.push(serie);
+    this.add(serie);
   }
 
   // add a tv show to the library
   addTvShow(tvShow: TvShow): void {
     this.tvShows.push(tvShow);
+    this.add(tvShow);
   }
 
   // update video title by id
