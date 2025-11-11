@@ -1,7 +1,7 @@
-import { router } from "express";
+import { Router } from "express";
 import movieLibrary from "../initiateData";
 
-const videoRouter = router();
+const videoRouter = Router();
 
 videoRouter.get("/", (req, res) => {
   res.json(movieLibrary.getAll());
