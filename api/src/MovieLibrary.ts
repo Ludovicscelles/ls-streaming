@@ -98,4 +98,31 @@ export class MovieLibrary {
   addTvShow(tvShow: TvShow): void {
     this.tvShows.push(tvShow);
   }
+
+  // update video title by id
+  setTitle(videoId: string, newTitle: string): boolean {
+    const video = this.videos.find((video) => video.id === videoId);
+    if (video) {
+      video.title = newTitle;
+      return true;
+    }
+    return false;
+  }
+
+  // update a video object by id
+  setVideo(VideoId: string, update: Partial<Video>): boolean {
+    const video = this.videos.find((video) => video.id === VideoId);
+    if (!video) {
+      return false;
+    }
+    Object.assign(video, update);
+    return true;
+  }
+
+  // delete a video by id
+  delete(videoId: string): boolean {
+    const initialLength = this.videos.length;
+    this.videos = this.videos.filter((video) => video.id !== videoId);
+    return this.videos.length < initialLength;
+  }
 }
