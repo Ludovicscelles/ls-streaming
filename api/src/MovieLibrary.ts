@@ -92,6 +92,7 @@ export class MovieLibrary {
   // add a serie to the library
   addSerie(serie: Serie): void {
     this.series.push(serie);
+    this.add(serie);
   }
 
   // add a tv show to the library

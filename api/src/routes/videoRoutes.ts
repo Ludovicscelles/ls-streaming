@@ -24,7 +24,7 @@ videoRouter.get("/documentaries", (req, res) => {
 videoRouter.get("/series", (req, res) => {
   const series = movieLibrary
     .getAll()
-    .filter((v) => v.constructor.name === "Series");
+    .filter((v) => v.constructor.name === "Serie");
   res.json(series);
 });
 
