@@ -2,10 +2,12 @@ import { MovieLibrary } from "./MovieLibrary";
 import { Film } from "./models/Film";
 import { Documentary } from "./models/Documentary";
 import { Serie, Season, Episode } from "./models/Serie";
+import { TvShow, SeasonTvShow, EpisodeTvShow } from "./models/TvShow";
 
 import { filmsData } from "./data/filmsData";
 import { documentariesData } from "./data/documentariesData";
 import { seriesData } from "./data/seriesData";
+import { tvShowData } from "./data/TvShowData";
 
 // Create a new instance of MovieLibrary
 const movieLibrary = new MovieLibrary();
@@ -60,6 +62,34 @@ function initiateData() {
       seasons
     );
     movieLibrary.addSerie(newSerie);
+  });
+
+  // Add TV shows to the library
+
+  tvShowData.forEach((tvShowData) => {
+    const seasonsTvShow: SeasonTvShow[] = tvShowData.seasonData.map(
+      (season) => {
+        const episodesTvShow: EpisodeTvShow[] = season.episodes.map(
+          (ep) => new EpisodeTvShow(ep.numberEpisode, ep.duration)
+        );
+        return new SeasonTvShow(
+          season.seasonYear,
+          season.seasonNumber,
+          season.seasonTVHost,
+          episodesTvShow
+        );
+      }
+    );
+
+    const newTvShow = new TvShow(
+      tvShowData.id,
+      tvShowData.title,
+      tvShowData.genre,
+      tvShowData.image,
+      tvShowData.director,
+      seasonsTvShow
+    );
+    movieLibrary.addTvShow(newTvShow);
   });
 
   return movieLibrary;
