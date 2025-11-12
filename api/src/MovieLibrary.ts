@@ -9,6 +9,7 @@ export class MovieLibrary {
 
   // Getter for all videos
   getAll(): Video[] {
+    
     return this.videos;
   }
 
