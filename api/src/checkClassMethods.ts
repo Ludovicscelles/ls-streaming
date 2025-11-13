@@ -43,42 +43,47 @@ documentariesData.forEach((doc) => {
 
 // add series to the library
 seriesData.forEach((serieData) => {
+  const seasons: Season[] = serieData.seasonData.map((season) => {
+    const episodes: Episode[] = season.episodes.map(
+      (ep) => new Episode(ep.title, ep.numberEpisode, ep.duration, ep.director)
+    );
+    return new Season(season.seasonYear, season.seasonNumber, episodes);
+  });
+
   const newSerie = new Serie(
     serieData.id,
     serieData.title,
     serieData.genre,
     serieData.image,
-    serieData.seasonData.map((season) => {
-      const episodes: Episode[] = season.episodes.map(
-        (ep) =>
-          new Episode(ep.title, ep.numberEpisode, ep.duration, ep.director)
-      );
-      return new Season(season.seasonYear, season.seasonNumber, episodes);
-    })
+    seasons
   );
+
   movieLibrary.addSerie(newSerie);
 });
 
 // add tv shows to the library
-tvShowData.forEach((tvShowItem) => {
+tvShowData.forEach((tvShowData) => {
+  const seasons: SeasonTvShow[] = tvShowData.seasonData.map((season) => {
+    const episodes: EpisodeTvShow[] = season.episodes.map(
+      (ep) => new EpisodeTvShow(ep.numberEpisode, ep.duration)
+    );
+    return new SeasonTvShow(
+      season.seasonYear,
+      season.seasonNumber,
+      season.seasonTVHost,
+      episodes
+    );
+  });
+
   const newTvShow = new TvShow(
-    tvShowItem.id,
-    tvShowItem.title,
-    tvShowItem.genre,
-    tvShowItem.image,
-    tvShowItem.director,
-    tvShowItem.seasonData.map((season) => {
-      const episodesTvShow: EpisodeTvShow[] = season.episodes.map(
-        (ep) => new EpisodeTvShow(ep.numberEpisode, ep.duration)
-      );
-      return new SeasonTvShow(
-        season.seasonYear,
-        season.seasonNumber,
-        season.seasonTVHost,
-        episodesTvShow
-      );
-    })
+    tvShowData.id,
+    tvShowData.title,
+    tvShowData.genre,
+    tvShowData.image,
+    tvShowData.director,
+    seasons
   );
+
   movieLibrary.addTvShow(newTvShow);
 });
 export function getTotalMovieLibrary() {

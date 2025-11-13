@@ -8,7 +8,7 @@ export class Serie extends Video {
     image: string,
     public season: Season[]
   ) {
-    super(id, title, genre, image);
+    super(id, title, genre, image,);
   }
 
   play(): void {
