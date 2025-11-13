@@ -91,3 +91,17 @@ export function getTotalMovieLibrary() {
 }
 
 console.log("Total Movie Library:", getTotalMovieLibrary());
+
+// get videos by ID
+
+export function getVideoById(id: string) {
+  return movieLibrary.getById(id);
+}
+
+console.log("Video with ID 'F001':", getVideoById("F001"));
+
+console.log("Video with ID 'S002':", getVideoById("S002"));
+
+console.log("Video with ID 'T001':", getVideoById("T001"));
+
+console.log("Video with ID 'D007':", getVideoById("D007"));
