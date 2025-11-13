@@ -119,3 +119,18 @@ console.log("Search results for 'cléo':", searchVideosByTitle("cléo"));
 console.log("Search results for 'col':", searchVideosByTitle("col"));
 
 console.log("Search results for 'fort':", searchVideosByTitle("fort"));
+
+
+// search serie by title
+export function searchSeriesByTitle(title: string) {
+  return movieLibrary.searchSeries(title);
+}
+
+console.log("Search series results for 'ro':", searchSeriesByTitle("ro"));
+
+// search tv shows by title
+export function searchTvShowsByTitle(title: string) {
+  return movieLibrary.searchTvShows(title);
+}
+
+console.log("Search TV shows results for 'tra':", searchTvShowsByTitle("tra"));
