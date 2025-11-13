@@ -105,3 +105,17 @@ console.log("Video with ID 'S002':", getVideoById("S002"));
 console.log("Video with ID 'T001':", getVideoById("T001"));
 
 console.log("Video with ID 'D007':", getVideoById("D007"));
+
+
+// search videos by title
+export function searchVideosByTitle(title: string) {
+  return movieLibrary.search(title);
+}
+
+console.log("Search results for 'tita':", searchVideosByTitle("tita"));
+
+console.log("Search results for 'cléo':", searchVideosByTitle("cléo"));
+
+console.log("Search results for 'col':", searchVideosByTitle("col"));
+
+console.log("Search results for 'fort':", searchVideosByTitle("fort"));
