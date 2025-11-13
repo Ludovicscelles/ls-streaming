@@ -134,3 +134,23 @@ export function searchTvShowsByTitle(title: string) {
 }
 
 console.log("Search TV shows results for 'tra':", searchTvShowsByTitle("tra"));
+
+// search in all video types
+export function searchInAllVideoTypes(title: string) {
+  return movieLibrary.searchAll(title);
+}
+
+console.log(
+  "Search in all video types results for 'le':",
+  searchInAllVideoTypes("le")
+);
+
+console.log(
+  "Search in all video types results for 'an':",
+  searchInAllVideoTypes("an")
+);
+
+console.log(
+  "Search in all video types results for 'bra':",
+  searchInAllVideoTypes("bra")
+);
