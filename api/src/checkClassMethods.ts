@@ -154,3 +154,13 @@ console.log(
   "Search in all video types results for 'bra':",
   searchInAllVideoTypes("bra")
 );
+
+// search episodes by title in series
+export function searchEpisodesInSeries(episodeTitle: string) {
+  return movieLibrary.searchEpisodeSeries(episodeTitle);
+}
+
+console.log(
+  "Search episodes in series results for 'the':",
+  searchEpisodesInSeries("votez")
+);
