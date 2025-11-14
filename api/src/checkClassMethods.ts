@@ -164,3 +164,34 @@ console.log(
   "Search episodes in series results for 'the':",
   searchEpisodesInSeries("votez")
 );
+
+// add a new video to the library
+export function addNewVideoToLibrary(video: Film | Documentary) {
+  movieLibrary.add(video);
+}
+
+const newFilm = new Film(
+  "F021",
+  "L'Homme qu'on aimait trop",
+  "Drama",
+  "/images/films/homme-quon-aimait-trop.png",
+  120,
+  "2014-03-01",
+  "André Téchiné"
+);
+
+addNewVideoToLibrary(newFilm);
+console.log("After adding new film, total library:", getTotalMovieLibrary());
+
+const newDocumentary = new Documentary(
+  "D021",
+  "La Marche de l'Empereur",
+  "Nature",
+  "/images/documentaries/marche-empereur.png",
+  90,
+  "2005",
+  "La vie des manchots empereurs"
+);
+
+addNewVideoToLibrary(newDocumentary);
+console.log("After adding new documentary, total library:", getTotalMovieLibrary());
