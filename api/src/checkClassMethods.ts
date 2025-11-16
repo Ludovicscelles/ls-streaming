@@ -8,6 +8,7 @@ import { Serie, Season, Episode } from "./models/Serie";
 import { Documentary } from "./models/Documentary";
 import { Film } from "./models/Film";
 import { TvShow, SeasonTvShow, EpisodeTvShow } from "./models/TvShow";
+import { Video } from "./models/Video";
 
 const movieLibrary = new MovieLibrary();
 
@@ -255,18 +256,35 @@ addNewTvShowToLibrary(newTvShow);
 console.log("After adding new tv show, total library:", getTotalMovieLibrary());
 
 // update video title by id
+
 export function updateVideoTitleById(id: string, newTitle: string) {
   movieLibrary.setTitle(id, newTitle);
 }
 
 updateVideoTitleById("S003", "Mafiosa: Le Clan");
+
+updateVideoTitleById("T003", "Nouvelle Star: Le Retour");
+
 console.log(
-  "After updating serie title, total library:",
+  "After updating tv show title, total library:",
   getTotalMovieLibrary()
 );
 
-updateVideoTitleById("T003", "Nouvelle Star: Le Retour");
+// update a video object by id
+
+export function updateVideoById(id: string, updatedVideo: Partial<Video>) {
+  movieLibrary.setVideo(id, updatedVideo);
+}
+
+updateVideoById("F021", { genre: "Thriller" });
+
+updateVideoById("D021", { genre: "Vie sauvage" });
+
+updateVideoById("S003", { genre: "Crime Drama" });
+
+updateVideoById("D016", { title: "Les Mystères de l'Atlantide Révélés" });
+
 console.log(
-  "After updating tv show title, total library:",
+  "After updating documentary title, total library:",
   getTotalMovieLibrary()
 );
