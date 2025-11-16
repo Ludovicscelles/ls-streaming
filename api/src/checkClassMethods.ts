@@ -106,7 +106,6 @@ console.log("Video with ID 'T001':", getVideoById("T001"));
 
 console.log("Video with ID 'D007':", getVideoById("D007"));
 
-
 // search videos by title
 export function searchVideosByTitle(title: string) {
   return movieLibrary.search(title);
@@ -119,7 +118,6 @@ console.log("Search results for 'cléo':", searchVideosByTitle("cléo"));
 console.log("Search results for 'col':", searchVideosByTitle("col"));
 
 console.log("Search results for 'fort':", searchVideosByTitle("fort"));
-
 
 // search serie by title
 export function searchSeriesByTitle(title: string) {
@@ -194,7 +192,10 @@ const newDocumentary = new Documentary(
 );
 
 addNewVideoToLibrary(newDocumentary);
-console.log("After adding new documentary, total library:", getTotalMovieLibrary());
+console.log(
+  "After adding new documentary, total library:",
+  getTotalMovieLibrary()
+);
 
 // add a new serie to the library
 export function addNewSerieToLibrary(serie: Serie) {
@@ -210,7 +211,7 @@ const newSerieSeasons: Season[] = [
     new Episode("Episode 5", 5, 46, "Louis Choquette"),
     new Episode("Episode 6", 6, 49, "Louis Choquette"),
     new Episode("Episode 7", 7, 45, "Louis Choquette"),
-    new Episode("Episode 8", 8, 50, "Louis Choquette"), 
+    new Episode("Episode 8", 8, 50, "Louis Choquette"),
   ]),
 ];
 
@@ -231,7 +232,7 @@ export function addNewTvShowToLibrary(tvShow: TvShow) {
 }
 
 const newTvShowSeasons: SeasonTvShow[] = [
- new SeasonTvShow(2017, 13, "Shy'm", [
+  new SeasonTvShow(2017, 13, "Shy'm", [
     new EpisodeTvShow(1, 90),
     new EpisodeTvShow(2, 92),
     new EpisodeTvShow(3, 108),
@@ -252,4 +253,20 @@ const newTvShow = new TvShow(
 
 addNewTvShowToLibrary(newTvShow);
 console.log("After adding new tv show, total library:", getTotalMovieLibrary());
-  
+
+// update video title by id
+export function updateVideoTitleById(id: string, newTitle: string) {
+  movieLibrary.setTitle(id, newTitle);
+}
+
+updateVideoTitleById("S003", "Mafiosa: Le Clan");
+console.log(
+  "After updating serie title, total library:",
+  getTotalMovieLibrary()
+);
+
+updateVideoTitleById("T003", "Nouvelle Star: Le Retour");
+console.log(
+  "After updating tv show title, total library:",
+  getTotalMovieLibrary()
+);
