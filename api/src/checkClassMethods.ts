@@ -195,3 +195,32 @@ const newDocumentary = new Documentary(
 
 addNewVideoToLibrary(newDocumentary);
 console.log("After adding new documentary, total library:", getTotalMovieLibrary());
+
+// add a new serie to the library
+export function addNewSerieToLibrary(serie: Serie) {
+  movieLibrary.addSerie(serie);
+}
+
+const newSerieSeasons: Season[] = [
+  new Season(2006, 1, [
+    new Episode("Episode 1", 1, 45, "Louis Choquette"),
+    new Episode("Episode 2", 2, 50, "Louis Choquette"),
+    new Episode("Episode 3", 3, 48, "Louis Choquette"),
+    new Episode("Episode 4", 4, 47, "Louis Choquette"),
+    new Episode("Episode 5", 5, 46, "Louis Choquette"),
+    new Episode("Episode 6", 6, 49, "Louis Choquette"),
+    new Episode("Episode 7", 7, 45, "Louis Choquette"),
+    new Episode("Episode 8", 8, 50, "Louis Choquette"), 
+  ]),
+];
+
+const newSerie = new Serie(
+  "S003",
+  "Mafiosa",
+  "drama",
+  "/images/series/mafiosa.png",
+  newSerieSeasons
+);
+
+addNewSerieToLibrary(newSerie);
+console.log("After adding new serie, total library:", getTotalMovieLibrary());
