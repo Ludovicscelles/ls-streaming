@@ -288,3 +288,15 @@ console.log(
   "After updating documentary title, total library:",
   getTotalMovieLibrary()
 );
+
+// delete a video by id
+
+export function deleteVideoById(id: string) {
+  movieLibrary.delete(id);
+}
+
+deleteVideoById("D021");
+
+deleteVideoById("F019");
+
+console.log("After deleting videos, total library:", getTotalMovieLibrary());
