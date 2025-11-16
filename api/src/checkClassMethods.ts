@@ -224,3 +224,32 @@ const newSerie = new Serie(
 
 addNewSerieToLibrary(newSerie);
 console.log("After adding new serie, total library:", getTotalMovieLibrary());
+
+// add a new tv show to the library
+export function addNewTvShowToLibrary(tvShow: TvShow) {
+  movieLibrary.addTvShow(tvShow);
+}
+
+const newTvShowSeasons: SeasonTvShow[] = [
+ new SeasonTvShow(2017, 13, "Shy'm", [
+    new EpisodeTvShow(1, 90),
+    new EpisodeTvShow(2, 92),
+    new EpisodeTvShow(3, 108),
+    new EpisodeTvShow(4, 101),
+    new EpisodeTvShow(5, 109),
+    new EpisodeTvShow(6, 95),
+  ]),
+];
+
+const newTvShow = new TvShow(
+  "T003",
+  "Nouvelle Star",
+  "Talent Show",
+  "/images/showsTV/nouvelle-star.png",
+  "Renaud Le Van Kim",
+  newTvShowSeasons
+);
+
+addNewTvShowToLibrary(newTvShow);
+console.log("After adding new tv show, total library:", getTotalMovieLibrary());
+  
