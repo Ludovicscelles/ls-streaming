@@ -8,6 +8,7 @@ import { Serie, Season, Episode } from "./models/Serie";
 import { Documentary } from "./models/Documentary";
 import { Film } from "./models/Film";
 import { TvShow, SeasonTvShow, EpisodeTvShow } from "./models/TvShow";
+import { Video } from "./models/Video";
 
 const movieLibrary = new MovieLibrary();
 
@@ -106,7 +107,6 @@ console.log("Video with ID 'T001':", getVideoById("T001"));
 
 console.log("Video with ID 'D007':", getVideoById("D007"));
 
-
 // search videos by title
 export function searchVideosByTitle(title: string) {
   return movieLibrary.search(title);
@@ -119,7 +119,6 @@ console.log("Search results for 'cléo':", searchVideosByTitle("cléo"));
 console.log("Search results for 'col':", searchVideosByTitle("col"));
 
 console.log("Search results for 'fort':", searchVideosByTitle("fort"));
-
 
 // search serie by title
 export function searchSeriesByTitle(title: string) {
@@ -194,4 +193,110 @@ const newDocumentary = new Documentary(
 );
 
 addNewVideoToLibrary(newDocumentary);
-console.log("After adding new documentary, total library:", getTotalMovieLibrary());
+console.log(
+  "After adding new documentary, total library:",
+  getTotalMovieLibrary()
+);
+
+// add a new serie to the library
+export function addNewSerieToLibrary(serie: Serie) {
+  movieLibrary.addSerie(serie);
+}
+
+const newSerieSeasons: Season[] = [
+  new Season(2006, 1, [
+    new Episode("Episode 1", 1, 45, "Louis Choquette"),
+    new Episode("Episode 2", 2, 50, "Louis Choquette"),
+    new Episode("Episode 3", 3, 48, "Louis Choquette"),
+    new Episode("Episode 4", 4, 47, "Louis Choquette"),
+    new Episode("Episode 5", 5, 46, "Louis Choquette"),
+    new Episode("Episode 6", 6, 49, "Louis Choquette"),
+    new Episode("Episode 7", 7, 45, "Louis Choquette"),
+    new Episode("Episode 8", 8, 50, "Louis Choquette"),
+  ]),
+];
+
+const newSerie = new Serie(
+  "S003",
+  "Mafiosa",
+  "drama",
+  "/images/series/mafiosa.png",
+  newSerieSeasons
+);
+
+addNewSerieToLibrary(newSerie);
+console.log("After adding new serie, total library:", getTotalMovieLibrary());
+
+// add a new tv show to the library
+export function addNewTvShowToLibrary(tvShow: TvShow) {
+  movieLibrary.addTvShow(tvShow);
+}
+
+const newTvShowSeasons: SeasonTvShow[] = [
+  new SeasonTvShow(2017, 13, "Shy'm", [
+    new EpisodeTvShow(1, 90),
+    new EpisodeTvShow(2, 92),
+    new EpisodeTvShow(3, 108),
+    new EpisodeTvShow(4, 101),
+    new EpisodeTvShow(5, 109),
+    new EpisodeTvShow(6, 95),
+  ]),
+];
+
+const newTvShow = new TvShow(
+  "T003",
+  "Nouvelle Star",
+  "Talent Show",
+  "/images/showsTV/nouvelle-star.png",
+  "Renaud Le Van Kim",
+  newTvShowSeasons
+);
+
+addNewTvShowToLibrary(newTvShow);
+console.log("After adding new tv show, total library:", getTotalMovieLibrary());
+
+// update video title by id
+
+export function updateVideoTitleById(id: string, newTitle: string) {
+  movieLibrary.setTitle(id, newTitle);
+}
+
+updateVideoTitleById("S003", "Mafiosa: Le Clan");
+
+updateVideoTitleById("T003", "Nouvelle Star: Le Retour");
+
+console.log(
+  "After updating tv show title, total library:",
+  getTotalMovieLibrary()
+);
+
+// update a video object by id
+
+export function updateVideoById(id: string, updatedVideo: Partial<Video>) {
+  movieLibrary.setVideo(id, updatedVideo);
+}
+
+updateVideoById("F021", { genre: "Thriller" });
+
+updateVideoById("D021", { genre: "Vie sauvage" });
+
+updateVideoById("S003", { genre: "Crime Drama" });
+
+updateVideoById("D016", { title: "Les Mystères de l'Atlantide Révélés" });
+
+console.log(
+  "After updating documentary title, total library:",
+  getTotalMovieLibrary()
+);
+
+// delete a video by id
+
+export function deleteVideoById(id: string) {
+  movieLibrary.delete(id);
+}
+
+deleteVideoById("D021");
+
+deleteVideoById("F019");
+
+console.log("After deleting videos, total library:", getTotalMovieLibrary());
