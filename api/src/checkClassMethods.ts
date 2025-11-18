@@ -156,15 +156,15 @@ export function addNewVideoToLibrary(video: Film | Documentary) {
   movieLibrary.add(video);
 }
 
-const newFilm = new Film(
-  "F021",
-  "L'Homme qu'on aimait trop",
-  "Drama",
-  "/images/films/homme-quon-aimait-trop.png",
-  120,
-  "2014-03-01",
-  "André Téchiné"
-);
+const newFilm = createFilm({
+  id: "F021",
+  title: "L'Homme qu'on aimait trop",
+  genre: "Drama",
+  image: "/images/films/homme-quon-aimait-trop.png",
+  duration: 120,
+  realiseDate: "2014-03-01",
+  director: "André Téchiné",
+});
 
 addNewVideoToLibrary(newFilm);
 console.log("After adding new film, total library:", getTotalMovieLibrary());
