@@ -11,6 +11,7 @@ import { TvShow, SeasonTvShow, EpisodeTvShow } from "./models/TvShow";
 import { Video } from "./models/Video";
 
 import { createDocumentary } from "./utils/createDocumentary";
+import { createFilm } from "./utils/createFilm";
 
 const movieLibrary = new MovieLibrary();
 
@@ -18,15 +19,7 @@ const movieLibrary = new MovieLibrary();
 
 // add films to the library
 filmsData.forEach((film) => {
-  const newFilm = new Film(
-    film.id,
-    film.title,
-    film.genre,
-    film.image,
-    film.duration,
-    film.realiseDate,
-    film.director
-  );
+  const newFilm = createFilm(film);
   movieLibrary.add(newFilm);
 });
 
