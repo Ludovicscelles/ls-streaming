@@ -10,35 +10,22 @@ import { Film } from "./models/Film";
 import { TvShow, SeasonTvShow, EpisodeTvShow } from "./models/TvShow";
 import { Video } from "./models/Video";
 
+import { createDocumentary } from "./utils/createDocumentary";
+import { createFilm } from "./utils/createFilm";
+
 const movieLibrary = new MovieLibrary();
 
 // get total movie library
 
 // add films to the library
 filmsData.forEach((film) => {
-  const newFilm = new Film(
-    film.id,
-    film.title,
-    film.genre,
-    film.image,
-    film.duration,
-    film.realiseDate,
-    film.director
-  );
+  const newFilm = createFilm(film);
   movieLibrary.add(newFilm);
 });
 
 // add documentaries to the library
 documentariesData.forEach((doc) => {
-  const newDocumentary = new Documentary(
-    doc.id,
-    doc.title,
-    doc.genre,
-    doc.image,
-    doc.duration,
-    doc.realiseDate,
-    doc.subject
-  );
+  const newDocumentary = createDocumentary(doc);
   movieLibrary.add(newDocumentary);
 });
 
@@ -169,28 +156,28 @@ export function addNewVideoToLibrary(video: Film | Documentary) {
   movieLibrary.add(video);
 }
 
-const newFilm = new Film(
-  "F021",
-  "L'Homme qu'on aimait trop",
-  "Drama",
-  "/images/films/homme-quon-aimait-trop.png",
-  120,
-  "2014-03-01",
-  "André Téchiné"
-);
+const newFilm = createFilm({
+  id: "F021",
+  title: "L'Homme qu'on aimait trop",
+  genre: "Drama",
+  image: "/images/films/homme-quon-aimait-trop.png",
+  duration: 120,
+  realiseDate: "2014-03-01",
+  director: "André Téchiné",
+});
 
 addNewVideoToLibrary(newFilm);
 console.log("After adding new film, total library:", getTotalMovieLibrary());
 
-const newDocumentary = new Documentary(
-  "D021",
-  "La Marche de l'Empereur",
-  "Nature",
-  "/images/documentaries/marche-empereur.png",
-  90,
-  "2005",
-  "La vie des manchots empereurs"
-);
+const newDocumentary = createDocumentary({
+  id: "D021",
+  title: "La Marche de l'Empereur",
+  genre: "Nature",
+  image: "/images/documentaries/marche-empereur.png",
+  duration: 90,
+  realiseDate: "2005",
+  subject: "La vie des manchots empereurs",
+});
 
 addNewVideoToLibrary(newDocumentary);
 console.log(
