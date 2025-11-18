@@ -169,15 +169,15 @@ const newFilm = createFilm({
 addNewVideoToLibrary(newFilm);
 console.log("After adding new film, total library:", getTotalMovieLibrary());
 
-const newDocumentary = new Documentary(
-  "D021",
-  "La Marche de l'Empereur",
-  "Nature",
-  "/images/documentaries/marche-empereur.png",
-  90,
-  "2005",
-  "La vie des manchots empereurs"
-);
+const newDocumentary = createDocumentary({
+  id: "D021",
+  title: "La Marche de l'Empereur",
+  genre: "Nature",
+  image: "/images/documentaries/marche-empereur.png",
+  duration: 90,
+  realiseDate: "2005",
+  subject: "La vie des manchots empereurs",
+});
 
 addNewVideoToLibrary(newDocumentary);
 console.log(
