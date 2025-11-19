@@ -13,6 +13,7 @@ import { Video } from "./models/Video";
 import { createDocumentary } from "./utils/createDocumentary";
 import { createFilm } from "./utils/createFilm";
 import { createSerie } from "./utils/createSerie";
+import { createTvShow } from "./utils/createTvShow";
 
 const movieLibrary = new MovieLibrary();
 
@@ -38,29 +39,11 @@ seriesData.forEach((serieData) => {
 
 // add tv shows to the library
 tvShowData.forEach((tvShowData) => {
-  const seasons: SeasonTvShow[] = tvShowData.seasonData.map((season) => {
-    const episodes: EpisodeTvShow[] = season.episodes.map(
-      (ep) => new EpisodeTvShow(ep.numberEpisode, ep.duration)
-    );
-    return new SeasonTvShow(
-      season.seasonYear,
-      season.seasonNumber,
-      season.seasonTVHost,
-      episodes
-    );
-  });
-
-  const newTvShow = new TvShow(
-    tvShowData.id,
-    tvShowData.title,
-    tvShowData.genre,
-    tvShowData.image,
-    tvShowData.director,
-    seasons
-  );
+  const newTvShow = createTvShow(tvShowData);
 
   movieLibrary.addTvShow(newTvShow);
 });
+
 export function getTotalMovieLibrary() {
   return movieLibrary.getAll();
 }
@@ -248,25 +231,28 @@ export function addNewTvShowToLibrary(tvShow: TvShow) {
   movieLibrary.addTvShow(tvShow);
 }
 
-const newTvShowSeasons: SeasonTvShow[] = [
-  new SeasonTvShow(2017, 13, "Shy'm", [
-    new EpisodeTvShow(1, 90),
-    new EpisodeTvShow(2, 92),
-    new EpisodeTvShow(3, 108),
-    new EpisodeTvShow(4, 101),
-    new EpisodeTvShow(5, 109),
-    new EpisodeTvShow(6, 95),
-  ]),
-];
-
-const newTvShow = new TvShow(
-  "T003",
-  "Nouvelle Star",
-  "Talent Show",
-  "/images/showsTV/nouvelle-star.png",
-  "Renaud Le Van Kim",
-  newTvShowSeasons
-);
+const newTvShow = createTvShow({
+  id: "T003",
+  title: "Nouvelle Star",
+  genre: "Talent Show",
+  image: "/images/tvshows/nouvelle-star.png",
+  director: "Gilbert Coullier",
+  seasonData: [
+    {
+      seasonYear: 2017,
+      seasonNumber: 13,
+      seasonTVHost: "Shy'm",
+      episodes: [
+        { numberEpisode: 1, duration: 90 },
+        { numberEpisode: 2, duration: 92 },
+        { numberEpisode: 3, duration: 108 },
+        { numberEpisode: 4, duration: 101 },
+        { numberEpisode: 5, duration: 109 },
+        { numberEpisode: 6, duration: 95 },
+      ],
+    },
+  ],
+});
 
 addNewTvShowToLibrary(newTvShow);
 console.log("After adding new tv show, total library:", getTotalMovieLibrary());
