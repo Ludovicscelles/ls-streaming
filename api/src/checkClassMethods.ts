@@ -12,6 +12,7 @@ import { Video } from "./models/Video";
 
 import { createDocumentary } from "./utils/createDocumentary";
 import { createFilm } from "./utils/createFilm";
+import { createSerie } from "./utils/createSerie";
 
 const movieLibrary = new MovieLibrary();
 
@@ -31,21 +32,7 @@ documentariesData.forEach((doc) => {
 
 // add series to the library
 seriesData.forEach((serieData) => {
-  const seasons: Season[] = serieData.seasonData.map((season) => {
-    const episodes: Episode[] = season.episodes.map(
-      (ep) => new Episode(ep.title, ep.numberEpisode, ep.duration, ep.director)
-    );
-    return new Season(season.seasonYear, season.seasonNumber, episodes);
-  });
-
-  const newSerie = new Serie(
-    serieData.id,
-    serieData.title,
-    serieData.genre,
-    serieData.image,
-    seasons
-  );
-
+  const newSerie = createSerie(serieData);
   movieLibrary.addSerie(newSerie);
 });
 
@@ -190,26 +177,68 @@ export function addNewSerieToLibrary(serie: Serie) {
   movieLibrary.addSerie(serie);
 }
 
-const newSerieSeasons: Season[] = [
-  new Season(2006, 1, [
-    new Episode("Episode 1", 1, 45, "Louis Choquette"),
-    new Episode("Episode 2", 2, 50, "Louis Choquette"),
-    new Episode("Episode 3", 3, 48, "Louis Choquette"),
-    new Episode("Episode 4", 4, 47, "Louis Choquette"),
-    new Episode("Episode 5", 5, 46, "Louis Choquette"),
-    new Episode("Episode 6", 6, 49, "Louis Choquette"),
-    new Episode("Episode 7", 7, 45, "Louis Choquette"),
-    new Episode("Episode 8", 8, 50, "Louis Choquette"),
-  ]),
-];
-
-const newSerie = new Serie(
-  "S003",
-  "Mafiosa",
-  "drama",
-  "/images/series/mafiosa.png",
-  newSerieSeasons
-);
+const newSerie = createSerie({
+  id: "S003",
+  title: "Mafiosa",
+  genre: "Crime",
+  image: "/images/series/mafiosa.png",
+  seasonData: [
+    {
+      seasonYear: 2006,
+      seasonNumber: 1,
+      episodes: [
+        {
+          title: "Episode 1",
+          numberEpisode: 1,
+          duration: 45,
+          director: "Louis Choquette",
+        },
+        {
+          title: "Episode 2",
+          numberEpisode: 2,
+          duration: 50,
+          director: "Louis Choquette",
+        },
+        {
+          title: "Episode 3",
+          numberEpisode: 3,
+          duration: 48,
+          director: "Louis Choquette",
+        },
+        {
+          title: "Episode 4",
+          numberEpisode: 4,
+          duration: 47,
+          director: "Louis Choquette",
+        },
+        {
+          title: "Episode 5",
+          numberEpisode: 5,
+          duration: 46,
+          director: "Louis Choquette",
+        },
+        {
+          title: "Episode 6",
+          numberEpisode: 6,
+          duration: 49,
+          director: "Louis Choquette",
+        },
+        {
+          title: "Episode 7",
+          numberEpisode: 7,
+          duration: 45,
+          director: "Louis Choquette",
+        },
+        {
+          title: "Episode 8",
+          numberEpisode: 8,
+          duration: 50,
+          director: "Louis Choquette",
+        },
+      ],
+    },
+  ],
+});
 
 addNewSerieToLibrary(newSerie);
 console.log("After adding new serie, total library:", getTotalMovieLibrary());
