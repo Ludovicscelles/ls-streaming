@@ -9,8 +9,29 @@ export class MovieLibrary {
 
   // Getter for all videos
   getAll(): Video[] {
-    
     return this.videos;
+  }
+
+  // Getter for all documentaries
+  getAllDocumentaries(): Video[] {
+    return this.videos.filter(
+      (video) => video.constructor.name === "Documentary"
+    );
+  }
+
+  // Getter for all films
+  getAllFilms(): Video[] {
+    return this.videos.filter((video) => video.constructor.name === "Film");
+  }
+
+  // Getter for all series
+  getAllSeries(): Video[] {
+    return this.videos.filter((video) => video.constructor.name === "Serie");
+  }
+
+  // Getter for all tv-shows
+  getAllTvShows(): Video[]{
+    return this.videos.filter((video) => video.constructor.name === "TvShow")
   }
 
   // Getter for one video by ID

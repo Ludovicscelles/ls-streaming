@@ -50,6 +50,38 @@ export function getTotalMovieLibrary() {
 
 console.log("Total Movie Library:", getTotalMovieLibrary());
 
+// get all documentaries
+
+export function getAllDocumentaries() {
+  return movieLibrary.getAllDocumentaries();
+}
+
+console.log("All Documentaries:", getAllDocumentaries());
+
+// get all films
+
+export function getAllFilms() {
+  return movieLibrary.getAllFilms();
+}
+
+console.log("All Films:", getAllFilms());
+
+// get all series
+
+export function getAllSeries() {
+  return movieLibrary.getAllSeries();
+}
+
+console.log("All series:", getAllSeries());
+
+// get all tv-shows
+
+export function getAllTvShows() {
+  return movieLibrary.getAllTvShows();
+}
+
+console.log("All TV-Shows:", getAllTvShows());
+
 // get videos by ID
 
 export function getVideoById(id: string) {
