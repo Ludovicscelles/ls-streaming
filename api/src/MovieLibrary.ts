@@ -13,6 +13,13 @@ export class MovieLibrary {
     return this.videos;
   }
 
+  // Getter for all documentaries
+  getAllDocumentaries(): Video[] {
+    return this.videos.filter(
+      (video) => video.constructor.name === "Documentary"
+    );
+  }
+
   // Getter for one video by ID
   getById(id: string): Video | undefined {
     return this.videos.find((video) => video.id === id);
