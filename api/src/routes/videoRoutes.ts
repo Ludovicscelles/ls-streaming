@@ -8,31 +8,19 @@ videoRouter.get("/", (req, res) => {
 });
 
 videoRouter.get("/films", (req, res) => {
-  const film = movieLibrary
-    .getAll()
-    .filter((v) => v.constructor.name === "Film");
-  res.json(film);
+  res.json(movieLibrary.getAllFilms());
 });
 
 videoRouter.get("/documentaries", (req, res) => {
-  const documentaries = movieLibrary
-    .getAll()
-    .filter((v) => v.constructor.name === "Documentary");
-  res.json(documentaries);
+  res.json(movieLibrary.getAllDocumentaries());
 });
 
 videoRouter.get("/series", (req, res) => {
-  const series = movieLibrary
-    .getAll()
-    .filter((v) => v.constructor.name === "Serie");
-  res.json(series);
+  res.json(movieLibrary.getAllSeries());
 });
 
 videoRouter.get("/tvShows", (req, res) => {
-  const tvShows = movieLibrary
-    .getAll()
-    .filter((v) => v.constructor.name === "TvShow");
-  res.json(tvShows);
+  res.json(movieLibrary.getAllTvShows());
 });
 
 export default videoRouter;
