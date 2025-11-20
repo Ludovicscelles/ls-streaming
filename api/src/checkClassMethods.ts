@@ -66,6 +66,14 @@ export function getAllFilms() {
 
 console.log("All Films:", getAllFilms());
 
+// get all series
+
+export function getAllSeries() {
+  return movieLibrary.getAllSeries();
+}
+
+console.log("All series:", getAllSeries());
+
 // get videos by ID
 
 export function getVideoById(id: string) {
