@@ -50,7 +50,6 @@ export function getTotalMovieLibrary() {
 
 console.log("Total Movie Library:", getTotalMovieLibrary());
 
-
 // get all documentaries
 
 export function getAllDocumentaries() {
@@ -58,6 +57,14 @@ export function getAllDocumentaries() {
 }
 
 console.log("All Documentaries:", getAllDocumentaries());
+
+// get all films
+
+export function getAllFilms() {
+  return movieLibrary.getAllFilms();
+}
+
+console.log("All Films:", getAllFilms());
 
 // get videos by ID
 
@@ -311,5 +318,3 @@ deleteVideoById("D021");
 deleteVideoById("F019");
 
 console.log("After deleting videos, total library:", getTotalMovieLibrary());
-
-console.log("All Documentaries after deletion:", getAllDocumentaries());

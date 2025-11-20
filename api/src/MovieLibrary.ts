@@ -9,7 +9,6 @@ export class MovieLibrary {
 
   // Getter for all videos
   getAll(): Video[] {
-    
     return this.videos;
   }
 
@@ -18,6 +17,11 @@ export class MovieLibrary {
     return this.videos.filter(
       (video) => video.constructor.name === "Documentary"
     );
+  }
+
+  // Getter for all films
+  getAllFilms(): Video[] {
+    return this.videos.filter((video) => video.constructor.name === "Film");
   }
 
   // Getter for one video by ID
