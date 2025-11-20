@@ -29,6 +29,11 @@ export class MovieLibrary {
     return this.videos.filter((video) => video.constructor.name === "Serie");
   }
 
+  // Getter for all tv-shows
+  getAllTvShows(): Video[]{
+    return this.videos.filter((video) => video.constructor.name === "TvShow")
+  }
+
   // Getter for one video by ID
   getById(id: string): Video | undefined {
     return this.videos.find((video) => video.id === id);
