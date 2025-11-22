@@ -3,7 +3,7 @@ export const seriesData = [
     id: "S001",
     title: "Columbo",
     genre: "Policier",
-    image: "/images/series/columbo.png",
+    image: "/api/images/series/columbo.png",
     seasonData: [
       {
         seasonYear: 1989,
@@ -59,7 +59,7 @@ export const seriesData = [
     id: "S002",
     title: "Rome",
     genre: "Historique",
-    image: "/images/series/rome.png",
+    image: "/api/images/series/rome.png",
     seasonData: [
       {
         seasonYear: 2005,

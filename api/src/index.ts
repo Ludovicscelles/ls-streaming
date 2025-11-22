@@ -17,6 +17,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/videos", videoRoutes);
+app.use("/api/images", express.static("images"));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
