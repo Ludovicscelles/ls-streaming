@@ -1,4 +1,5 @@
 import express from "express";
+import { AppDataSource } from "./data-source";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -19,6 +20,13 @@ app.get("/", (req, res) => {
 app.use("/api/videos", videoRoutes);
 app.use("/api/images", express.static("images"));
 
-app.listen(PORT, () => {
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Data Source has been initialized!");
+    app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Error during Data Source initialization:", err);
 });
