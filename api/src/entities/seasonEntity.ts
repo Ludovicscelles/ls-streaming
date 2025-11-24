@@ -5,8 +5,8 @@ import {
   OneToMany,
   ManyToOne,
 } from "typeorm";
-import { SerieEntity } from "./serieEntity";
-import { EpisodeEntity } from "./episodeEntity";
+import { SerieEntity } from "./SerieEntity";
+import { EpisodeEntity } from "./EpisodeEntity";
 
 @Entity()
 export class SeasonEntity {
