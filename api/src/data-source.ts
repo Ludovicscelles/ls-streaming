@@ -1,11 +1,27 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { Documentary } from "./models/Documentary";
+import { FilmEntity } from "./entities/FilmEntity";
+import { DocumentaryEntity } from "./entities/DocumentaryEntity";
+import { SerieEntity } from "./entities/SerieEntity";
+import { SeasonEntity } from "./entities/seasonEntity";
+import { EpisodeEntity } from "./entities/EpisodeEntity";
+import { TvShowEntity } from "./entities/TvShowEntity";
+import { SeasonTvShowEntity } from "./entities/SeasonTvShowEntity";
+import { EpisodeTvShowEntity } from "./entities/EpisodeTvShowEntity";
 
 export const AppDataSource = new DataSource({
   type: "sqlite",
   database: "data/ls-streaming.sqlite",
-  entities: [Documentary],
+  entities: [
+    FilmEntity,
+    DocumentaryEntity,
+    SerieEntity,
+    SeasonEntity,
+    EpisodeEntity,
+    TvShowEntity,
+    SeasonTvShowEntity,
+    EpisodeTvShowEntity,
+  ],
   synchronize: true,
   logging: false,
 });
