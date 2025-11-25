@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { SeasonEntity } from "./seasonEntity";
+import { SeasonEntity } from "./SeasonEntity";
+
 
 @Entity()
 export class SerieEntity {

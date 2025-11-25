@@ -3,7 +3,7 @@ import { DataSource } from "typeorm";
 import { FilmEntity } from "./entities/FilmEntity";
 import { DocumentaryEntity } from "./entities/DocumentaryEntity";
 import { SerieEntity } from "./entities/SerieEntity";
-import { SeasonEntity } from "./entities/seasonEntity";
+import { SeasonEntity } from "./entities/SeasonEntity";
 import { EpisodeEntity } from "./entities/EpisodeEntity";
 import { TvShowEntity } from "./entities/TvShowEntity";
 import { SeasonTvShowEntity } from "./entities/SeasonTvShowEntity";
