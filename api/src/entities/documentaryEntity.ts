@@ -18,7 +18,7 @@ export class DocumentaryEntity {
   duration!: number;
 
   @Column()
-  realeaseDate!: string;
+  releaseDate!: string;
 
   @Column()
   subject!: string;

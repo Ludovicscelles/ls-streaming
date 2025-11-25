@@ -8,7 +8,8 @@
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
     "start": "npx tsc && node dist/index.js",
-    "check": "npx tsc && node dist/checkClassMethods.js"
+    "check": "npx tsc && node dist/checkClassMethods.js",
+    "seed": "npx ts-node src/scripts/seed.ts"
   },
   "keywords": [],
   "author": "",

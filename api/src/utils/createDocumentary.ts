@@ -10,7 +10,7 @@ export function createDocumentary(
     genre: string;
     image: string;
     duration: number;
-    realiseDate: string;
+    releaseDate: string;
     subject: string;
   }
 
@@ -23,7 +23,7 @@ export function createDocumentary(
     data.genre,
     data.image,
     data.duration,
-    data.realiseDate,
+    data.releaseDate,
     data.subject
   );
 }
