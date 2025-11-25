@@ -5,7 +5,7 @@ export const documentariesData = [
     genre: "Histoire",
     image: "/api/images/documentaries/vie-secrete-pharaon.png",
     duration: 90,
-    realiseDate: "2014",
+    releaseDate: "2014",
     subject: "L'Égypte Ancienne",
   },
   {
@@ -15,7 +15,7 @@ export const documentariesData = [
     image:
       "/api/images/documentaries/cleopatre.png",
     duration: 88,
-    realiseDate: "2016",
+    releaseDate: "2016",
     subject: "L'Égypte Ancienne",
   },
   {
@@ -25,7 +25,7 @@ export const documentariesData = [
     image:
       "/api/images/documentaries/rome-antique.png",
     duration: 75,
-    realiseDate: "2018",
+    releaseDate: "2018",
     subject: "L'Empire Romain",
   },
   {
@@ -34,7 +34,7 @@ export const documentariesData = [
     genre: "Art",
     image: "/api/images/documentaries/secrets-renaissance.png",
     duration: 80,
-    realiseDate: "2019",
+    releaseDate: "2019",
     subject: "L'Art et la Culture de la Renaissance",
   },
   {
@@ -44,7 +44,7 @@ export const documentariesData = [
     image:
       "/api/images/documentaries/voyage-univers.png",
     duration: 100,
-    realiseDate: "2020",
+    releaseDate: "2020",
     subject: "L'Astronomie et l'Univers",
   },
   {
@@ -54,7 +54,7 @@ export const documentariesData = [
     image:
       "/api/images/documentaries/civilisations-perdues.png",
     duration: 95,
-    realiseDate: "2021",
+    releaseDate: "2021",
     subject: "Les Civilisations Oubliées",
   },
   {
@@ -63,7 +63,7 @@ export const documentariesData = [
     genre: "Science",
     image: "/api/images/documentaries/decouvertes-scientifiques.png",
     duration: 85,
-    realiseDate: "2022",
+    releaseDate: "2022",
     subject: "Les Avancées Scientifiques Majeures",
   },
   {
@@ -73,7 +73,7 @@ export const documentariesData = [
     image:
       "/api/images/documentaries/mysteres-egypte-ancienne.png",
     duration: 90,
-    realiseDate: "2023",
+    releaseDate: "2023",
     subject: "Les Pyramides et les Pharaons",
   },
   {
@@ -83,7 +83,7 @@ export const documentariesData = [
     image:
       "/api/images/documentaries/art-guerre.png",
     duration: 80,
-    realiseDate: "2020",
+    releaseDate: "2020",
     subject: "Les Stratégies Militaires dans l'Histoire",
   },
   {
@@ -92,7 +92,7 @@ export const documentariesData = [
     genre: "Nature",
     image: "/api/images/documentaries/merveilles-nature.png",
     duration: 70,
-    realiseDate: "2019",
+    releaseDate: "2019",
     subject: "Les Écosystèmes et la Biodiversité",
   },
   {
@@ -101,7 +101,7 @@ export const documentariesData = [
     genre: "Médecine",
     image: "/api/images/secrets-medecine-ancienne.png",
     duration: 85,
-    realiseDate: "2017",
+    releaseDate: "2017",
     subject: "Les Pratiques Médicales dans l'Antiquité",
   },
   {
@@ -110,7 +110,7 @@ export const documentariesData = [
     genre: "Technologie",
     image: "/api/images/documentaries/innovations-technologiques-passe.png",
     duration: 90,
-    realiseDate: "2018",
+    releaseDate: "2018",
     subject: "Les Inventions qui ont Changé le Monde",
   },
   {
@@ -119,7 +119,7 @@ export const documentariesData = [
     genre: "Histoire",
     image: "/api/images/documentaries/mysteres-prehistoire.png",
     duration: 95,
-    realiseDate: "2016",
+    releaseDate: "2016",
     subject: "Les Premiers Hommes et leur Mode de Vie",
   },
   {
@@ -128,7 +128,7 @@ export const documentariesData = [
     genre: "Histoire",
     image: "/api/images/documentaries/civilisations-mesoamericaines.png", 
     duration: 80,
-    realiseDate: "2013",
+    releaseDate: "2013",
     subject: "Les Mayas, Aztèques et Incas",
   },
   {
@@ -137,7 +137,7 @@ export const documentariesData = [
     genre: "Histoire",
     image: "/api/images/documentaries/explorations-maritimes.png",
     duration: 100,
-    realiseDate: "2015",
+    releaseDate: "2015",
     subject: "Les Explorateurs et leurs Découvertes",
   },
   {
@@ -146,7 +146,7 @@ export const documentariesData = [
     genre: "Légende",
     image: "/api/images/documentaries/mysteres-atlantides.png",
     duration: 90,
-    realiseDate: "2016",
+    releaseDate: "2016",
     subject: "La Légende de l'Atlantide",
   },
   {
@@ -155,7 +155,7 @@ export const documentariesData = [
     genre: "Histoire",
     image: "/api/images/documentaries/secrets-civilisations-antiques.png",
     duration: 85,
-    realiseDate: "2019",
+    releaseDate: "2019",
     subject: "Les Civilisations de l'Antiquité",
   },
   {
@@ -164,7 +164,7 @@ export const documentariesData = [
     genre: "Architecture",
     image: "/api/images/documentaries/merveilles-architecture-antique.png",
     duration: 95,
-    realiseDate: "2021",
+    releaseDate: "2021",
     subject: "Les Bâtiments et Structures de l'Antiquité",
   },
   {
@@ -173,7 +173,7 @@ export const documentariesData = [
     genre: "Mythologie",
     image: "/api/images/documentaries/mysteres-mythologie-grecque.png",
     duration: 80,
-    realiseDate: "2022",
+    releaseDate: "2022",
     subject: "Les Dieux et Héros de la Mythologie Grecque",
   },
   {
@@ -182,7 +182,7 @@ export const documentariesData = [
     genre: "Nature",
     image: "/api/images/documentaries/secrets-vie-marine.png",
     duration: 90,
-    realiseDate: "2021",
+    releaseDate: "2021",
     subject: "Les Écosystèmes Marins et leur Biodiversité",
   },
 ];

@@ -5,7 +5,7 @@ export const filmsData = [
     genre: "Science-Fiction",
     image: "/api/images/films/cinquieme-element.png",
     duration: 120,
-    realiseDate: "1997",
+    releaseDate: "1997",
     director: "Luc Besson",
   },
   {
@@ -14,7 +14,7 @@ export const filmsData = [
     genre: "Thriller",
     image: "/api/images/films/sueurs-froides.png",
     duration: 128,
-    realiseDate: "1958",
+    releaseDate: "1958",
     director: "Alfred Hitchcock",
   },
   {
@@ -23,7 +23,7 @@ export const filmsData = [
     genre: "Science-Fiction",
     image: "/api/images/films/inception.png",
     duration: 148,
-    realiseDate: "2010",
+    releaseDate: "2010",
     director: "Christopher Nolan",
   },
   {
@@ -32,7 +32,7 @@ export const filmsData = [
     genre: "Crime",
     image: "/api/images/films/parrain.png",
     duration: 175,
-    realiseDate: "1972",
+    releaseDate: "1972",
     director: "Francis Ford Coppola",
   },
   {
@@ -41,7 +41,7 @@ export const filmsData = [
     genre: "Crime",
     image: "/api/images/films/pulp-fiction.png",
     duration: 154,
-    realiseDate: "1994",
+    releaseDate: "1994",
     director: "Quentin Tarantino",
   },
   {
@@ -50,7 +50,7 @@ export const filmsData = [
     genre: "Drama",
     image: "/api/films/forrest-gump.png",
     duration: 142,
-    realiseDate: "1994",
+    releaseDate: "1994",
     director: "Robert Zemeckis",
   },
   {
@@ -59,7 +59,7 @@ export const filmsData = [
     genre: "Thriller",
     image: "/api/images/films/diaboliques.png",
     duration: 117,
-    realiseDate: "1955",
+    releaseDate: "1955",
     director: "Henri-Georges Clouzot",
   },
   {
@@ -68,7 +68,7 @@ export const filmsData = [
     genre: "Romance",
     image: "/api/images/films/fabuleux-destin-amelie-poulain.png",
     duration: 122,
-    realiseDate: "2001",
+    releaseDate: "2001",
     director: "Jean-Pierre Jeunet",
   },
   {
@@ -77,7 +77,7 @@ export const filmsData = [
     genre: "Action",
     image: "/api/images/films/gladiator.png",
     duration: 155,
-    realiseDate: "2000",
+    releaseDate: "2000",
     director: "Ridley Scott",
   },
   {
@@ -86,7 +86,7 @@ export const filmsData = [
     genre: "Historical Drama",
     image: "/api/images/films/braveheart.png",
     duration: 178,
-    realiseDate: "1995",
+    releaseDate: "1995",
     director: "Mel Gibson",
   },
   {
@@ -95,7 +95,7 @@ export const filmsData = [
     genre: "Horror",
     image: "/api/images/films/oiseaux.png",
     duration: 119,
-    realiseDate: "1963",
+    releaseDate: "1963",
     director: "Alfred Hitchcock",
   },
   {
@@ -104,7 +104,7 @@ export const filmsData = [
     genre: "Historical Drama",
     image: "/api/images/films/dix-commandements.png",
     duration: 220,
-    realiseDate: "1956",
+    releaseDate: "1956",
     director: "Cecil B. DeMille",
   },
   {
@@ -113,7 +113,7 @@ export const filmsData = [
     genre: "Drama",
     image: "/api/images/films/liaisons-dangereuses.png",
     duration: 120,
-    realiseDate: "1988",
+    releaseDate: "1988",
     director: "Stephen Frears",
   },
   {
@@ -122,7 +122,7 @@ export const filmsData = [
     genre: "Thriller",
     image: "/api/images/films/silence-agneaux.png",
     duration: 118,
-    realiseDate: "1991",
+    releaseDate: "1991",
     director: "Jonathan Demme",
   },
   {
@@ -131,7 +131,7 @@ export const filmsData = [
     genre: "Historical Drama",
     image: "/api/images/films/ben-hur.png",
     duration: 212,
-    realiseDate: "1959",
+    releaseDate: "1959",
     director: "William Wyler",
   },
   {
@@ -140,7 +140,7 @@ export const filmsData = [
     genre: "Musical",
     image: "/api/images/films/demoiselles-rochefort.png",
     duration: 125,
-    realiseDate: "1967",
+    releaseDate: "1967",
     director: "Jacques Demy",
   },
   {
@@ -149,7 +149,7 @@ export const filmsData = [
     genre: "Adventure",
     image: "/api/images/films/grand-bleu.png",
     duration: 168,
-    realiseDate: "1988",
+    releaseDate: "1988",
     director: "Luc Besson",
   },
   {
@@ -158,7 +158,7 @@ export const filmsData = [
     genre: "Musical",
     image: "/api/images/films/la-la-land.png",
     duration: 128,
-    realiseDate: "2016",
+    releaseDate: "2016",
     director: "Damien Chazelle",
   },
   {
@@ -167,7 +167,7 @@ export const filmsData = [
     genre: "Science-Fiction",
     image: "/api/images/films/interstellar.png",
     duration: 169,
-    realiseDate: "2014",
+    releaseDate: "2014",
     director: "Christopher Nolan",
   },
   {
@@ -176,7 +176,7 @@ export const filmsData = [
     genre: "Romance",
     image: "/api/images/films/titanic.png",
     duration: 195,
-    realiseDate: "1997",
+    releaseDate: "1997",
     director: "James Cameron",
   },
 ];

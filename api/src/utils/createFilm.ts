@@ -11,7 +11,7 @@ export function createFilm(
     genre: string;
     image: string;
     duration: number;
-    realiseDate: string;
+    releaseDate: string;
     director: string;
     // Chaque propriété de l'objet data correspond à une propriété de la classe Film
   }
@@ -23,7 +23,7 @@ export function createFilm(
     data.genre,
     data.image,
     data.duration,
-    data.realiseDate,
+    data.releaseDate,
     data.director
   );
 }

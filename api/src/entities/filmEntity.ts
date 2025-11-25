@@ -18,7 +18,7 @@ export class FilmEntity {
   duration!: number;
 
   @Column()
-  realiseDate!: string;
+  releaseDate!: string;
   
   @Column()
   director!: string;

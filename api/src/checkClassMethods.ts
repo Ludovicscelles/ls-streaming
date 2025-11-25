@@ -164,7 +164,7 @@ const newFilm = createFilm({
   genre: "Drama",
   image: "/images/films/homme-quon-aimait-trop.png",
   duration: 120,
-  realiseDate: "2014-03-01",
+  releaseDate: "2014-03-01",
   director: "André Téchiné",
 });
 
@@ -177,7 +177,7 @@ const newDocumentary = createDocumentary({
   genre: "Nature",
   image: "/images/documentaries/marche-empereur.png",
   duration: 90,
-  realiseDate: "2005",
+  releaseDate: "2005",
   subject: "La vie des manchots empereurs",
 });
 

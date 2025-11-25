@@ -23,7 +23,7 @@ function initiateData() {
       film.genre,
       film.image,
       film.duration,
-      film.realiseDate,
+      film.releaseDate,
       film.director
     );
     movieLibrary.add(newFilm);
@@ -37,7 +37,7 @@ function initiateData() {
       doc.genre,
       doc.image,
       doc.duration,
-      doc.realiseDate,
+      doc.releaseDate,
       doc.subject
     );
     movieLibrary.add(newDocumentary);
