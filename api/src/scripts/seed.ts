@@ -4,9 +4,13 @@ import { FilmEntity } from "../entities/FilmEntity";
 import { SerieEntity } from "../entities/SerieEntity";
 import { SeasonEntity } from "../entities/SeasonEntity";
 import { EpisodeEntity } from "../entities/EpisodeEntity";
+import { TvShowEntity } from "../entities/TvShowEntity";
+import { SeasonTvShowEntity } from "../entities/SeasonTvShowEntity";
+import { EpisodeTvShowEntity } from "../entities/EpisodeTvShowEntity";
 import { documentariesData } from "../data/documentariesData";
 import { filmsData } from "../data/filmsData";
 import { seriesData } from "../data/seriesData";
+import { tvShowData } from "../data/TvShowData";
 
 AppDataSource.initialize().then(async () => {
   const docsRepo = AppDataSource.getRepository(DocumentaryEntity);
@@ -14,6 +18,9 @@ AppDataSource.initialize().then(async () => {
   const seriesRepo = AppDataSource.getRepository(SerieEntity);
   const seasonsRepo = AppDataSource.getRepository(SeasonEntity);
   const episodesRepo = AppDataSource.getRepository(EpisodeEntity);
+  const tvShowsRepo = AppDataSource.getRepository(TvShowEntity);
+  const seasonsTvShowRepo = AppDataSource.getRepository(SeasonTvShowEntity);
+  const episodesTvShowRepo = AppDataSource.getRepository(EpisodeTvShowEntity);
 
   for (const doc of documentariesData) {
     const entity = docsRepo.create({
@@ -69,6 +76,37 @@ AppDataSource.initialize().then(async () => {
           season: seasonEntity,
         });
         await episodesRepo.save(episodeEntity);
+      }
+    }
+  }
+
+  for (const tvShow of tvShowData) {
+    const tvShowEntity = tvShowsRepo.create({
+      id: tvShow.id,
+      title: tvShow.title,
+      genre: tvShow.genre,
+      image: tvShow.image,
+      seasonTvShowEntities: [],
+    });
+    await tvShowsRepo.save(tvShowEntity);
+
+    for (const seasonTvShow of tvShow.seasonData) {
+      const seasonTvShowEntity = seasonsTvShowRepo.create({
+        seasonYear: seasonTvShow.seasonYear,
+        seasonNumber: seasonTvShow.seasonNumber,
+        tvHost: seasonTvShow.seasonTVHost,
+        tvShow: tvShowEntity,
+        episodeTvShowEntities: [],
+      });
+      await seasonsTvShowRepo.save(seasonTvShowEntity);
+
+      for (const episodeTvShow of seasonTvShow.episodes) {
+        const episodeTvShowEntity = episodesTvShowRepo.create({
+          episodeNumber: episodeTvShow.numberEpisode,
+          duration: episodeTvShow.duration,
+          seasonTvShow: seasonTvShowEntity,
+        });
+        await episodesTvShowRepo.save(episodeTvShowEntity);
       }
     }
   }
