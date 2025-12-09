@@ -1,5 +1,10 @@
 import express from "express";
 import { AppDataSource } from "./data-source";
+import { MovieLibraryRepository } from "./MovieLibraryRepository";
+import { DocumentaryEntity } from "./entities/DocumentaryEntity";
+import { FilmEntity } from "./entities/FilmEntity";
+import { SerieEntity } from "./entities/SerieEntity";
+import { TvShowEntity } from "./entities/TvShowEntity";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -22,11 +27,19 @@ app.use("/api/images", express.static("images"));
 
 AppDataSource.initialize()
   .then(() => {
+    const movieLibrary = new MovieLibraryRepository(
+      AppDataSource.getRepository(DocumentaryEntity),
+      AppDataSource.getRepository(FilmEntity),
+      AppDataSource.getRepository(SerieEntity),
+      AppDataSource.getRepository(TvShowEntity)
+    );
+
     console.log("Data Source has been initialized!");
+
     app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+      console.log(`Server is running on port ${PORT}`);
     });
   })
   .catch((err) => {
     console.error("Error during Data Source initialization:", err);
-});
+  });

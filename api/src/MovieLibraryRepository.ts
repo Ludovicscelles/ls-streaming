@@ -16,7 +16,7 @@ export class MovieLibraryRepository {
     private serieRepo: Repository<SerieEntity>,
     private tvShowRepo: Repository<TvShowEntity>
   ) {}
-
+  
   // method to get all documentaries
   // async means it returns a promise and that function is asynchronous
   // Promise<DocumentaryEntity[]> indicates the return type
@@ -40,6 +40,17 @@ export class MovieLibraryRepository {
 
   async getAllTvShows(): Promise<TvShowEntity[]> {
     return this.tvShowRepo.find({ relations: ["seasons", "seasons.episodes"] });
+  }
+
+  async getAllVideos(): Promise<
+    (DocumentaryEntity | FilmEntity | SerieEntity | TvShowEntity)[]
+  > {
+    const documentaries = await this.getAllDocumentaries();
+    const films = await this.getAllFilms();
+    const series = await this.getAllSeries();
+    const tvShows = await this.getAllTvShows();
+
+    return [...documentaries, ...films, ...series, ...tvShows];
   }
 
   async searchFilms(title: string): Promise<FilmEntity[]> {

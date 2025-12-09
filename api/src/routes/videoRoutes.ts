@@ -1,26 +1,12 @@
 import { Router } from "express";
-import movieLibrary from "../initiateData";
+import { MovieLibraryRepository } from "../MovieLibraryRepository";
 
-const videoRouter = Router();
+export function createVideoRouter(movieLibrary: MovieLibraryRepository) {
+  const router = Router();
 
-videoRouter.get("/", (req, res) => {
-  res.json(movieLibrary.getAll());
-});
-
-videoRouter.get("/films", (req, res) => {
-  res.json(movieLibrary.getAllFilms());
-});
-
-videoRouter.get("/documentaries", (req, res) => {
-  res.json(movieLibrary.getAllDocumentaries());
-});
-
-videoRouter.get("/series", (req, res) => {
-  res.json(movieLibrary.getAllSeries());
-});
-
-videoRouter.get("/tvShows", (req, res) => {
-  res.json(movieLibrary.getAllTvShows());
-});
-
-export default videoRouter;
+  router.get("/", async (req, res) => {
+    const videos = await movieLibrary.getAllVideos();
+    res.json(videos);
+  });
+}
+export default createVideoRouter;
