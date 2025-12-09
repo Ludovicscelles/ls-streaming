@@ -8,7 +8,7 @@ import { TvShowEntity } from "./entities/TvShowEntity";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
-import videoRoutes from "./routes/videoRoutes";
+import { createVideoRouter } from "./routes/videoRoutes";
 dotenv.config();
 
 const app = express();
@@ -22,17 +22,22 @@ app.get("/", (req, res) => {
   res.send("Bienvenue sur l'API LS-Streaming !");
 });
 
-app.use("/api/videos", videoRoutes);
 app.use("/api/images", express.static("images"));
 
 AppDataSource.initialize()
   .then(() => {
+
+    // Initialize MovieLibraryRepository with repositories for each entity
+    // This sets up the repository to interact with the database
     const movieLibrary = new MovieLibraryRepository(
       AppDataSource.getRepository(DocumentaryEntity),
       AppDataSource.getRepository(FilmEntity),
       AppDataSource.getRepository(SerieEntity),
       AppDataSource.getRepository(TvShowEntity)
     );
+
+    // Use the video router for handling /api/videos routes
+    app.use("/api/videos", createVideoRouter(movieLibrary));
 
     console.log("Data Source has been initialized!");
 

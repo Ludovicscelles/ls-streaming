@@ -1,4 +1,3 @@
-
 // import necessary modules and entities
 // from TypeORM and entity definitions
 import { Repository } from "typeorm";
@@ -16,7 +15,7 @@ export class MovieLibraryRepository {
     private serieRepo: Repository<SerieEntity>,
     private tvShowRepo: Repository<TvShowEntity>
   ) {}
-  
+
   // method to get all documentaries
   // async means it returns a promise and that function is asynchronous
   // Promise<DocumentaryEntity[]> indicates the return type
@@ -35,21 +34,35 @@ export class MovieLibraryRepository {
   async getAllSeries(): Promise<SerieEntity[]> {
     // relations option is used to specify related entities to be loaded
     // here, we are loading seasons and episodes related to each series
-    return this.serieRepo.find({ relations: ["seasons", "seasons.episodes"] });
+    return this.serieRepo.find({
+      relations: ["seasonEntities", "seasonEntities.episodes"],
+    });
   }
 
   async getAllTvShows(): Promise<TvShowEntity[]> {
-    return this.tvShowRepo.find({ relations: ["seasons", "seasons.episodes"] });
+    return this.tvShowRepo.find({
+      relations: [
+        "seasonTvShowEntities",
+        "seasonTvShowEntities.episodeTvShowEntities",
+      ],
+    });
   }
 
-  async getAllVideos(): Promise<
+  // method to get all videos (documentaries, films, series, tv shows)
+  // combines results from all individual getAll methods
+  async getAllVideos(): 
+   // promise that resolves to an array containing any of the four entity types
+   // DocumentaryEntity, FilmEntity, SerieEntity, TvShowEntity
+  Promise<
     (DocumentaryEntity | FilmEntity | SerieEntity | TvShowEntity)[]
   > {
+    // await each method to get the respective lists
     const documentaries = await this.getAllDocumentaries();
     const films = await this.getAllFilms();
     const series = await this.getAllSeries();
     const tvShows = await this.getAllTvShows();
 
+    // concatenate all lists into a single array and return it
     return [...documentaries, ...films, ...series, ...tvShows];
   }
 
