@@ -1,26 +1,39 @@
 import { Router } from "express";
-import movieLibrary from "../initiateData";
+import { MovieLibraryRepository } from "../MovieLibraryRepository";
 
-const videoRouter = Router();
+export function createVideoRouter(movieLibrary: MovieLibraryRepository): Router {
+  const router = Router();
 
-videoRouter.get("/", (req, res) => {
-  res.json(movieLibrary.getAll());
-});
+  // Route to get all videos
+  router.get("/", async (req, res) => {
+    const videos = await movieLibrary.getAllVideos();
+    res.json(videos);
+  });
 
-videoRouter.get("/films", (req, res) => {
-  res.json(movieLibrary.getAllFilms());
-});
+  // Route to get all films
+  router.get("/films", async (req, res) => {
+    const films = await movieLibrary.getAllFilms();
+    res.json(films);
+  });
 
-videoRouter.get("/documentaries", (req, res) => {
-  res.json(movieLibrary.getAllDocumentaries());
-});
+  // Route to get all documentaries
+  router.get("/documentaries", async (req, res) => {
+    const documentaries = await movieLibrary.getAllDocumentaries();
+    res.json(documentaries);
+  });
 
-videoRouter.get("/series", (req, res) => {
-  res.json(movieLibrary.getAllSeries());
-});
+  // Route to get all series
+  router.get("/series", async (req, res) => {
+    const series = await movieLibrary.getAllSeries();
+    res.json(series);
+  });
 
-videoRouter.get("/tvShows", (req, res) => {
-  res.json(movieLibrary.getAllTvShows());
-});
+  // Route to get all TV shows
+  router.get("/tvshows", async (req, res) => {
+    const tvshows = await movieLibrary.getAllTvShows();
+    res.json(tvshows);
+  });
 
-export default videoRouter;
+  // Return the configured router
+  return router;
+}
