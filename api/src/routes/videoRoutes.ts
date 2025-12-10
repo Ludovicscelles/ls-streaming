@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { MovieLibraryRepository } from "../MovieLibraryRepository";
 
-export function createVideoRouter(movieLibrary: MovieLibraryRepository): Router {
+export function createVideoRouter(
+  movieLibrary: MovieLibraryRepository
+): Router {
   const router = Router();
 
   // Route to get all videos
@@ -32,6 +34,33 @@ export function createVideoRouter(movieLibrary: MovieLibraryRepository): Router 
   router.get("/tvshows", async (req, res) => {
     const tvshows = await movieLibrary.getAllTvShows();
     res.json(tvshows);
+  });
+
+  // Route to search film by title
+  router.get("/films/search", async (req, res) => {
+    const { title } = req.query;
+
+    if (!title || typeof title !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing our invalid 'title' query param" });
+    }
+    const films = await movieLibrary.searchFilms(title);
+    res.json(films);
+  });
+
+  // Route to search documentary by title
+
+  router.get("/documentaries/search", async (req, res) => {
+    const { title } = req.query;
+
+    if (!title || typeof title !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing ou invalid 'title' query param" });
+    }
+    const documentaries = await movieLibrary.searchDocumentaries(title);
+    res.json(documentaries);
   });
 
   // Return the configured router

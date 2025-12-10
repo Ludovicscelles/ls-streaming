@@ -1,6 +1,6 @@
 // import necessary modules and entities
 // from TypeORM and entity definitions
-import { Repository } from "typeorm";
+import { Repository, Like } from "typeorm";
 import { DocumentaryEntity } from "./entities/DocumentaryEntity";
 import { FilmEntity } from "./entities/FilmEntity";
 import { SerieEntity } from "./entities/SerieEntity";
@@ -50,12 +50,9 @@ export class MovieLibraryRepository {
 
   // method to get all videos (documentaries, films, series, tv shows)
   // combines results from all individual getAll methods
-  async getAllVideos(): 
-   // promise that resolves to an array containing any of the four entity types
-   // DocumentaryEntity, FilmEntity, SerieEntity, TvShowEntity
-  Promise<
-    (DocumentaryEntity | FilmEntity | SerieEntity | TvShowEntity)[]
-  > {
+  async getAllVideos(): // promise that resolves to an array containing any of the four entity types
+  // DocumentaryEntity, FilmEntity, SerieEntity, TvShowEntity
+  Promise<(DocumentaryEntity | FilmEntity | SerieEntity | TvShowEntity)[]> {
     // await each method to get the respective lists
     const documentaries = await this.getAllDocumentaries();
     const films = await this.getAllFilms();
@@ -70,7 +67,13 @@ export class MovieLibraryRepository {
     return this.filmRepo.find({
       // where clause to filter films by title
       // this performs a search in the database for films matching the given title
-      where: { title: title },
+      where: { title: Like(`%${title.trim()}%`) },
+    });
+  }
+
+  async searchDocumentaries(title: string): Promise<DocumentaryEntity[]> {
+    return this.documentaryRepo.find({
+      where: { title: Like(`%${title.trim()}%`) },
     });
   }
 }
