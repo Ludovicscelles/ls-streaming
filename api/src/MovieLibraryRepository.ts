@@ -67,19 +67,20 @@ export class MovieLibraryRepository {
     return this.filmRepo.find({
       // where clause to filter films by title
       // this performs a search in the database for films matching the given title
-      where: { title: Like(`%${title.trim()}%`) },
+      where: { title: Like(`%${title.trim().toLowerCase()}%`) },
     });
   }
 
   async searchDocumentaries(title: string): Promise<DocumentaryEntity[]> {
     return this.documentaryRepo.find({
-      where: { title: Like(`%${title.trim()}%`) },
+      where: { title: Like(`%${title.trim().toLocaleLowerCase()}%`) },
     });
   }
 
   async searchSeries(title: string): Promise<SerieEntity[]> {
     return this.serieRepo.find({
-      where: { title: Like(`%${title.trim()}%`) },
+      where: { title: Like(`%${title.trim().toLowerCase()}%`) },
+      relations: ["seasonEntities", "seasonEntities.episodes"],
     });
   }
 }
