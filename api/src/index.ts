@@ -4,6 +4,7 @@ import { MovieLibraryRepository } from "./MovieLibraryRepository";
 import { DocumentaryEntity } from "./entities/DocumentaryEntity";
 import { FilmEntity } from "./entities/FilmEntity";
 import { SerieEntity } from "./entities/SerieEntity";
+import { EpisodeEntity } from "./entities/EpisodeEntity";
 import { TvShowEntity } from "./entities/TvShowEntity";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -33,7 +34,8 @@ AppDataSource.initialize()
       AppDataSource.getRepository(DocumentaryEntity),
       AppDataSource.getRepository(FilmEntity),
       AppDataSource.getRepository(SerieEntity),
-      AppDataSource.getRepository(TvShowEntity)
+      AppDataSource.getRepository(TvShowEntity),
+      AppDataSource.getRepository(EpisodeEntity)
     );
 
     // Use the video router for handling /api/videos routes

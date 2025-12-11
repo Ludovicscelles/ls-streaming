@@ -4,6 +4,7 @@ import { Repository, Like } from "typeorm";
 import { DocumentaryEntity } from "./entities/DocumentaryEntity";
 import { FilmEntity } from "./entities/FilmEntity";
 import { SerieEntity } from "./entities/SerieEntity";
+import { EpisodeEntity } from "./entities/EpisodeEntity";
 import { TvShowEntity } from "./entities/TvShowEntity";
 
 // MovieLibraryRepository class definition
@@ -13,7 +14,8 @@ export class MovieLibraryRepository {
     private documentaryRepo: Repository<DocumentaryEntity>,
     private filmRepo: Repository<FilmEntity>,
     private serieRepo: Repository<SerieEntity>,
-    private tvShowRepo: Repository<TvShowEntity>
+    private tvShowRepo: Repository<TvShowEntity>,
+    private episodeRepo: Repository<EpisodeEntity>
   ) {}
 
   // method to get all documentaries
@@ -81,6 +83,15 @@ export class MovieLibraryRepository {
     return this.serieRepo.find({
       where: { title: Like(`%${title.trim().toLowerCase()}%`) },
       relations: ["seasonEntities", "seasonEntities.episodes"],
+    });
+  }
+
+  // methode to search epidode series by title
+
+  async searchEpidodesInSeriesByTitle(title: string) {
+    return this.episodeRepo.find({
+      where: { title: Like(`%${title.trim().toLowerCase()}%`) },
+      relations: ["season.serie"],
     });
   }
 }
