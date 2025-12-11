@@ -57,10 +57,38 @@ export function createVideoRouter(
     if (!title || typeof title !== "string") {
       return res
         .status(400)
-        .json({ error: "Missing ou invalid 'title' query param" });
+        .json({ error: "Missing or invalid 'title' query param" });
     }
     const documentaries = await movieLibrary.searchDocumentaries(title);
     res.json(documentaries);
+  });
+
+  // Route search documentary by tile
+
+  router.get("/series/search", async (req, res) => {
+    const { title } = req.query;
+
+    if (!title || typeof title !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'title' query param" });
+    }
+    const series = await movieLibrary.searchSeries(title);
+    res.json(series);
+  });
+
+  // Route search episodes in series by title
+
+  router.get("/episodes/search", async (req, res) => {
+    const { title } = req.query;
+
+    if (!title || typeof title !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'title' query param" });
+    }
+    const episodes = await movieLibrary.searchEpidodesInSeriesByTitle(title);
+    res.json(episodes);
   });
 
   // Return the configured router
