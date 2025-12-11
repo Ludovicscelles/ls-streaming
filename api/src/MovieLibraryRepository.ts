@@ -76,4 +76,10 @@ export class MovieLibraryRepository {
       where: { title: Like(`%${title.trim()}%`) },
     });
   }
+
+  async searchSeries(title: string): Promise<SerieEntity[]> {
+    return this.serieRepo.find({
+      where: { title: Like(`%${title.trim()}%`) },
+    });
+  }
 }
