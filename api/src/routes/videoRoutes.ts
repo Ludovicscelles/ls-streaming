@@ -119,6 +119,20 @@ export function createVideoRouter(
     return res.json(tvShows);
   });
 
+  // Route to search all videos by title across all categories
+
+  router.get("/search", async (req, res) => {
+    const { title } = req.query;
+
+    if (!title || typeof title !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'title' query param" });
+    }
+    const videos = await movieLibrary.searchAllVideosByTitle(title);
+    return res.json(videos);
+  });
+
   // Return the configured router
   return router;
 }

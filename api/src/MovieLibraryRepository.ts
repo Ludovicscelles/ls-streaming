@@ -111,7 +111,9 @@ export class MovieLibraryRepository {
         // This allows us to access episodes of the seasons, even if there are no episodes (left join)
         .leftJoinAndSelect("season.episodes", "episode")
         // add a where clause to filter series based on episode titles
-        .where("episode.title LIKE :title", { title: `%${title.trim()}%` })
+        .where("episode.title LIKE :title", {
+          title: `%${title.trim().toLowerCase()}%`,
+        })
         // execute the query and get the results as an array of SerieEntity
         // getMany() executes the built query and returns the matching series
         // getMany() allows us to retrieve multiple records that match the criteria
@@ -127,5 +129,28 @@ export class MovieLibraryRepository {
         "seasonTvShowEntities.episodeTvShowEntities",
       ],
     });
+  }
+
+  // global search method to search across all video types
+
+  async searchAllVideosByTitle(
+    // title parameter of type string
+    title: string
+    // returns a promise that resolves to an array of various entity types
+  ): Promise<(DocumentaryEntity | FilmEntity | SerieEntity | TvShowEntity)[]> {
+    // trim and convert the title to lowercase for consistent searching
+    const searchedTitle = title.trim().toLowerCase();
+    // perform searches for each video type concurrently using Promise.all
+    // Promise.all takes an array of promises and returns a single promise
+    // that resolves when all of the input promises have resolved
+    const [films, documentaries, series, tvShows] = await Promise.all([
+      // this calls each search method with the processed title
+      this.searchFilms(searchedTitle),
+      this.searchDocumentaries(searchedTitle),
+      this.searchSeries(searchedTitle),
+      this.searchTvShows(searchedTitle),
+    ]);
+    // combine all results into a single array and return it
+    return [...films, ...documentaries, ...series, ...tvShows];
   }
 }
