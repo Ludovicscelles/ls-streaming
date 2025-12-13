@@ -88,14 +88,14 @@ export class MovieLibraryRepository {
 
   // methode to search epidode series by title
 
-  async searchEpidodesInSeriesByTitle(title: string) {
+  async searchEpisodesInSeriesByTitle(title: string) {
     return this.episodeRepo.find({
       where: { title: Like(`%${title.trim().toLowerCase()}%`) },
       relations: ["season.serie"],
     });
   }
 
-  // methode to search epidode series by title with query builder
+  // methode to search episode series by title with query builder
 
   // This method searches for series that contain episodes with titles matching the provided title.
   async searchSerieByEpisodeTitle(title: string): Promise<SerieEntity[]> {
@@ -119,5 +119,13 @@ export class MovieLibraryRepository {
     );
   }
 
-  
+  async searchTvShows(title: string): Promise<TvShowEntity[]> {
+    return this.tvShowRepo.find({
+      where: { title: Like(`%${title.trim().toLowerCase()}%`) },
+      relations: [
+        "seasonTvShowEntities",
+        "seasonTvShowEntities.episodeTvShowEntities",
+      ],
+    });
+  }
 }
