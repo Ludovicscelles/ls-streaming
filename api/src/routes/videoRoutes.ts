@@ -73,6 +73,44 @@ export function createVideoRouter(
     return res.json(documentary);
   });
 
+  // Route to get serie by ID
+
+  router.get("/series/:id", async (req, res) => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'id' route param` });
+    }
+
+    const serie = await movieLibrary.getSerieById(id);
+
+    if (!serie) {
+      return res.status(404).json({ error: "Serie not found" });
+    }
+    return res.json(serie);
+  });
+
+  // Route to get tv-show by ID
+
+  router.get("/tvshows/:id", async (req, res) => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'id' route param` });
+    }
+
+    const tvshow = await movieLibrary.getTvShowById(id);
+
+    if (!tvshow) {
+      return res.status(404).json({ error: "Tv-show not found" });
+    }
+    return res.json(tvshow);
+  });
+
   // Route to search film by title
   router.get("/films/search", async (req, res) => {
     const { title } = req.query;

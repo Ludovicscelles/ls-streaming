@@ -78,6 +78,25 @@ export class MovieLibraryRepository {
     return this.documentaryRepo.findOne({ where: { id } });
   }
 
+  // Method to get serie by ID
+  async getSerieById(id: string): Promise<SerieEntity | null> {
+    return this.serieRepo.findOne({
+      where: { id },
+      relations: ["seasonEntities", "seasonEntities.episodes"],
+    });
+  }
+
+  // Method to get tv-show by ID
+  async getTvShowById(id: string): Promise<TvShowEntity | null> {
+    return this.tvShowRepo.findOne({
+      where: { id },
+      relations: [
+        "seasonTvShowEntities",
+        "seasonTvShowEntities.episodeTvShowEntities",
+      ],
+    });
+  }
+
   // method to search films by title
   async searchFilms(title: string): Promise<FilmEntity[]> {
     return this.filmRepo.find({
