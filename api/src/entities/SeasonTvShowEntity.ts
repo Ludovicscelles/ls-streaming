@@ -8,12 +8,11 @@ import {
 import { TvShowEntity } from "./TvShowEntity";
 import { EpisodeTvShowEntity } from "./EpisodeTvShowEntity";
 
-
 @Entity()
 export class SeasonTvShowEntity {
   @PrimaryGeneratedColumn()
-    id!: number;
-  
+  id!: number;
+
   @ManyToOne(() => TvShowEntity, (tvShow) => tvShow.seasonTvShowEntities)
   tvShow!: TvShowEntity;
 
@@ -26,9 +25,12 @@ export class SeasonTvShowEntity {
   @Column()
   tvHost!: string;
 
-  @OneToMany(() => EpisodeTvShowEntity, (episodeTvShow) => episodeTvShow.seasonTvShow, {
-    cascade: true
-  })
+  @OneToMany(
+    () => EpisodeTvShowEntity,
+    (episodeTvShow) => episodeTvShow.seasonTvShow,
+    {
+      cascade: true,
+    }
+  )
   episodeTvShowEntities!: EpisodeTvShowEntity[];
-
 }

@@ -29,10 +29,12 @@ export class MovieLibraryRepository {
     return this.documentaryRepo.find();
   }
 
+  // method to get all films
   async getAllFilms(): Promise<FilmEntity[]> {
     return this.filmRepo.find();
   }
 
+  // method to get all series with their seasons and episodes
   async getAllSeries(): Promise<SerieEntity[]> {
     // relations option is used to specify related entities to be loaded
     // here, we are loading seasons and episodes related to each series
@@ -41,6 +43,7 @@ export class MovieLibraryRepository {
     });
   }
 
+  // method to get all TV shows with their seasons and episodes
   async getAllTvShows(): Promise<TvShowEntity[]> {
     return this.tvShowRepo.find({
       relations: [
@@ -65,6 +68,36 @@ export class MovieLibraryRepository {
     return [...documentaries, ...films, ...series, ...tvShows];
   }
 
+  // Method to get film by ID
+  async getFilmById(id: string): Promise<FilmEntity | null> {
+    return this.filmRepo.findOne({ where: { id } });
+  }
+
+  // Method to get documentary by ID
+  async getDocumentaryById(id: string): Promise<DocumentaryEntity | null> {
+    return this.documentaryRepo.findOne({ where: { id } });
+  }
+
+  // Method to get serie by ID
+  async getSerieById(id: string): Promise<SerieEntity | null> {
+    return this.serieRepo.findOne({
+      where: { id },
+      relations: ["seasonEntities", "seasonEntities.episodes"],
+    });
+  }
+
+  // Method to get tv-show by ID
+  async getTvShowById(id: string): Promise<TvShowEntity | null> {
+    return this.tvShowRepo.findOne({
+      where: { id },
+      relations: [
+        "seasonTvShowEntities",
+        "seasonTvShowEntities.episodeTvShowEntities",
+      ],
+    });
+  }
+
+  // method to search films by title
   async searchFilms(title: string): Promise<FilmEntity[]> {
     return this.filmRepo.find({
       // where clause to filter films by title
@@ -88,10 +121,69 @@ export class MovieLibraryRepository {
 
   // methode to search epidode series by title
 
-  async searchEpidodesInSeriesByTitle(title: string) {
+  async searchEpisodesInSeriesByTitle(title: string) {
     return this.episodeRepo.find({
       where: { title: Like(`%${title.trim().toLowerCase()}%`) },
       relations: ["season.serie"],
     });
+  }
+
+  // methode to search episode series by title with query builder
+
+  // This method searches for series that contain episodes with titles matching the provided title.
+  async searchSerieByEpisodeTitle(title: string): Promise<SerieEntity[]> {
+    // Using QueryBuilder to construct a more complex query
+    return (
+      this.serieRepo
+        // create a query builder for the SerieEntity
+        .createQueryBuilder("serie")
+        // left join the seasonEntities related to the series
+        // This allows us to access seasons of the series, even if there are no seasons (left join)
+        .leftJoinAndSelect("serie.seasonEntities", "season")
+        // left join the episodes related to the seasons
+        // This allows us to access episodes of the seasons, even if there are no episodes (left join)
+        .leftJoinAndSelect("season.episodes", "episode")
+        // add a where clause to filter series based on episode titles
+        .where("episode.title LIKE :title", {
+          title: `%${title.trim().toLowerCase()}%`,
+        })
+        // execute the query and get the results as an array of SerieEntity
+        // getMany() executes the built query and returns the matching series
+        // getMany() allows us to retrieve multiple records that match the criteria
+        .getMany()
+    );
+  }
+
+  async searchTvShows(title: string): Promise<TvShowEntity[]> {
+    return this.tvShowRepo.find({
+      where: { title: Like(`%${title.trim().toLowerCase()}%`) },
+      relations: [
+        "seasonTvShowEntities",
+        "seasonTvShowEntities.episodeTvShowEntities",
+      ],
+    });
+  }
+
+  // global search method to search across all video types
+
+  async searchAllVideosByTitle(
+    // title parameter of type string
+    title: string
+    // returns a promise that resolves to an array of various entity types
+  ): Promise<(DocumentaryEntity | FilmEntity | SerieEntity | TvShowEntity)[]> {
+    // trim and convert the title to lowercase for consistent searching
+    const searchedTitle = title.trim().toLowerCase();
+    // perform searches for each video type concurrently using Promise.all
+    // Promise.all takes an array of promises and returns a single promise
+    // that resolves when all of the input promises have resolved
+    const [films, documentaries, series, tvShows] = await Promise.all([
+      // this calls each search method with the processed title
+      this.searchFilms(searchedTitle),
+      this.searchDocumentaries(searchedTitle),
+      this.searchSeries(searchedTitle),
+      this.searchTvShows(searchedTitle),
+    ]);
+    // combine all results into a single array and return it
+    return [...films, ...documentaries, ...series, ...tvShows];
   }
 }
