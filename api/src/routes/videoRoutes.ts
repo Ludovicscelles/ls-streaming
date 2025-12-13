@@ -91,6 +91,20 @@ export function createVideoRouter(
     res.json(episodes);
   });
 
+  // Route search episodes in series by title with query builder
+
+  router.get("/series/search-by-episode", async (req, res) => {
+    const { title } = req.query;
+
+    if (!title || typeof title !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'title' query param" });
+    }
+    const episodes = await movieLibrary.searchSerieByEpisodeTitle(title);
+    res.json(episodes);
+  });
+
   // Return the configured router
   return router;
 }

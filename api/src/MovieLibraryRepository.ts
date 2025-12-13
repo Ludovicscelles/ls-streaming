@@ -94,4 +94,30 @@ export class MovieLibraryRepository {
       relations: ["season.serie"],
     });
   }
+
+  // methode to search epidode series by title with query builder
+
+  // This method searches for series that contain episodes with titles matching the provided title.
+  async searchSerieByEpisodeTitle(title: string): Promise<SerieEntity[]> {
+    // Using QueryBuilder to construct a more complex query
+    return (
+      this.serieRepo
+        // create a query builder for the SerieEntity
+        .createQueryBuilder("serie")
+        // left join the seasonEntities related to the series
+        // This allows us to access seasons of the series, even if there are no seasons (left join)
+        .leftJoinAndSelect("serie.seasonEntities", "season")
+        // left join the episodes related to the seasons
+        // This allows us to access episodes of the seasons, even if there are no episodes (left join)
+        .leftJoinAndSelect("season.episodes", "episode")
+        // add a where clause to filter series based on episode titles
+        .where("episode.title LIKE :title", { title: `%${title.trim()}%` })
+        // execute the query and get the results as an array of SerieEntity
+        // getMany() executes the built query and returns the matching series
+        // getMany() allows us to retrieve multiple records that match the criteria
+        .getMany()
+    );
+  }
+
+  
 }
