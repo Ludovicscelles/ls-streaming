@@ -29,10 +29,12 @@ export class MovieLibraryRepository {
     return this.documentaryRepo.find();
   }
 
+  // method to get all films
   async getAllFilms(): Promise<FilmEntity[]> {
     return this.filmRepo.find();
   }
 
+  // method to get all series with their seasons and episodes
   async getAllSeries(): Promise<SerieEntity[]> {
     // relations option is used to specify related entities to be loaded
     // here, we are loading seasons and episodes related to each series
@@ -41,6 +43,7 @@ export class MovieLibraryRepository {
     });
   }
 
+  // method to get all TV shows with their seasons and episodes
   async getAllTvShows(): Promise<TvShowEntity[]> {
     return this.tvShowRepo.find({
       relations: [
@@ -65,6 +68,17 @@ export class MovieLibraryRepository {
     return [...documentaries, ...films, ...series, ...tvShows];
   }
 
+  // Method to get film by ID
+  async getFilmById(id: string): Promise<FilmEntity | null> {
+    return this.filmRepo.findOne({ where: { id } });
+  }
+
+  // Method to get documentary by ID
+  async getDocumentaryById(id: string): Promise<DocumentaryEntity | null> {
+    return this.documentaryRepo.findOne({ where: { id } });
+  }
+
+  // method to search films by title
   async searchFilms(title: string): Promise<FilmEntity[]> {
     return this.filmRepo.find({
       // where clause to filter films by title

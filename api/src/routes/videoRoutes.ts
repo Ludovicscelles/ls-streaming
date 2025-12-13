@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { MovieLibraryRepository } from "../MovieLibraryRepository";
+import { error } from "console";
 
 export function createVideoRouter(
   movieLibrary: MovieLibraryRepository
@@ -36,6 +37,42 @@ export function createVideoRouter(
     return res.json(tvshows);
   });
 
+  // Route to get film by ID
+  router.get("/films/:id", async (req, res) => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'id' route param" });
+    }
+    const film = await movieLibrary.getFilmById(id);
+
+    if (!film) {
+      return res.status(404).json({ error: "Film not found" });
+    }
+    return res.json(film);
+  });
+
+  // Route to get documentary by ID
+
+  router.get("/documentaries/:id", async (req, res) => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'id' route param` });
+    }
+
+    const documentary = await movieLibrary.getDocumentaryById(id);
+
+    if (!documentary) {
+      return res.status(404).json({ error: "Documentary not found" });
+    }
+    return res.json(documentary);
+  });
+
   // Route to search film by title
   router.get("/films/search", async (req, res) => {
     const { title } = req.query;
@@ -43,7 +80,7 @@ export function createVideoRouter(
     if (!title || typeof title !== "string") {
       return res
         .status(400)
-        .json({ error: "Missing our invalid 'title' query param" });
+        .json({ error: "Missing or invalid 'title' query param" });
     }
     const films = await movieLibrary.searchFilms(title);
     return res.json(films);
