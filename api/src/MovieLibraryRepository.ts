@@ -97,6 +97,22 @@ export class MovieLibraryRepository {
     });
   }
 
+  // Method to filter films by genre
+
+  async getFilmsByGenre(genre: string) {
+    return this.filmRepo.find({
+      where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
+    });
+  }
+
+  // Method to filter documentary by genre
+
+  async getDocumentaryByGenre(genre: string) {
+    return this.documentaryRepo.find({
+      where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
+    });
+  }
+
   // method to search films by title
   async searchFilms(title: string): Promise<FilmEntity[]> {
     return this.filmRepo.find({
