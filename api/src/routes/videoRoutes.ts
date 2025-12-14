@@ -37,78 +37,48 @@ export function createVideoRouter(
     return res.json(tvshows);
   });
 
-  // Route to get film by ID
-  router.get("/films/:id", async (req, res) => {
-    const { id } = req.params;
+  // Route to filter films by genre
 
-    if (!id || typeof id !== "string") {
+  router.get("/films/genre", async (req, res) => {
+    const { genre } = req.query;
+
+    if (!genre || typeof genre !== "string") {
       return res
         .status(400)
-        .json({ error: "Missing or invalid 'id' route param" });
+        .json({ error: `Missing or invalid 'genre' query param` });
     }
-    const film = await movieLibrary.getFilmById(id);
 
-    if (!film) {
-      return res.status(404).json({ error: "Film not found" });
+    const filmsByGenre = await movieLibrary.getFilmsByGenre(genre);
+
+    if (filmsByGenre.length === 0) {
+      return res
+        .status(404)
+        .json({ error: `Films not found for genre ${genre}` });
     }
-    return res.json(film);
+
+    return res.json(filmsByGenre);
   });
 
-  // Route to get documentary by ID
+  // Route to filter documentaries by genre
 
-  router.get("/documentaries/:id", async (req, res) => {
-    const { id } = req.params;
+  router.get("/documentaries/genre", async (req, res) => {
+    const { genre } = req.query;
 
-    if (!id || typeof id !== "string") {
+    if (!genre || typeof genre !== "string") {
       return res
         .status(400)
-        .json({ error: `Missing or invalid 'id' route param` });
+        .json({ error: `Missing or invalid 'genre' query param` });
     }
 
-    const documentary = await movieLibrary.getDocumentaryById(id);
+    const documentaryByGenre = await movieLibrary.getDocumentaryByGenre(genre);
 
-    if (!documentary) {
-      return res.status(404).json({ error: "Documentary not found" });
-    }
-    return res.json(documentary);
-  });
-
-  // Route to get serie by ID
-
-  router.get("/series/:id", async (req, res) => {
-    const { id } = req.params;
-
-    if (!id || typeof id !== "string") {
+    if (documentaryByGenre.length === 0) {
       return res
-        .status(400)
-        .json({ error: `Missing or invalid 'id' route param` });
+        .status(404)
+        .json({ error: `Documentaries not found for genre ${genre}` });
     }
 
-    const serie = await movieLibrary.getSerieById(id);
-
-    if (!serie) {
-      return res.status(404).json({ error: "Serie not found" });
-    }
-    return res.json(serie);
-  });
-
-  // Route to get tv-show by ID
-
-  router.get("/tvshows/:id", async (req, res) => {
-    const { id } = req.params;
-
-    if (!id || typeof id !== "string") {
-      return res
-        .status(400)
-        .json({ error: `Missing or invalid 'id' route param` });
-    }
-
-    const tvshow = await movieLibrary.getTvShowById(id);
-
-    if (!tvshow) {
-      return res.status(404).json({ error: "Tv-show not found" });
-    }
-    return res.json(tvshow);
+    return res.json(documentaryByGenre);
   });
 
   // Route to search film by title
@@ -206,6 +176,80 @@ export function createVideoRouter(
     }
     const videos = await movieLibrary.searchAllVideosByTitle(title);
     return res.json(videos);
+  });
+
+  // Route to get film by ID
+  router.get("/films/:id", async (req, res) => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'id' route param" });
+    }
+    const film = await movieLibrary.getFilmById(id);
+
+    if (!film) {
+      return res.status(404).json({ error: "Film not found" });
+    }
+    return res.json(film);
+  });
+
+  // Route to get documentary by ID
+
+  router.get("/documentaries/:id", async (req, res) => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'id' route param` });
+    }
+
+    const documentary = await movieLibrary.getDocumentaryById(id);
+
+    if (!documentary) {
+      return res.status(404).json({ error: "Documentary not found" });
+    }
+    return res.json(documentary);
+  });
+
+  // Route to get serie by ID
+
+  router.get("/series/:id", async (req, res) => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'id' route param` });
+    }
+
+    const serie = await movieLibrary.getSerieById(id);
+
+    if (!serie) {
+      return res.status(404).json({ error: "Serie not found" });
+    }
+    return res.json(serie);
+  });
+
+  // Route to get tv-show by ID
+
+  router.get("/tvshows/:id", async (req, res) => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'id' route param` });
+    }
+
+    const tvshow = await movieLibrary.getTvShowById(id);
+
+    if (!tvshow) {
+      return res.status(404).json({ error: "Tv-show not found" });
+    }
+    return res.json(tvshow);
   });
 
   // Return the configured router
