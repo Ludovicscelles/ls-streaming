@@ -2,7 +2,7 @@ export const tvShowData = [
   {
     id: "T001",
     title: "Les Traîtres",
-    genre: "game-show",
+    genre: "game_show",
     image: "/api/images/showsTV/traites.png",
     director: "Françis Côté",
     seasonData: [
@@ -144,7 +144,7 @@ export const tvShowData = [
   {
     id: "T002",
     title: "Fort Boyard",
-    genre: "game-show",
+    genre: "game_show",
     image: "/api/images/showsTV/fort-boyard.png",
     director: "Françis Côté",
     seasonData: [

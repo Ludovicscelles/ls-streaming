@@ -2,7 +2,7 @@ export const seriesData = [
   {
     id: "S001",
     title: "Columbo",
-    genre: "Policier",
+    genre: "crime",
     image: "/api/images/series/columbo.png",
     seasonData: [
       {
@@ -58,7 +58,7 @@ export const seriesData = [
   {
     id: "S002",
     title: "Rome",
-    genre: "Historique",
+    genre: "historical_drama",
     image: "/api/images/series/rome.png",
     seasonData: [
       {
