@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { MovieLibraryRepository } from "../MovieLibraryRepository";
-import { error } from "console";
 
 export function createVideoRouter(
   movieLibrary: MovieLibraryRepository
@@ -70,7 +69,8 @@ export function createVideoRouter(
         .json({ error: `Missing or invalid 'genre' query param` });
     }
 
-    const documentaryByGenre = await movieLibrary.getDocumentaryByGenre(genre);
+    const documentaryByGenre =
+      await movieLibrary.getDocumentariesByGenre(genre);
 
     if (documentaryByGenre.length === 0) {
       return res

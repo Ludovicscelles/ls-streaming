@@ -107,11 +107,13 @@ export class MovieLibraryRepository {
 
   // Method to filter documentary by genre
 
-  async getDocumentaryByGenre(genre: string) {
+  async getDocumentariesByGenre(genre: string) {
     return this.documentaryRepo.find({
       where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
     });
   }
+
+  
 
   // method to search films by title
   async searchFilms(title: string): Promise<FilmEntity[]> {
