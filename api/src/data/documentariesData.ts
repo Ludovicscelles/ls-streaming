@@ -2,7 +2,7 @@ export const documentariesData = [
   {
     id: "D001",
     title: "La Vie Secrète des Pharaons",
-    genre: "Histoire",
+    genre: "history",
     image: "/api/images/documentaries/vie-secrete-pharaon.png",
     duration: 90,
     releaseDate: "2014",
@@ -11,7 +11,7 @@ export const documentariesData = [
   {
     id: "D002",
     title: "Cléopatre",
-    genre: "Histoire",
+    genre: "history",
     image:
       "/api/images/documentaries/cleopatre.png",
     duration: 88,
@@ -21,7 +21,7 @@ export const documentariesData = [
   {
     id: "D003",
     title: "Les Mystères de la Rome Antique",
-    genre: "Histoire",
+    genre: "history",
     image:
       "/api/images/documentaries/rome-antique.png",
     duration: 75,
@@ -31,7 +31,7 @@ export const documentariesData = [
   {
     id: "D004",
     title: "Les Secrets de la Renaissance",
-    genre: "Art",
+    genre: "art",
     image: "/api/images/documentaries/secrets-renaissance.png",
     duration: 80,
     releaseDate: "2019",
@@ -40,7 +40,7 @@ export const documentariesData = [
   {
     id: "D005",
     title: "Voyage au Coeur de l'Univers",
-    genre: "Science",
+    genre: "science",
     image:
       "/api/images/documentaries/voyage-univers.png",
     duration: 100,
@@ -50,7 +50,7 @@ export const documentariesData = [
   {
     id: "D006",
     title: "Les Civilisations Perdues",
-    genre: "Histoire",
+    genre: "history",
     image:
       "/api/images/documentaries/civilisations-perdues.png",
     duration: 95,
@@ -60,7 +60,7 @@ export const documentariesData = [
   {
     id: "D007",
     title: "Les Grandes Découvertes Scientifiques",
-    genre: "Science",
+    genre: "science",
     image: "/api/images/documentaries/decouvertes-scientifiques.png",
     duration: 85,
     releaseDate: "2022",
@@ -69,7 +69,7 @@ export const documentariesData = [
   {
     id: "D008",
     title: "Les Mystères de l'Égypte Ancienne",
-    genre: "Histoire",
+    genre: "history",
     image:
       "/api/images/documentaries/mysteres-egypte-ancienne.png",
     duration: 90,
@@ -79,7 +79,7 @@ export const documentariesData = [
   {
     id: "D009",
     title: "L'Art de la Guerre à Travers les Âges",
-    genre: "Histoire",
+    genre: "history",
     image:
       "/api/images/documentaries/art-guerre.png",
     duration: 80,
@@ -89,7 +89,7 @@ export const documentariesData = [
   {
     id: "D010",
     title: "Les Merveilles de la Nature",
-    genre: "Nature",
+    genre: "nature",
     image: "/api/images/documentaries/merveilles-nature.png",
     duration: 70,
     releaseDate: "2019",
@@ -98,7 +98,7 @@ export const documentariesData = [
   {
     id: "D011",
     title: "Les Secrets de la Médecine Ancienne",
-    genre: "Médecine",
+    genre: "medicine",
     image: "/api/images/secrets-medecine-ancienne.png",
     duration: 85,
     releaseDate: "2017",
@@ -107,7 +107,7 @@ export const documentariesData = [
   {
     id: "D012",
     title: "Les Innovations Technologiques du Passé",
-    genre: "Technologie",
+    genre: "technology",
     image: "/api/images/documentaries/innovations-technologiques-passe.png",
     duration: 90,
     releaseDate: "2018",
@@ -116,7 +116,7 @@ export const documentariesData = [
   {
     id: "D013",
     title: "Les Mystères de la Préhistoire",
-    genre: "Histoire",
+    genre: "history",
     image: "/api/images/documentaries/mysteres-prehistoire.png",
     duration: 95,
     releaseDate: "2016",
@@ -125,7 +125,7 @@ export const documentariesData = [
   {
     id: "D014",
     title: "Les Civilisations Mésoaméricaines",
-    genre: "Histoire",
+    genre: "history",
     image: "/api/images/documentaries/civilisations-mesoamericaines.png", 
     duration: 80,
     releaseDate: "2013",
@@ -134,7 +134,7 @@ export const documentariesData = [
   {
     id: "D015",
     title: "Les Grandes Explorations Maritimes",
-    genre: "Histoire",
+    genre: "history",
     image: "/api/images/documentaries/explorations-maritimes.png",
     duration: 100,
     releaseDate: "2015",
@@ -143,7 +143,7 @@ export const documentariesData = [
   {
     id: "D016",
     title: "Les Mystères de l'Atlantide",
-    genre: "Légende",
+    genre: "mythology",
     image: "/api/images/documentaries/mysteres-atlantides.png",
     duration: 90,
     releaseDate: "2016",
@@ -152,7 +152,7 @@ export const documentariesData = [
   {
     id: "D017",
     title: "Les Secrets des Civilisations Antiques",
-    genre: "Histoire",
+    genre: "history",
     image: "/api/images/documentaries/secrets-civilisations-antiques.png",
     duration: 85,
     releaseDate: "2019",
@@ -161,7 +161,7 @@ export const documentariesData = [
   {
     id: "D018",
     title: "Les Merveilles de l'Architecture Antique",
-    genre: "Architecture",
+    genre: "architecture",
     image: "/api/images/documentaries/merveilles-architecture-antique.png",
     duration: 95,
     releaseDate: "2021",
@@ -170,7 +170,7 @@ export const documentariesData = [
   {
     id: "D019",
     title: "Les Mystères de la Mythologie Grecque",
-    genre: "Mythologie",
+    genre: "mythology",
     image: "/api/images/documentaries/mysteres-mythologie-grecque.png",
     duration: 80,
     releaseDate: "2022",
@@ -179,7 +179,7 @@ export const documentariesData = [
   {
     id: "D020",
     title: "Les Secrets de la Vie Marine",
-    genre: "Nature",
+    genre: "nature",
     image: "/api/images/documentaries/secrets-vie-marine.png",
     duration: 90,
     releaseDate: "2021",
