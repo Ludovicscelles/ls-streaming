@@ -107,9 +107,30 @@ export class MovieLibraryRepository {
 
   // Method to filter documentary by genre
 
-  async getDocumentaryByGenre(genre: string) {
+  async getDocumentariesByGenre(genre: string) {
     return this.documentaryRepo.find({
       where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
+    });
+  }
+
+  // Method to filter series by genre
+
+  async getSeriesByGenre(genre: string) {
+    return this.serieRepo.find({
+      where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
+      relations: [`seasonEntities`, `seasonEntities.episodes`],
+    });
+  }
+
+  // Method to filter tv shows by genre
+
+  async getTvShowsByGenre(genre: string) {
+    return this.tvShowRepo.find({
+      where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
+      relations: [
+        `seasonTvShowEntities`,
+        `seasonTvShowEntities.episodeTvShowEntities`,
+      ],
     });
   }
 
