@@ -113,7 +113,26 @@ export class MovieLibraryRepository {
     });
   }
 
-  
+  // Method to filter series by genre
+
+  async getSeriesByGenre(genre: string) {
+    return this.serieRepo.find({
+      where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
+      relations: [`seasonEntities`, `seasonEntities.episodes`],
+    });
+  }
+
+  // Method to filter tv shows by genre
+
+  async getTvShowsByGenre(genre: string) {
+    return this.tvShowRepo.find({
+      where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
+      relations: [
+        `seasonTvShowEntities`,
+        `seasonTvShowEntities.episodeTvShowEntities`,
+      ],
+    });
+  }
 
   // method to search films by title
   async searchFilms(title: string): Promise<FilmEntity[]> {
