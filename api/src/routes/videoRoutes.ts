@@ -70,15 +70,60 @@ export function createVideoRouter(
         .json({ error: `Missing or invalid 'genre' query param` });
     }
 
-    const documentaryByGenre = await movieLibrary.getDocumentaryByGenre(genre);
+    const documentariesByGenre =
+      await movieLibrary.getDocumentariesByGenre(genre);
 
-    if (documentaryByGenre.length === 0) {
+    if (documentariesByGenre.length === 0) {
       return res
         .status(404)
         .json({ error: `Documentaries not found for genre ${genre}` });
     }
 
-    return res.json(documentaryByGenre);
+    return res.json(documentariesByGenre);
+  });
+
+  // Route to filter series by genre
+
+  router.get("/series/genre", async (req, res) => {
+    const { genre } = req.query;
+
+    if (!genre || typeof genre !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'genre' query param` });
+    }
+
+    const seriesByGenre = await movieLibrary.getSeriesByGenre(genre);
+
+    if (seriesByGenre.length === 0) {
+      return res
+        .status(404)
+        .json({ error: `Series not found for genre ${genre}` });
+    }
+
+    return res.json(seriesByGenre);
+  });
+
+  // Route to filter tv shows by genre
+
+  router.get("/tvshows/genre", async (req, res) => {
+    const { genre } = req.query;
+
+    if (!genre || typeof genre !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'genre' query param` });
+    }
+
+    const tvShowsByGenre = await movieLibrary.getTvShowsByGenre(genre);
+
+    if (tvShowsByGenre.length === 0) {
+      return res
+        .status(404)
+        .json({ error: `Tv show not found for genre ${genre}` });
+    }
+
+    return res.json(tvShowsByGenre);
   });
 
   // Route to search film by title
