@@ -134,6 +134,19 @@ export class MovieLibraryRepository {
     });
   }
 
+  // method to create a new film
+  async createFilm(data: Partial<FilmEntity>) {
+    const film = this.filmRepo.create(data);
+    return this.filmRepo.save(film);
+  }
+
+  // method to create a new documentary
+  async createDocumentary(data: Partial<DocumentaryEntity>) {
+    const documentary = this.documentaryRepo.create(data);
+    return this.documentaryRepo.save(documentary);
+
+  }
+
   // method to search films by title
   async searchFilms(title: string): Promise<FilmEntity[]> {
     return this.filmRepo.find({
