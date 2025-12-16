@@ -127,13 +127,22 @@ export function createVideoRouter(
   });
 
   // Route to create a new film
-
   router.post("/films", async (req, res) => {
     try {
       const film = await movieLibrary.createFilm(req.body);
       return res.status(201).json(film);
     } catch (error) {
       return res.status(400).json({ error: "Invalid film data" });
+    }
+  });
+
+  // Route to create a new documentary
+  router.post("/documentaries", async (req, res) => {
+    try {
+      const documentary = await movieLibrary.createDocumentary(req.body);
+      return res.status(201).json(documentary);
+    } catch (error) {
+      return res.status(400).json({ error: "Invalid documentary data" });
     }
   });
 
