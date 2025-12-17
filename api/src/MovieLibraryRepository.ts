@@ -7,6 +7,13 @@ import { SerieEntity } from "./entities/SerieEntity";
 import { EpisodeEntity } from "./entities/EpisodeEntity";
 import { TvShowEntity } from "./entities/TvShowEntity";
 
+import {
+  generateFilmId,
+  generateDocumentaryId,
+  generateSerieId,
+  generateTvShowId,
+} from "./utils/generateIds";
+
 // MovieLibraryRepository class definition
 export class MovieLibraryRepository {
   // constructor to initialize repositories for each entity
@@ -98,7 +105,6 @@ export class MovieLibraryRepository {
   }
 
   // Method to filter films by genre
-
   async getFilmsByGenre(genre: string) {
     return this.filmRepo.find({
       where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
@@ -106,7 +112,6 @@ export class MovieLibraryRepository {
   }
 
   // Method to filter documentary by genre
-
   async getDocumentariesByGenre(genre: string) {
     return this.documentaryRepo.find({
       where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
@@ -114,7 +119,6 @@ export class MovieLibraryRepository {
   }
 
   // Method to filter series by genre
-
   async getSeriesByGenre(genre: string) {
     return this.serieRepo.find({
       where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
@@ -123,7 +127,6 @@ export class MovieLibraryRepository {
   }
 
   // Method to filter tv shows by genre
-
   async getTvShowsByGenre(genre: string) {
     return this.tvShowRepo.find({
       where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
@@ -136,23 +139,36 @@ export class MovieLibraryRepository {
 
   // method to create a new film
   async createFilm(data: Partial<FilmEntity>) {
-    const film = this.filmRepo.create(data);
+    const id = await generateFilmId(this.filmRepo);
+
+    const film = this.filmRepo.create({ ...data, id });
     await this.filmRepo.insert(film);
     return this.filmRepo.findOneByOrFail({ id: film.id! });
   }
 
   // method to create a new documentary
-
-  // method to create a new documentary
   // takes a partial DocumentaryEntity object as input data
   async createDocumentary(data: Partial<DocumentaryEntity>) {
+    const id = await generateDocumentaryId(this.documentaryRepo);
     // create a new documentary instance using the repository's create method
-    const documentary = this.documentaryRepo.create(data);
+    const documentary = this.documentaryRepo.create({ ...data, id });
     // insert the new documentary into the database
     await this.documentaryRepo.insert(documentary);
     // retrieve and return the newly created documentary by its ID
     // this ensures we return the complete entity as stored in the database
     return this.documentaryRepo.findOneByOrFail({ id: documentary.id! });
+  }
+
+  // method to create a new serie
+  async createSerie(data: Partial<SerieEntity>) {
+    const id = await generateSerieId(this.serieRepo);
+
+    const serie = this.serieRepo.create({ ...data, id });
+    await this.serieRepo.save(serie);
+    return this.serieRepo.findOneOrFail({ 
+      where: { id: serie.id! },
+      relations: ["seasonEntities", "seasonEntities.episodes"],
+    });
   }
 
   // method to search films by title

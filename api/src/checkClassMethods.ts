@@ -10,10 +10,10 @@ import { Film } from "./models/Film";
 import { TvShow, SeasonTvShow, EpisodeTvShow } from "./models/TvShow";
 import { Video } from "./models/Video";
 
-import { createDocumentary } from "./utils/createDocumentary";
-import { createFilm } from "./utils/createFilm";
-import { createSerie } from "./utils/createSerie";
-import { createTvShow } from "./utils/createTvShow";
+import { createDocumentary } from "./utils/old-create-files/createDocumentary";
+import { createFilm } from "./utils/old-create-files/createFilm";
+import { createSerie } from "./utils/old-create-files/createSerie";
+import { createTvShow } from "./utils/old-create-files/createTvShow";
 
 const movieLibrary = new MovieLibrary();
 

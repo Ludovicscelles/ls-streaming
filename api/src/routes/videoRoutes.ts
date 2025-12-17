@@ -150,12 +150,30 @@ export function createVideoRouter(
       // Handle unique constraint violation (e.g., duplicate ID)
       // SQLITE_CONSTRAINT is the error code for SQLite, adjust if using a different DBMS (Database Management System).
       if (error.code === "SQLITE_CONSTRAINT") {
-        return res
-        // error 409 indicates a conflict, such as a duplicate resource
-          .status(409)
-          .json({ error: "Documentary with this ID already exists" });
+        return (
+          res
+            // error 409 indicates a conflict, such as a duplicate resource
+            .status(409)
+            .json({ error: "Documentary with this ID already exists" })
+        );
       }
       return res.status(400).json({ error: "Invalid documentary data" });
+    }
+  });
+
+  // Route to create a new serie
+  router.post("/series", async (req, res) => {
+    try {
+      const serie = await movieLibrary.createSerie(req.body);
+      return res.status(201).json(serie);
+    } catch (error: any) {
+      console.error(error);
+      if (error.code === "SQLITE_CONSTRAINT") {
+        return res
+          .status(409)
+          .json({ error: "Serie with this ID already exists" });
+      }
+      return res.status(400).json({ error: "Invalid serie data" });
     }
   });
 

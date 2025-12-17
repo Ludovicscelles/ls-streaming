@@ -1,5 +1,5 @@
 // Importation de la classe Film depuis le fichier Film.ts
-import { Film } from "../models/Film";
+import { Film } from "../../models/Film";
 
 // Fonction utilitaire pour créer une instance de Film
 
