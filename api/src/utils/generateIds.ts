@@ -1,5 +1,7 @@
 import { FilmEntity } from "../entities/FilmEntity";
 import { DocumentaryEntity } from "../entities/DocumentaryEntity";
+import { SerieEntity } from "../entities/SerieEntity";
+import { TvShowEntity } from "../entities/TvShowEntity";
 import { Repository } from "typeorm";
 
 // Function to generate a new unique film ID
@@ -50,5 +52,45 @@ export async function generateDocumentaryId(
 
   const newIdNumber = lastIdNumber + 1;
 
-  return `F${newIdNumber.toString().padStart(3, "0")}`;
+  return `D${newIdNumber.toString().padStart(3, "0")}`;
+}
+
+// Function to generate a new unique serie ID
+export async function generateSerieId(
+  serieRepo: Repository<SerieEntity>
+): Promise<string> {
+  const lastSerie = await serieRepo
+    .createQueryBuilder("serie")
+    .orderBy("CAST(SUBSTRING(serie.id, 2) AS INTEGER)", "DESC")
+    .getOne();
+
+  if (!lastSerie) {
+    return "S001";
+  }
+
+  const lastIdNumber = parseInt(lastSerie.id.slice(1));
+
+  const newIdNumber = lastIdNumber + 1;
+
+  return `S${newIdNumber.toString().padStart(3, "0")}`;
+}
+
+// Function to generate a new unique tv show ID
+export async function generateTvShowId(
+  tvShowRepo: Repository<TvShowEntity>
+): Promise<string> {
+  const lastTvShow = await tvShowRepo
+    .createQueryBuilder("tvShow")
+    .orderBy("CAST(SUBSTRING(tvShow.id, 2) AS INTEGER)", "DESC")
+    .getOne();
+
+  if (!lastTvShow) {
+    return "T001";
+  }
+
+  const lastIdNumber = parseInt(lastTvShow.id.slice(1));
+
+  const newIdNumber = lastIdNumber + 1;
+
+  return `T${newIdNumber.toString().padStart(3, "0")}`;
 }
