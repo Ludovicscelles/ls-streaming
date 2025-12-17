@@ -131,7 +131,12 @@ export function createVideoRouter(
     try {
       const film = await movieLibrary.createFilm(req.body);
       return res.status(201).json(film);
-    } catch (error) {
+    } catch (error: any) {
+      if (error.code === "SQLITE_CONSTRAINT") {
+        return res
+          .status(409)
+          .json({ error: "Film with this ID already exists" });
+      }
       return res.status(400).json({ error: "Invalid film data" });
     }
   });

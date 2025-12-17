@@ -137,7 +137,8 @@ export class MovieLibraryRepository {
   // method to create a new film
   async createFilm(data: Partial<FilmEntity>) {
     const film = this.filmRepo.create(data);
-    return this.filmRepo.save(film);
+    await this.filmRepo.insert(film);
+    return this.filmRepo.findOneByOrFail({ id: film.id! });
   }
 
   // method to create a new documentary
