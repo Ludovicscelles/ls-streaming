@@ -1,7 +1,7 @@
 // description: Utility function to create a TvShow instance from raw data
 
 // Imports of necessary models to construct the TvShow object
-import { EpisodeTvShow, SeasonTvShow, TvShow } from "../models/TvShow";
+import { EpisodeTvShow, SeasonTvShow, TvShow } from "../../models/TvShow";
 
 // Function to create a TvShow instance
 export function createTvShow(

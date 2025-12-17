@@ -1,5 +1,5 @@
 // Importation de la classe Documentary depuis le fichier documentaire.ts
-import { Documentary } from "../models/Documentary";
+import { Documentary } from "../../models/Documentary";
 
 // Fonction utilitaire pour créer une instance de Documentary
 export function createDocumentary(

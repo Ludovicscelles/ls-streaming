@@ -1,7 +1,7 @@
 // Description: Utility function to create a Serie instance with nested Seasons and Episodes.
 
 // Imports of necessary models to construct the Serie object
-import { Episode, Season, Serie } from "../models/Serie";
+import { Episode, Season, Serie } from "../../models/Serie";
 
 // Function to create a Serie instance
 export function createSerie(
