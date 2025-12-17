@@ -7,7 +7,12 @@ import { SerieEntity } from "./entities/SerieEntity";
 import { EpisodeEntity } from "./entities/EpisodeEntity";
 import { TvShowEntity } from "./entities/TvShowEntity";
 
-import { generateFilmId, generateDocumentaryId } from "./utils/generateIds";
+import {
+  generateFilmId,
+  generateDocumentaryId,
+  generateSerieId,
+  generateTvShowId,
+} from "./utils/generateIds";
 
 // MovieLibraryRepository class definition
 export class MovieLibraryRepository {
@@ -152,6 +157,18 @@ export class MovieLibraryRepository {
     // retrieve and return the newly created documentary by its ID
     // this ensures we return the complete entity as stored in the database
     return this.documentaryRepo.findOneByOrFail({ id: documentary.id! });
+  }
+
+  // method to create a new serie
+  async createSerie(data: Partial<SerieEntity>) {
+    const id = await generateSerieId(this.serieRepo);
+
+    const serie = this.serieRepo.create({ ...data, id });
+    await this.serieRepo.save(serie);
+    return this.serieRepo.findOneOrFail({ 
+      where: { id: serie.id! },
+      relations: ["seasonEntities", "seasonEntities.episodes"],
+    });
   }
 
   // method to search films by title
