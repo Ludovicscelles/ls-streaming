@@ -137,14 +137,22 @@ export class MovieLibraryRepository {
   // method to create a new film
   async createFilm(data: Partial<FilmEntity>) {
     const film = this.filmRepo.create(data);
-    return this.filmRepo.save(film);
+    await this.filmRepo.insert(film);
+    return this.filmRepo.findOneByOrFail({ id: film.id! });
   }
 
   // method to create a new documentary
-  async createDocumentary(data: Partial<DocumentaryEntity>) {
-    const documentary = this.documentaryRepo.create(data);
-    return this.documentaryRepo.save(documentary);
 
+  // method to create a new documentary
+  // takes a partial DocumentaryEntity object as input data
+  async createDocumentary(data: Partial<DocumentaryEntity>) {
+    // create a new documentary instance using the repository's create method
+    const documentary = this.documentaryRepo.create(data);
+    // insert the new documentary into the database
+    await this.documentaryRepo.insert(documentary);
+    // retrieve and return the newly created documentary by its ID
+    // this ensures we return the complete entity as stored in the database
+    return this.documentaryRepo.findOneByOrFail({ id: documentary.id! });
   }
 
   // method to search films by title

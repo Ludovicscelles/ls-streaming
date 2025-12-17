@@ -131,7 +131,12 @@ export function createVideoRouter(
     try {
       const film = await movieLibrary.createFilm(req.body);
       return res.status(201).json(film);
-    } catch (error) {
+    } catch (error: any) {
+      if (error.code === "SQLITE_CONSTRAINT") {
+        return res
+          .status(409)
+          .json({ error: "Film with this ID already exists" });
+      }
       return res.status(400).json({ error: "Invalid film data" });
     }
   });
@@ -141,7 +146,15 @@ export function createVideoRouter(
     try {
       const documentary = await movieLibrary.createDocumentary(req.body);
       return res.status(201).json(documentary);
-    } catch (error) {
+    } catch (error: any) {
+      // Handle unique constraint violation (e.g., duplicate ID)
+      // SQLITE_CONSTRAINT is the error code for SQLite, adjust if using a different DBMS (Database Management System).
+      if (error.code === "SQLITE_CONSTRAINT") {
+        return res
+        // error 409 indicates a conflict, such as a duplicate resource
+          .status(409)
+          .json({ error: "Documentary with this ID already exists" });
+      }
       return res.status(400).json({ error: "Invalid documentary data" });
     }
   });
