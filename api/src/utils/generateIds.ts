@@ -1,4 +1,5 @@
 import { FilmEntity } from "../entities/FilmEntity";
+import { DocumentaryEntity } from "../entities/DocumentaryEntity";
 import { Repository } from "typeorm";
 
 // Function to generate a new unique film ID
@@ -27,5 +28,27 @@ export async function generateFilmId(
   // Increment the numeric part by 1
   const newIdNumber = lastIdNumber + 1;
   // Return the new ID formatted as "F" followed by a zero-padded number
+  // padStart ensures the number is at least 3 digits long
+  // e.g., "F002", "F010", "F100"
+  return `F${newIdNumber.toString().padStart(3, "0")}`;
+}
+
+// Function to generate a new unique documentary ID
+export async function generateDocumentaryId(
+  documentaryRepo: Repository<DocumentaryEntity>
+): Promise<string> {
+  const lastDocumentary = await documentaryRepo
+    .createQueryBuilder("documentary")
+    .orderBy("CAST(SUBSTRING(documentary.id, 2) AS INTEGER)", "DESC")
+    .getOne();
+
+  if (!lastDocumentary) {
+    return "D001";
+  }
+
+  const lastIdNumber = parseInt(lastDocumentary.id.slice(1));
+
+  const newIdNumber = lastIdNumber + 1;
+
   return `F${newIdNumber.toString().padStart(3, "0")}`;
 }

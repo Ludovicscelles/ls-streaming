@@ -7,7 +7,7 @@ import { SerieEntity } from "./entities/SerieEntity";
 import { EpisodeEntity } from "./entities/EpisodeEntity";
 import { TvShowEntity } from "./entities/TvShowEntity";
 
-import { generateFilmId } from "./utils/generateFilmId";
+import { generateFilmId, generateDocumentaryId } from "./utils/generateIds";
 
 // MovieLibraryRepository class definition
 export class MovieLibraryRepository {
@@ -144,8 +144,9 @@ export class MovieLibraryRepository {
   // method to create a new documentary
   // takes a partial DocumentaryEntity object as input data
   async createDocumentary(data: Partial<DocumentaryEntity>) {
+    const id = await generateDocumentaryId(this.documentaryRepo);
     // create a new documentary instance using the repository's create method
-    const documentary = this.documentaryRepo.create(data);
+    const documentary = this.documentaryRepo.create({ ...data, id });
     // insert the new documentary into the database
     await this.documentaryRepo.insert(documentary);
     // retrieve and return the newly created documentary by its ID
