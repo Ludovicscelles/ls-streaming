@@ -5,38 +5,38 @@ export const tvShowData = [
     genre: "game_show",
     image: "/api/images/showsTV/traites.png",
     director: "Françis Côté",
-    seasonData: [
+    seasonTvShowEntities: [
       {
         seasonYear: 2022,
         seasonNumber: 1,
         seasonTVHost: "Éric Antoine",
         episodes: [
           {
-            numberEpisode: 1,
+            episodeNumber: 1,
             duration: 60,
           },
           {
-            numberEpisode: 2,
+            episodeNumber: 2,
             duration: 60,
           },
           {
-            numberEpisode: 3,
+            episodeNumber: 3,
             duration: 60,
           },
           {
-            numberEpisode: 4,
+            episodeNumber: 4,
             duration: 60,
           },
           {
-            numberEpisode: 5,
+            episodeNumber: 5,
             duration: 60,
           },
           {
-            numberEpisode: 6,
+            episodeNumber: 6,
             duration: 60,
           },
           {
-            numberEpisode: 7,
+            episodeNumber: 7,
             duration: 60,
           },
         ],
@@ -47,43 +47,43 @@ export const tvShowData = [
         seasonTVHost: "Éric Antoine",
         episodes: [
           {
-            numberEpisode: 1,
+            episodeNumber: 1,
             duration: 60,
           },
           {
-            numberEpisode: 2,
+            episodeNumber: 2,
             duration: 60,
           },
           {
-            numberEpisode: 3,
+            episodeNumber: 3,
             duration: 60,
           },
           {
-            numberEpisode: 4,
+            episodeNumber: 4,
             duration: 60,
           },
           {
-            numberEpisode: 5,
+            episodeNumber: 5,
             duration: 60,
           },
           {
-            numberEpisode: 6,
+            episodeNumber: 6,
             duration: 60,
           },
           {
-            numberEpisode: 7,
+            episodeNumber: 7,
             duration: 60,
           },
           {
-            numberEpisode: 8,
+            episodeNumber: 8,
             duration: 60,
           },
           {
-            numberEpisode: 9,
+            episodeNumber: 9,
             duration: 60,
           },
           {
-            numberEpisode: 10,
+            episodeNumber: 10,
             duration: 60,
           },
         ],
@@ -94,47 +94,47 @@ export const tvShowData = [
         seasonTVHost: "Éric Antoine",
         episodes: [
           {
-            numberEpisode: 1,
+            episodeNumber: 1,
             duration: 60,
           },
           {
-            numberEpisode: 2,
+            episodeNumber: 2,
             duration: 60,
           },
           {
-            numberEpisode: 3,
+            episodeNumber: 3,
             duration: 60,
           },
           {
-            numberEpisode: 4,
+            episodeNumber: 4,
             duration: 60,
           },
           {
-            numberEpisode: 5,
+            episodeNumber: 5,
             duration: 60,
           },
           {
-            numberEpisode: 6,
+            episodeNumber: 6,
             duration: 60,
           },
           {
-            numberEpisode: 7,
+            episodeNumber: 7,
             duration: 60,
           },
           {
-            numberEpisode: 8,
+            episodeNumber: 8,
             duration: 60,
           },
           {
-            numberEpisode: 9,
+            episodeNumber: 9,
             duration: 60,
           },
           {
-            numberEpisode: 10,
+            episodeNumber: 10,
             duration: 60,
           },
           {
-            numberEpisode: 11,
+            episodeNumber: 11,
             duration: 60,
           },
         ],
@@ -147,50 +147,50 @@ export const tvShowData = [
     genre: "game_show",
     image: "/api/images/showsTV/fort-boyard.png",
     director: "Françis Côté",
-    seasonData: [
+    seasonTvShowEntities: [
       {
         seasonYear: 2022,
         seasonNumber: 34,
         seasonTVHost: "Olivier Minne",
         episodes: [
           {
-            numberEpisode: 1,
+            episodeNumber: 1,
             duration: 90,
           },
           {
-            numberEpisode: 2,
+            episodeNumber: 2,
             duration: 90,
           },
           {
-            numberEpisode: 3,
+            episodeNumber: 3,
             duration: 90,
           },
           {
-            numberEpisode: 4,
+            episodeNumber: 4,
             duration: 90,
           },
           {
-            numberEpisode: 5,
+            episodeNumber: 5,
             duration: 90,
           },
           {
-            numberEpisode: 6,
+            episodeNumber: 6,
             duration: 90,
           },
           {
-            numberEpisode: 7,
+            episodeNumber: 7,
             duration: 90,
           },
           {
-            numberEpisode: 8,
+            episodeNumber: 8,
             duration: 90,
           },
           {
-            numberEpisode: 9,
+            episodeNumber: 9,
             duration: 90,
           },
           {
-            numberEpisode: 10,
+            episodeNumber: 10,
             duration: 90,
           },
         ],
@@ -204,41 +204,41 @@ export const tvShowData = [
     genre: "talent_show",
     image: "/api/images/showsTV/echo-etoiles.png",
     director: "Mathieu Ravel",
-    seasonData: [
+    seasonTvShowEntities: [
       {
         seasonYear: 2023,
         seasonNumber: 2,
         seasonTVHost: "Clara Montfaucon",
         episodes: [
           {
-            numberEpisode: 1,
+            episodeNumber: 1,
             duration: 110,
           },
           {
-            numberEpisode: 2,
+            episodeNumber: 2,
             duration: 110,
           },
           {
-            numberEpisode: 3,
+            episodeNumber: 3,
             duration: 110,
           },
           {
-            numberEpisode: 4,
+            episodeNumber: 4,
             duration: 110,
           },
           {
-            numberEpisode: 5,
+            episodeNumber: 5,
             duration: 110,
           },
           {
-            numberEpisode: 6,
+            episodeNumber: 6,
             duration: 110,
           },
           {
-            numberEpisode: 7,
+            episodeNumber: 7,
             duration: 110,
           },
-          { numberEpisode: 8, duration: 130 },
+          { episodeNumber: 8, duration: 130 },
         ],
       },
     ],
@@ -250,50 +250,50 @@ export const tvShowData = [
     genre: "talk_show",
     image: "/api/images/showsTV/on-dira-ce-qu-on-en-veut.png",
     director: "Romain Castelneau",
-    seasonData: [
+    seasonTvShowEntities: [
       {
         seasonYear: 2024,
         seasonNumber: 3,
         seasonTVHost: "Julien Moreau",
         episodes: [
           {
-            numberEpisode: 1,
+            episodeNumber: 1,
             duration: 145,
           },
           {
-            numberEpisode: 2,
+            episodeNumber: 2,
             duration: 145,
           },
           {
-            numberEpisode: 3,
+            episodeNumber: 3,
             duration: 145,
           },
           {
-            numberEpisode: 4,
+            episodeNumber: 4,
             duration: 145,
           },
           {
-            numberEpisode: 5,
+            episodeNumber: 5,
             duration: 145,
           },
           {
-            numberEpisode: 6,
+            episodeNumber: 6,
             duration: 145,
           },
           {
-            numberEpisode: 7,
+            episodeNumber: 7,
             duration: 145,
           },
           {
-            numberEpisode: 8,
+            episodeNumber: 8,
             duration: 160,
           },
           {
-            numberEpisode: 9,
+            episodeNumber: 9,
             duration: 160,
           },
           {
-            numberEpisode: 10,
+            episodeNumber: 10,
             duration: 175,
           },
         ],
