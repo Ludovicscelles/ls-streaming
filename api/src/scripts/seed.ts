@@ -58,7 +58,7 @@ AppDataSource.initialize().then(async () => {
     });
     await seriesRepo.save(serieEntity);
 
-    for (const season of serie.seasonData) {
+    for (const season of serie.seasonEntities) {
       const seasonEntity = seasonsRepo.create({
         seasonYear: season.seasonNumber,
         seasonNumber: season.seasonNumber,
@@ -70,7 +70,7 @@ AppDataSource.initialize().then(async () => {
       for (const episode of season.episodes) {
         const episodeEntity = episodesRepo.create({
           title: episode.title,
-          episodeNumber: episode.numberEpisode,
+          episodeNumber: episode.episodeNumber,
           duration: episode.duration,
           director: episode.director,
           season: seasonEntity,
@@ -90,7 +90,7 @@ AppDataSource.initialize().then(async () => {
     });
     await tvShowsRepo.save(tvShowEntity);
 
-    for (const seasonTvShow of tvShow.seasonData) {
+    for (const seasonTvShow of tvShow.seasonTvShowEntities) {
       const seasonTvShowEntity = seasonsTvShowRepo.create({
         seasonYear: seasonTvShow.seasonYear,
         seasonNumber: seasonTvShow.seasonNumber,
@@ -102,7 +102,7 @@ AppDataSource.initialize().then(async () => {
 
       for (const episodeTvShow of seasonTvShow.episodes) {
         const episodeTvShowEntity = episodesTvShowRepo.create({
-          episodeNumber: episodeTvShow.numberEpisode,
+          episodeNumber: episodeTvShow.episodeNumber,
           duration: episodeTvShow.duration,
           seasonTvShow: seasonTvShowEntity,
         });
