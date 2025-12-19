@@ -46,10 +46,10 @@ function initiateData() {
   // Add series to the library
 
   seriesData.forEach((serieData) => {
-    const seasons: Season[] = serieData.seasonData.map((season) => {
+    const seasons: Season[] = serieData.seasonEntities.map((season) => {
       const episodes: Episode[] = season.episodes.map(
         (ep) =>
-          new Episode(ep.title, ep.numberEpisode, ep.duration, ep.director)
+          new Episode(ep.title, ep.episodeNumber, ep.duration, ep.director)
       );
       return new Season(season.seasonYear, season.seasonNumber, episodes);
     });
@@ -67,10 +67,10 @@ function initiateData() {
   // Add TV shows to the library
 
   tvShowData.forEach((tvShowData) => {
-    const seasonsTvShow: SeasonTvShow[] = tvShowData.seasonData.map(
+    const seasonsTvShow: SeasonTvShow[] = tvShowData.seasonTvShowEntities.map(
       (season) => {
         const episodesTvShow: EpisodeTvShow[] = season.episodes.map(
-          (ep) => new EpisodeTvShow(ep.numberEpisode, ep.duration)
+          (ep) => new EpisodeTvShow(ep.episodeNumber, ep.duration)
         );
         return new SeasonTvShow(
           season.seasonYear,

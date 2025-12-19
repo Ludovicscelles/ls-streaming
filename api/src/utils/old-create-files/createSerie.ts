@@ -17,12 +17,12 @@ export function createSerie(
     // Array of season data, each containing episodes
     // Each season has a year, number, and list of episodes
     // Each episode has a title, number, duration, and director
-    seasonData: {
+    seasonEntities: {
       seasonYear: number;
       seasonNumber: number;
       episodes: {
         title: string;
-        numberEpisode: number;
+        episodeNumber: number;
         duration: number;
         director: string;
       }[];
@@ -34,13 +34,13 @@ export function createSerie(
 ): Serie {
   // Map through the season data to create Season instances
   // Each Season contains its respective Episode instances
-  const season = data.seasonData.map(
+  const season = data.seasonEntities.map(
     ({ seasonYear, seasonNumber, episodes }) => {
       // Map through the episodes to create Episode instances
       // Each Episode is constructed with its respective properties
       const episodesInstance = episodes.map(
         (ep) =>
-          new Episode(ep.title, ep.numberEpisode, ep.duration, ep.director)
+          new Episode(ep.title, ep.episodeNumber, ep.duration, ep.director)
       );
       // Return a new Season instance with the constructed episodes
       return new Season(seasonYear, seasonNumber, episodesInstance);

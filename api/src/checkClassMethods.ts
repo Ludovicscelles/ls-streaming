@@ -197,56 +197,56 @@ const newSerie = createSerie({
   title: "Mafiosa",
   genre: "Crime",
   image: "/images/series/mafiosa.png",
-  seasonData: [
+  seasonEntities: [
     {
       seasonYear: 2006,
       seasonNumber: 1,
       episodes: [
         {
           title: "Episode 1",
-          numberEpisode: 1,
+          episodeNumber: 1,
           duration: 45,
           director: "Louis Choquette",
         },
         {
           title: "Episode 2",
-          numberEpisode: 2,
+          episodeNumber: 2,
           duration: 50,
           director: "Louis Choquette",
         },
         {
           title: "Episode 3",
-          numberEpisode: 3,
+          episodeNumber: 3,
           duration: 48,
           director: "Louis Choquette",
         },
         {
           title: "Episode 4",
-          numberEpisode: 4,
+          episodeNumber: 4,
           duration: 47,
           director: "Louis Choquette",
         },
         {
           title: "Episode 5",
-          numberEpisode: 5,
+          episodeNumber: 5,
           duration: 46,
           director: "Louis Choquette",
         },
         {
           title: "Episode 6",
-          numberEpisode: 6,
+          episodeNumber: 6,
           duration: 49,
           director: "Louis Choquette",
         },
         {
           title: "Episode 7",
-          numberEpisode: 7,
+          episodeNumber: 7,
           duration: 45,
           director: "Louis Choquette",
         },
         {
           title: "Episode 8",
-          numberEpisode: 8,
+          episodeNumber: 8,
           duration: 50,
           director: "Louis Choquette",
         },
@@ -269,18 +269,18 @@ const newTvShow = createTvShow({
   genre: "Talent Show",
   image: "/images/tvshows/nouvelle-star.png",
   director: "Gilbert Coullier",
-  seasonData: [
+  seasonTvShowEntities: [
     {
       seasonYear: 2017,
       seasonNumber: 13,
       seasonTVHost: "Shy'm",
       episodes: [
-        { numberEpisode: 1, duration: 90 },
-        { numberEpisode: 2, duration: 92 },
-        { numberEpisode: 3, duration: 108 },
-        { numberEpisode: 4, duration: 101 },
-        { numberEpisode: 5, duration: 109 },
-        { numberEpisode: 6, duration: 95 },
+        { episodeNumber: 1, duration: 90 },
+        { episodeNumber: 2, duration: 92 },
+        { episodeNumber: 3, duration: 108 },
+        { episodeNumber: 4, duration: 101 },
+        { episodeNumber: 5, duration: 109 },
+        { episodeNumber: 6, duration: 95 },
       ],
     },
   ],
