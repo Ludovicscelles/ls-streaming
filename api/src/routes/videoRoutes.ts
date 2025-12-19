@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { MovieLibraryRepository } from "../MovieLibraryRepository";
-import { error } from "console";
 
 export function createVideoRouter(
   movieLibrary: MovieLibraryRepository
@@ -38,7 +37,6 @@ export function createVideoRouter(
   });
 
   // Route to filter films by genre
-
   router.get("/films/genre", async (req, res) => {
     const { genre } = req.query;
 
@@ -177,6 +175,22 @@ export function createVideoRouter(
     }
   });
 
+  // Route to create a new tv show
+  router.post("/tvshows", async (req, res) => {
+    try {
+      const tvShow = await movieLibrary.createTvShow(req.body);
+      return res.status(201).json(tvShow);
+    } catch (error: any) {
+      console.error(error);
+      if (error.code === "SQLITE_CONSTRAINT") {
+        return res
+          .status(409)
+          .json({ error: "Tv show with this ID already exists" });
+      }
+      return res.status(400).json({ error: "Invalid tv show data" });
+    }
+  });
+
   // Route to search film by title
   router.get("/films/search", async (req, res) => {
     const { title } = req.query;
@@ -191,7 +205,6 @@ export function createVideoRouter(
   });
 
   // Route to search documentary by title
-
   router.get("/documentaries/search", async (req, res) => {
     const { title } = req.query;
 
@@ -205,7 +218,6 @@ export function createVideoRouter(
   });
 
   // Route to search serie by title
-
   router.get("/series/search", async (req, res) => {
     const { title } = req.query;
 
@@ -219,7 +231,6 @@ export function createVideoRouter(
   });
 
   // Route to search episodes in series by title
-
   router.get("/episodes/search", async (req, res) => {
     const { title } = req.query;
 
