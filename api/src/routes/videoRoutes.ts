@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { MovieLibraryRepository } from "../MovieLibraryRepository";
+import { error } from "console";
 
 export function createVideoRouter(
   movieLibrary: MovieLibraryRepository
@@ -188,6 +189,30 @@ export function createVideoRouter(
           .json({ error: "Tv show with this ID already exists" });
       }
       return res.status(400).json({ error: "Invalid tv show data" });
+    }
+  });
+
+  // Route to update a film
+  router.patch("/films/:id", async (req, res) => {
+    const { id } = req.params;
+
+    if (! id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'id' route param" });
+    }
+
+    try {
+      const updatedFilm = await movieLibrary.updateFilm(id, req.body);
+      return res.json(updatedFilm); 
+    } catch (error: any) {
+      console.error(error);
+      // Handle case where film to update is not found
+      // Assuming the MovieLibraryRepository throws an error with code "FILM_NOT_FOUND" in such cases
+      if (error?.code === "FILM_NOT_FOUND") {
+        return res.status(404).json({ error: "Film not found" });
+      }
+      return res.status(400).json({ error: "Invalid film data" });
     }
   });
 
