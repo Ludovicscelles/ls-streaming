@@ -165,9 +165,24 @@ export class MovieLibraryRepository {
 
     const serie = this.serieRepo.create({ ...data, id });
     await this.serieRepo.save(serie);
-    return this.serieRepo.findOneOrFail({ 
+    return this.serieRepo.findOneOrFail({
       where: { id: serie.id! },
       relations: ["seasonEntities", "seasonEntities.episodes"],
+    });
+  }
+
+  // methode to create a new tv show
+  async createTvShow(data: Partial<TvShowEntity>) {
+    const id = await generateTvShowId(this.tvShowRepo);
+
+    const tvShow = this.tvShowRepo.create({ ...data, id });
+    await this.tvShowRepo.save(tvShow);
+    return this.tvShowRepo.findOneOrFail({
+      where: { id: tvShow.id! },
+      relations: [
+        "seasonTvShowEntities",
+        "seasonTvShowEntities.episodeTvShowEntities",
+      ],
     });
   }
 
