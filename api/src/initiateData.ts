@@ -69,13 +69,13 @@ function initiateData() {
   tvShowData.forEach((tvShowData) => {
     const seasonsTvShow: SeasonTvShow[] = tvShowData.seasonTvShowEntities.map(
       (season) => {
-        const episodesTvShow: EpisodeTvShow[] = season.episodes.map(
+        const episodesTvShow: EpisodeTvShow[] = season.episodeTvShowEntities.map(
           (ep) => new EpisodeTvShow(ep.episodeNumber, ep.duration)
         );
         return new SeasonTvShow(
           season.seasonYear,
           season.seasonNumber,
-          season.seasonTVHost,
+          season.tvHost,
           episodesTvShow
         );
       }

@@ -21,9 +21,9 @@ export function createTvShow(
   seasonTvShowEntities: {
     seasonYear: number;
     seasonNumber: number;
-    seasonTVHost: string;
+    tvHost: string;
     // Array of episodes in the season
-    episodes: {
+    episodeTvShowEntities: {
       episodeNumber: number;
       duration: number;
     }[];
@@ -34,10 +34,10 @@ export function createTvShow(
   // Map through the season data to create SeasonTvShow instances
   // Each SeasonTvShow contains its respective EpisodeTvShow instances
   const season = data.seasonTvShowEntities.map(
-    ({ seasonYear, seasonNumber, seasonTVHost, episodes }) => {
+    ({ seasonYear, seasonNumber, tvHost, episodeTvShowEntities }) => {
       // Map through the episodes to create EpisodeTvShow instances
       // Each EpisodeTvShow is constructed with its respective properties
-      const episodesInstance = episodes.map(
+      const episodesInstance = episodeTvShowEntities.map(
         (ep) => new EpisodeTvShow(ep.episodeNumber, ep.duration)
       );
       // Return a new SeasonTvShow instance with the constructed episodes
@@ -45,7 +45,7 @@ export function createTvShow(
       return new SeasonTvShow(
         seasonYear,
         seasonNumber,
-        seasonTVHost,
+        tvHost,
         episodesInstance
       );
     }
