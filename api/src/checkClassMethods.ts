@@ -273,8 +273,8 @@ const newTvShow = createTvShow({
     {
       seasonYear: 2017,
       seasonNumber: 13,
-      seasonTVHost: "Shy'm",
-      episodes: [
+      tvHost: "Shy'm",
+      episodeTvShowEntities: [
         { episodeNumber: 1, duration: 90 },
         { episodeNumber: 2, duration: 92 },
         { episodeNumber: 3, duration: 108 },
