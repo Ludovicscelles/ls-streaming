@@ -9,8 +9,8 @@ export const tvShowData = [
       {
         seasonYear: 2022,
         seasonNumber: 1,
-        seasonTVHost: "Éric Antoine",
-        episodes: [
+        tvHost: "Éric Antoine",
+        episodeTvShowEntities: [
           {
             episodeNumber: 1,
             duration: 60,
@@ -44,8 +44,8 @@ export const tvShowData = [
       {
         seasonYear: 2023,
         seasonNumber: 2,
-        seasonTVHost: "Éric Antoine",
-        episodes: [
+        tvHost: "Éric Antoine",
+        episodeTvShowEntities: [
           {
             episodeNumber: 1,
             duration: 60,
@@ -91,8 +91,8 @@ export const tvShowData = [
       {
         seasonYear: 2024,
         seasonNumber: 3,
-        seasonTVHost: "Éric Antoine",
-        episodes: [
+        tvHost: "Éric Antoine",
+        episodeTvShowEntities: [
           {
             episodeNumber: 1,
             duration: 60,
@@ -151,8 +151,8 @@ export const tvShowData = [
       {
         seasonYear: 2022,
         seasonNumber: 34,
-        seasonTVHost: "Olivier Minne",
-        episodes: [
+        tvHost: "Olivier Minne",
+        episodeTvShowEntities: [
           {
             episodeNumber: 1,
             duration: 90,
@@ -208,8 +208,8 @@ export const tvShowData = [
       {
         seasonYear: 2023,
         seasonNumber: 2,
-        seasonTVHost: "Clara Montfaucon",
-        episodes: [
+        tvHost: "Clara Montfaucon",
+        episodeTvShowEntities: [
           {
             episodeNumber: 1,
             duration: 110,
@@ -254,8 +254,8 @@ export const tvShowData = [
       {
         seasonYear: 2024,
         seasonNumber: 3,
-        seasonTVHost: "Julien Moreau",
-        episodes: [
+        tvHost: "Julien Moreau",
+        episodeTvShowEntities: [
           {
             episodeNumber: 1,
             duration: 145,

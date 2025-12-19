@@ -94,13 +94,13 @@ AppDataSource.initialize().then(async () => {
       const seasonTvShowEntity = seasonsTvShowRepo.create({
         seasonYear: seasonTvShow.seasonYear,
         seasonNumber: seasonTvShow.seasonNumber,
-        tvHost: seasonTvShow.seasonTVHost,
+        tvHost: seasonTvShow.tvHost,
         tvShow: tvShowEntity,
         episodeTvShowEntities: [],
       });
       await seasonsTvShowRepo.save(seasonTvShowEntity);
 
-      for (const episodeTvShow of seasonTvShow.episodes) {
+      for (const episodeTvShow of seasonTvShow.episodeTvShowEntities) {
         const episodeTvShowEntity = episodesTvShowRepo.create({
           episodeNumber: episodeTvShow.episodeNumber,
           duration: episodeTvShow.duration,
