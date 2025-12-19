@@ -186,6 +186,42 @@ export class MovieLibraryRepository {
     });
   }
 
+  // method to update a film
+  // takes the film ID and a partial FilmEntity object with updated data
+  async updateFilm(id: string, data: Partial<FilmEntity>) {
+    // exclude the id from the data to prevent overwriting the primary key
+    const { id: _ignored, ...safeData } = data as any;
+
+    // preload the existing film entity with the new data
+    const film = await this.filmRepo.preload({ id, ...safeData });
+
+    // if the film does not exist, throw an error
+    if (!film) {
+      // create a new Error object and assign a custom code to it
+      // this helps in identifying the error type when caught
+      throw Object.assign(new Error("Film not found"), {
+        code: "FILM_NOT_FOUND",
+      });
+    }
+    // save the updated film entity back to the database
+    return this.filmRepo.save(film);
+  }
+
+  // Method to update a documentary
+  async updateDocumentary(id: string, data: Partial<DocumentaryEntity>) {
+    const { id: _ignored, ...safeData } = data as any;
+
+    const documentary = await this.documentaryRepo.preload({ id, ...safeData });
+
+    if (!documentary) {
+      throw Object.assign(new Error("Documentary not found"), {
+        code: "DOCUMENTARY_NOT_FOUND",
+      });
+    }
+
+    return this.documentaryRepo.save(documentary);
+  }
+
   // method to search films by title
   async searchFilms(title: string): Promise<FilmEntity[]> {
     return this.filmRepo.find({
