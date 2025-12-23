@@ -60,7 +60,7 @@ AppDataSource.initialize().then(async () => {
 
     for (const season of serie.seasonEntities) {
       const seasonEntity = seasonsRepo.create({
-        seasonYear: season.seasonNumber,
+        seasonYear: season.seasonYear,
         seasonNumber: season.seasonNumber,
         serie: serieEntity,
         episodes: [],
