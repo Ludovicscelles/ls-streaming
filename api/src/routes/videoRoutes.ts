@@ -217,7 +217,6 @@ export function createVideoRouter(
   });
 
   // Route to update a documentary
-
   router.patch("/documentaries/:id", async (req, res) => {
     const { id } = req.params;
 
@@ -239,6 +238,25 @@ export function createVideoRouter(
         return res.status(404).json({ error: "Documentary not found" });
       }
       return res.status(400).json({ error: "Invalid documentary data" });
+    }
+  });
+
+  // Route to update a serie
+  router.patch("/series/:id", async (req, res) => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res.status(400).json({ error: "Missing or invalid 'id' param" });
+    }
+
+    try {
+      const updatedSerie = await movieLibrary.updateSerie(id, req.body);
+      return res.json(updatedSerie);
+    } catch (error: any) {
+      if (error?.code === "SERIE_NOT_FOUND") {
+        return res.status(404).json({ error: "Serie not found" });
+      }
+      return res.status(400).json({ error: "Invalid serie data" });
     }
   });
 
