@@ -222,6 +222,20 @@ export class MovieLibraryRepository {
     return this.documentaryRepo.save(documentary);
   }
 
+  // Method to update a serie
+  async updateSerie(id: string, data: Partial<SerieEntity>) {
+    const { id: _ignored, ...safeData } = data as any;
+
+    const serie = await this.serieRepo.preload({ id, ...safeData });
+
+    if (!serie) {
+      throw Object.assign(new Error("Serie not found"), {
+        code: "SERIE_NOT_FOUND",
+      });
+    }
+    return this.serieRepo.save(serie);
+  }
+
   // method to search films by title
   async searchFilms(title: string): Promise<FilmEntity[]> {
     return this.filmRepo.find({
