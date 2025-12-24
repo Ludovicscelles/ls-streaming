@@ -1,6 +1,6 @@
 // import necessary modules and entities
 // from TypeORM and entity definitions
-import { Repository, Like } from "typeorm";
+import { Repository, Like, Code } from "typeorm";
 import { DocumentaryEntity } from "./entities/DocumentaryEntity";
 import { FilmEntity } from "./entities/FilmEntity";
 import { SerieEntity } from "./entities/SerieEntity";
@@ -189,16 +189,34 @@ export class MovieLibraryRepository {
   // method to update a film
   // takes the film ID and a partial FilmEntity object with updated data
   async updateFilm(id: string, data: Partial<FilmEntity>) {
-    // exclude the id from the data to prevent overwriting the primary key
-    const { id: _ignored, ...safeData } = data as any;
+    // create a safeData object to hold only the fields that are allowed to be updated
+    // this prevents accidental overwriting of the id field
+    // by excluding id from the data object and other unwanted fields
+    // we ensure that only title, genre, image, duration, releaseDate, and director can be updated
+    // this is a common practice to maintain data integrity
+    const safeData: Partial<FilmEntity> = {};
+
+    // Only copy allowed fields to safeData
+    if (data.title !== undefined) safeData.title = data.title;
+    if (data.genre !== undefined) safeData.genre = data.genre;
+    if (data.image !== undefined) safeData.image = data.image;
+    if (data.duration !== undefined) safeData.duration = data.duration;
+    if (data.releaseDate !== undefined) safeData.releaseDate = data.releaseDate;
+    if (data.director !== undefined) safeData.director = data.director;
+
+    // if no valid fields are provided for update, throw an error
+    // this prevents unnecessary database operations
+    if (Object.keys(safeData).length === 0) {
+      throw Object.assign(new Error("No valid update fields provided"), {
+        code: "NO_VALID_FIELDS",
+      });
+    }
 
     // preload the existing film entity with the new data
     const film = await this.filmRepo.preload({ id, ...safeData });
 
     // if the film does not exist, throw an error
     if (!film) {
-      // create a new Error object and assign a custom code to it
-      // this helps in identifying the error type when caught
       throw Object.assign(new Error("Film not found"), {
         code: "FILM_NOT_FOUND",
       });
@@ -209,8 +227,20 @@ export class MovieLibraryRepository {
 
   // Method to update a documentary
   async updateDocumentary(id: string, data: Partial<DocumentaryEntity>) {
-    const { id: _ignored, ...safeData } = data as any;
+    const safeData: Partial<DocumentaryEntity> = {};
 
+    if (data.title !== undefined) safeData.title = data.title;
+    if (data.genre !== undefined) safeData.genre = data.genre;
+    if (data.image !== undefined) safeData.image = data.image;
+    if (data.duration !== undefined) safeData.duration = data.duration;
+    if (data.releaseDate !== undefined) safeData.releaseDate = data.releaseDate;
+    if (data.subject !== undefined) safeData.subject = data.subject;
+
+    if (Object.keys(safeData).length === 0) {
+      throw Object.assign(new Error("No valid update fields provided"), {
+        code: "NO_VALID_FIELDS",
+      });
+    }
     const documentary = await this.documentaryRepo.preload({ id, ...safeData });
 
     if (!documentary) {
@@ -224,15 +254,37 @@ export class MovieLibraryRepository {
 
   // Method to update a serie
   async updateSerie(id: string, data: Partial<SerieEntity>) {
-    const { id: _ignored, ...safeData } = data as any;
+    // create a safeData object to hold only the fields that are allowed to be updated
+    // this prevents accidental overwriting of the id field
+    // by excluding id from the data object and other unwanted fields
+    // we ensure that only title, genre, and image can be updated
+    // this is a common practice to maintain data integrity
+    // for this reason, we manually construct the safeData object here
+    const safeData: Partial<SerieEntity> = {};
 
+    // Only copy allowed fields to safeData
+    if (data.title !== undefined) safeData.title = data.title;
+    if (data.genre !== undefined) safeData.genre = data.genre;
+    if (data.image !== undefined) safeData.image = data.image;
+
+    // if no valid fields are provided for update, throw an error
+    // this prevents unnecessary database operations
+    if (Object.keys(safeData).length === 0) {
+      throw Object.assign(new Error("No valid update fields provided"), {
+        code: "NO_VALID_FIELDS",
+      });
+    }
+
+    // preload the existing serie entity with the new data
     const serie = await this.serieRepo.preload({ id, ...safeData });
 
+    // if the serie does not exist, throw an error
     if (!serie) {
       throw Object.assign(new Error("Serie not found"), {
         code: "SERIE_NOT_FOUND",
       });
     }
+    // save the updated serie entity back to the database
     return this.serieRepo.save(serie);
   }
 

@@ -196,10 +196,12 @@ export function createVideoRouter(
   router.patch("/films/:id", async (req, res) => {
     const { id } = req.params;
 
-    if (!id || typeof id !== "string") {
-      return res
-        .status(400)
-        .json({ error: "Missing or invalid 'id' route param" });
+    if (!id) {
+      return res.status(400).json({ error: "Missing 'id' route param" });
+    }
+
+    if (!req.body || Object.keys(req.body).length === 0) {
+      return res.status(400).json({ error: "No update data provided" });
     }
 
     try {
@@ -212,7 +214,12 @@ export function createVideoRouter(
       if (error?.code === "FILM_NOT_FOUND") {
         return res.status(404).json({ error: "Film not found" });
       }
-      return res.status(400).json({ error: "Invalid film data" });
+      if (error?.code === "NO_VALID_FIELDS") {
+        return res
+          .status(400)
+          .json({ error: "No valid update fields provided" });
+      }
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
@@ -220,10 +227,12 @@ export function createVideoRouter(
   router.patch("/documentaries/:id", async (req, res) => {
     const { id } = req.params;
 
-    if (!id || typeof id !== "string") {
-      return res
-        .status(400)
-        .json({ error: "Missing or invalid 'id' route param" });
+    if (!id) {
+      return res.status(400).json({ error: "Missing 'id' route param" });
+    }
+
+    if (!req.body || Object.keys(req.body).length === 0) {
+      return res.status(400).json({ error: "No update data provided" });
     }
 
     try {
@@ -237,7 +246,12 @@ export function createVideoRouter(
       if (error?.code === "DOCUMENTARY_NOT_FOUND") {
         return res.status(404).json({ error: "Documentary not found" });
       }
-      return res.status(400).json({ error: "Invalid documentary data" });
+      if (error?.code === "NO_VALID_FIELDS") {
+        return res
+          .status(400)
+          .json({ error: "No valid update fields provided" });
+      }
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
@@ -245,18 +259,39 @@ export function createVideoRouter(
   router.patch("/series/:id", async (req, res) => {
     const { id } = req.params;
 
-    if (!id || typeof id !== "string") {
-      return res.status(400).json({ error: "Missing or invalid 'id' param" });
+    // Validate the 'id' param
+    if (!id) {
+      return res.status(400).json({ error: "Missing 'id' param" });
     }
 
+    // Validate that there is at least one field to update
+    // to prevent empty updates
+    // for this, we use Object.keys to check if req.body has any keys
+    if (!req.body || Object.keys(req.body).length === 0) {
+      return res.status(400).json({ error: "No update data provided" });
+    }
+
+    // Attempt to update the serie
+    // and handle potential errors
     try {
+      // Call the updateSerie method from the repository
       const updatedSerie = await movieLibrary.updateSerie(id, req.body);
+      // Return the updated serie
       return res.json(updatedSerie);
+      // Catch errors during the update process
     } catch (error: any) {
+      // Check if the error indicates that the serie was not found
       if (error?.code === "SERIE_NOT_FOUND") {
         return res.status(404).json({ error: "Serie not found" });
       }
-      return res.status(400).json({ error: "Invalid serie data" });
+      // Check if the error indicates no valid fields were provided for update
+      if (error?.code === "NO_VALID_FIELDS") {
+        return res
+          .status(400)
+          .json({ error: "No valid update fields provided" });
+      }
+      // For other errors, return a generic invalid data error
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
