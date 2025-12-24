@@ -224,15 +224,29 @@ export class MovieLibraryRepository {
 
   // Method to update a serie
   async updateSerie(id: string, data: Partial<SerieEntity>) {
-    const { id: _ignored, ...safeData } = data as any;
+    // create a safeData object to hold only the fields that are allowed to be updated
+    // this prevents accidental overwriting of the id field
+    // by excluding id from the data object and other unwanted fields
+    // we ensure that only title, genre, and image can be updated
+    // this is a common practice to maintain data integrity
+    // for this reason, we manually construct the safeData object here
+    const safeData: Partial<SerieEntity> = {};
 
+    // Only copy allowed fields to safeData
+    if (data.title !== undefined) safeData.title = data.title;
+    if (data.genre !== undefined) safeData.genre = data.genre;
+    if (data.image !== undefined) safeData.image = data.image;
+
+    // preload the existing serie entity with the new data
     const serie = await this.serieRepo.preload({ id, ...safeData });
 
+    // if the serie does not exist, throw an error
     if (!serie) {
       throw Object.assign(new Error("Serie not found"), {
         code: "SERIE_NOT_FOUND",
       });
     }
+    // save the updated serie entity back to the database
     return this.serieRepo.save(serie);
   }
 
