@@ -189,7 +189,6 @@ export class MovieLibraryRepository {
   // method to update a film
   // takes the film ID and a partial FilmEntity object with updated data
   async updateFilm(id: string, data: Partial<FilmEntity>) {
-
     // create a safeData object to hold only the fields that are allowed to be updated
     // this prevents accidental overwriting of the id field
     // by excluding id from the data object and other unwanted fields
@@ -228,8 +227,20 @@ export class MovieLibraryRepository {
 
   // Method to update a documentary
   async updateDocumentary(id: string, data: Partial<DocumentaryEntity>) {
-    const { id: _ignored, ...safeData } = data as any;
+    const safeData: Partial<DocumentaryEntity> = {};
 
+    if (data.title !== undefined) safeData.title = data.title;
+    if (data.genre !== undefined) safeData.genre = data.genre;
+    if (data.image !== undefined) safeData.image = data.image;
+    if (data.duration !== undefined) safeData.duration = data.duration;
+    if (data.releaseDate !== undefined) safeData.releaseDate = data.releaseDate;
+    if (data.subject !== undefined) safeData.subject = data.subject;
+
+    if (Object.keys(safeData).length === 0) {
+      throw Object.assign(new Error("No valid update fields provided"), {
+        code: "NO_VALID_FIELDS",
+      });
+    }
     const documentary = await this.documentaryRepo.preload({ id, ...safeData });
 
     if (!documentary) {

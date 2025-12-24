@@ -227,10 +227,12 @@ export function createVideoRouter(
   router.patch("/documentaries/:id", async (req, res) => {
     const { id } = req.params;
 
-    if (!id || typeof id !== "string") {
-      return res
-        .status(400)
-        .json({ error: "Missing or invalid 'id' route param" });
+    if (!id) {
+      return res.status(400).json({ error: "Missing 'id' route param" });
+    }
+
+    if (!req.body || Object.keys(req.body).length === 0) {
+      return res.status(400).json({ error: "No update data provided" });
     }
 
     try {
@@ -244,7 +246,12 @@ export function createVideoRouter(
       if (error?.code === "DOCUMENTARY_NOT_FOUND") {
         return res.status(404).json({ error: "Documentary not found" });
       }
-      return res.status(400).json({ error: "Invalid documentary data" });
+      if (error?.code === "NO_VALID_FIELDS") {
+        return res
+          .status(400)
+          .json({ error: "No valid update fields provided" });
+      }
+      return res.status(500).json({ error: "Server error" });
     }
   });
 
