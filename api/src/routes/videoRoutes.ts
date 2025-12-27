@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { MovieLibraryRepository } from "../MovieLibraryRepository";
-import { error } from "console";
+import { getAllVideosController } from "../controllers/controller";
 
 export function createVideoRouter(
   movieLibrary: MovieLibraryRepository
@@ -8,10 +8,7 @@ export function createVideoRouter(
   const router = Router();
 
   // Route to get all videos
-  router.get("/", async (req, res) => {
-    const videos = await movieLibrary.getAllVideos();
-    return res.json(videos);
-  });
+  router.get("/", getAllVideosController(movieLibrary));
 
   // Route to get all films
   router.get("/films", async (req, res) => {
