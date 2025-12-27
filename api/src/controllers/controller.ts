@@ -1,5 +1,6 @@
 import { Request, Response, RequestHandler } from "express";
 import { MovieLibraryRepository } from "../MovieLibraryRepository";
+import { ResolveFnOutput } from "module";
 
 // controller to get all videos
 export function getAllVideosController(
@@ -41,3 +42,19 @@ export function getAllFilmsController(
     }
   };
 }
+
+// controller to get all documentaries
+export function getAllDocumentariesController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const documentaries = await movieLibrary.getAllDocumentaries();
+      return res.json(documentaries);
+    } catch (error) {
+      console.error("Error fetching documentaries:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}
+
