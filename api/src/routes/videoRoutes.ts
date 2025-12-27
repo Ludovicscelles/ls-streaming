@@ -1,6 +1,12 @@
 import { Router } from "express";
 import { MovieLibraryRepository } from "../MovieLibraryRepository";
-import { error } from "console";
+import {
+  getAllVideosController,
+  getAllFilmsController,
+  getAllDocumentariesController,
+  getAllSeriesController,
+  getAllTvShowsController,
+} from "../controllers/controller";
 
 export function createVideoRouter(
   movieLibrary: MovieLibraryRepository
@@ -8,34 +14,19 @@ export function createVideoRouter(
   const router = Router();
 
   // Route to get all videos
-  router.get("/", async (req, res) => {
-    const videos = await movieLibrary.getAllVideos();
-    return res.json(videos);
-  });
+  router.get("/", getAllVideosController(movieLibrary));
 
   // Route to get all films
-  router.get("/films", async (req, res) => {
-    const films = await movieLibrary.getAllFilms();
-    return res.json(films);
-  });
+  router.get("/films", getAllFilmsController(movieLibrary));
 
   // Route to get all documentaries
-  router.get("/documentaries", async (req, res) => {
-    const documentaries = await movieLibrary.getAllDocumentaries();
-    return res.json(documentaries);
-  });
+  router.get("/documentaries", getAllDocumentariesController(movieLibrary));
 
   // Route to get all series
-  router.get("/series", async (req, res) => {
-    const series = await movieLibrary.getAllSeries();
-    return res.json(series);
-  });
+  router.get("/series", getAllSeriesController(movieLibrary));
 
   // Route to get all TV shows
-  router.get("/tvshows", async (req, res) => {
-    const tvshows = await movieLibrary.getAllTvShows();
-    return res.json(tvshows);
-  });
+  router.get("/tvshows", getAllTvShowsController(movieLibrary));
 
   // Route to filter films by genre
   router.get("/films/genre", async (req, res) => {
