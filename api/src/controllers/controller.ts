@@ -1,6 +1,7 @@
 import { Request, Response, RequestHandler } from "express";
 import { MovieLibraryRepository } from "../MovieLibraryRepository";
 import { ResolveFnOutput } from "module";
+import { error } from "console";
 
 // controller to get all videos
 export function getAllVideosController(
@@ -88,7 +89,6 @@ export function getAllTvShowsController(
   };
 }
 
-
 // controller to get film by ID
 export function getFilmByIdController(
   movieLibrary: MovieLibraryRepository
@@ -117,22 +117,29 @@ export function getFilmByIdController(
   };
 }
 
+// controller to get documentary by ID
+export function getDocumentaryByIdController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
 
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'id' route param" });
+    }
 
+    try {
+      const documentary = await movieLibrary.getDocumentaryById(id);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      if (!documentary) {
+        return res.status(404).json({ error: "Documentary not found" });
+      }
+      return res.json(documentary);
+    } catch (error) {
+      console.error("Error fetching documentary by ID:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}
