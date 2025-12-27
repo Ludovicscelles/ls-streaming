@@ -72,3 +72,19 @@ export function getAllSeriesController(
     }
   };
 }
+
+// constroller to get all tv shows
+
+export function getAllTvShowsController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const tvShows = await movieLibrary.getAllTvShows();
+      return res.json(tvShows);
+    } catch (error) {
+      console.error("Error fetching tv shows:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}

@@ -5,6 +5,7 @@ import {
   getAllFilmsController,
   getAllDocumentariesController,
   getAllSeriesController,
+  getAllTvShowsController,
 } from "../controllers/controller";
 
 export function createVideoRouter(
@@ -25,10 +26,7 @@ export function createVideoRouter(
   router.get("/series", getAllSeriesController(movieLibrary));
 
   // Route to get all TV shows
-  router.get("/tvshows", async (req, res) => {
-    const tvshows = await movieLibrary.getAllTvShows();
-    return res.json(tvshows);
-  });
+  router.get("/tvshows", getAllTvShowsController(movieLibrary));
 
   // Route to filter films by genre
   router.get("/films/genre", async (req, res) => {
