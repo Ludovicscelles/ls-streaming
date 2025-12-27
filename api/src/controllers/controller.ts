@@ -27,3 +27,17 @@ export function getAllVideosController(
   };
 }
 
+// controller to get all films
+export function getAllFilmsController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const films = await movieLibrary.getAllFilms();
+      return res.json(films);
+    } catch (error) {
+      console.error("Error fetching films:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}
