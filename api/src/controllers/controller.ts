@@ -1,6 +1,7 @@
 import { Request, Response, RequestHandler } from "express";
 import { MovieLibraryRepository } from "../MovieLibraryRepository";
 import { ResolveFnOutput } from "module";
+import { error } from "console";
 
 // controller to get all videos
 export function getAllVideosController(
@@ -73,8 +74,7 @@ export function getAllSeriesController(
   };
 }
 
-// constroller to get all tv shows
-
+// controller to get all tv shows
 export function getAllTvShowsController(
   movieLibrary: MovieLibraryRepository
 ): RequestHandler {
@@ -84,6 +84,115 @@ export function getAllTvShowsController(
       return res.json(tvShows);
     } catch (error) {
       console.error("Error fetching tv shows:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}
+
+// controller to get film by ID
+export function getFilmByIdController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'id' route param" });
+    }
+
+    try {
+      const film = await movieLibrary.getFilmById(id);
+
+      if (!film) {
+        return res.status(404).json({ error: "Film not found" });
+      }
+
+      return res.json(film);
+    } catch (error) {
+      console.error("Error fetching film by ID:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}
+
+// controller to get documentary by ID
+export function getDocumentaryByIdController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'id' route param" });
+    }
+
+    try {
+      const documentary = await movieLibrary.getDocumentaryById(id);
+
+      if (!documentary) {
+        return res.status(404).json({ error: "Documentary not found" });
+      }
+      return res.json(documentary);
+    } catch (error) {
+      console.error("Error fetching documentary by ID:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}
+
+// controller to get serie by ID
+export function getSerieByIdController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'id' route param" });
+    }
+
+    try {
+      const serie = await movieLibrary.getSerieById(id);
+
+      if (!serie) {
+        return res.status(404).json({ error: "Serie not found" });
+      }
+      return res.json(serie);
+    } catch (error) {
+      console.error("Error fetching serie by ID:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}
+
+// controller to get tv show by ID
+export function getTvShowById(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'id' route param" });
+    }
+
+    try {
+      const tvShow = await movieLibrary.getTvShowById(id);
+
+      if (!tvShow) {
+        return res.status(404).json({ error: "Tv show not found" });
+      }
+      return res.json(tvShow);
+    } catch (error) {
+      console.error("Error fetching tv show by ID", error);
       return res.status(500).json({ error: "Internal Server Error" });
     }
   };
