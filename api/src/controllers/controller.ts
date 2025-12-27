@@ -143,3 +143,30 @@ export function getDocumentaryByIdController(
     }
   };
 }
+
+// controller to get serie by ID
+export function getSerieByIdController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'id' route param" });
+    }
+
+    try {
+      const serie = await movieLibrary.getSerieById(id);
+
+      if (!serie) {
+        return res.status(404).json({ error: "Serie not found" });
+      }
+      return res.json(serie);
+    } catch (error) {
+      console.error("Error fetching serie by ID:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}
