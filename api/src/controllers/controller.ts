@@ -73,8 +73,7 @@ export function getAllSeriesController(
   };
 }
 
-// constroller to get all tv shows
-
+// controller to get all tv shows
 export function getAllTvShowsController(
   movieLibrary: MovieLibraryRepository
 ): RequestHandler {
@@ -88,3 +87,52 @@ export function getAllTvShowsController(
     }
   };
 }
+
+
+// controller to get film by ID
+export function getFilmByIdController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'id' route param" });
+    }
+
+    try {
+      const film = await movieLibrary.getFilmById(id);
+
+      if (!film) {
+        return res.status(404).json({ error: "Film not found" });
+      }
+
+      return res.json(film);
+    } catch (error) {
+      console.error("Error fetching film by ID:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
