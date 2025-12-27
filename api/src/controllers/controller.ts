@@ -58,3 +58,17 @@ export function getAllDocumentariesController(
   };
 }
 
+// controller to get all series
+export function getAllSeriesController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const series = await movieLibrary.getAllSeries();
+      return res.json(series);
+    } catch (error) {
+      console.error("Error fetching series:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}
