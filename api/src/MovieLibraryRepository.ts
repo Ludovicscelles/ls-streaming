@@ -288,6 +288,32 @@ export class MovieLibraryRepository {
     return this.serieRepo.save(serie);
   }
 
+  // methode to update a tv show
+
+  async updateTvShow(id: string, data: Partial<TvShowEntity>) {
+    const safeData: Partial<TvShowEntity> = {};
+
+    if (data.title !== undefined) safeData.title = data.title;
+    if (data.genre !== undefined) safeData.genre = data.genre;
+    if (data.image !== undefined) safeData.image = data.image;
+
+    if (Object.keys(safeData).length === 0) {
+      throw Object.assign(new Error("No valid update fields provided"), {
+        code: "NO_VALID_FIELDS",
+      });
+    }
+
+    const tvShow = await this.tvShowRepo.preload({ id, ...safeData });
+
+    if (!tvShow) {
+      throw Object.assign(new Error("Tv show not found"), {
+        code: "TV_SHOW_NOT_FOUND",
+      });
+    }
+
+    return this.tvShowRepo.save(tvShow);
+  }
+
   // method to search films by title
   async searchFilms(title: string): Promise<FilmEntity[]> {
     return this.filmRepo.find({

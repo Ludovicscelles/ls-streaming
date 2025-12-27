@@ -295,6 +295,35 @@ export function createVideoRouter(
     }
   });
 
+  // Route to update a tv show
+
+  router.patch("/tvshows/:id", async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ error: "Missing 'id' param" });
+    }
+
+    if (!req.body || Object.keys(req.body).length === 0) {
+      return res.status(400).json({ error: "No update data provided" });
+    }
+
+    try {
+      const updatedTvShow = await movieLibrary.updateTvShow(id, req.body);
+      return res.json(updatedTvShow);
+    } catch (error: any) {
+      if (error?.code === "TV_SHOW_NOT_FOUND") {
+        return res.status(404).json({ error: "Tv show not found" });
+      }
+      if (error?.code === "NO_VALID_FIELDS") {
+        return res
+          .status(400)
+          .json({ error: "No valid update fields provided" });
+      }
+      return res.status(500).json({ error: "Server error" });
+    }
+  });
+
   // Route to search film by title
   router.get("/films/search", async (req, res) => {
     const { title } = req.query;
