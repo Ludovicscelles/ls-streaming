@@ -170,3 +170,30 @@ export function getSerieByIdController(
     }
   };
 }
+
+// controller to get tv show by ID
+export function getTvShowById(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { id } = req.params;
+
+    if (!id || typeof id !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'id' route param" });
+    }
+
+    try {
+      const tvShow = await movieLibrary.getTvShowById(id);
+
+      if (!tvShow) {
+        return res.status(404).json({ error: "Tv show not found" });
+      }
+      return res.json(tvShow);
+    } catch (error) {
+      console.error("Error fetching tv show by ID", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}
