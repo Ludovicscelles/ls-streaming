@@ -9,8 +9,9 @@ import {
   getFilmByIdController,
   getDocumentaryByIdController,
   getSerieByIdController,
+  getTvShowByIdController,
 } from "../controllers/controller";
-import { get } from "http";
+
 
 export function createVideoRouter(
   movieLibrary: MovieLibraryRepository
@@ -54,7 +55,6 @@ export function createVideoRouter(
   });
 
   // Route to filter documentaries by genre
-
   router.get("/documentaries/genre", async (req, res) => {
     const { genre } = req.query;
 
@@ -424,22 +424,7 @@ export function createVideoRouter(
 
   // Route to get tv-show by ID
 
-  router.get("/tvshows/:id", async (req, res) => {
-    const { id } = req.params;
-
-    if (!id || typeof id !== "string") {
-      return res
-        .status(400)
-        .json({ error: `Missing or invalid 'id' route param` });
-    }
-
-    const tvshow = await movieLibrary.getTvShowById(id);
-
-    if (!tvshow) {
-      return res.status(404).json({ error: "Tv-show not found" });
-    }
-    return res.json(tvshow);
-  });
+  router.get("/tvshows/:id", getTvShowByIdController(movieLibrary));
 
   // Return the configured router
   return router;

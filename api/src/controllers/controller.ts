@@ -172,7 +172,7 @@ export function getSerieByIdController(
 }
 
 // controller to get tv show by ID
-export function getTvShowById(
+export function getTvShowByIdController(
   movieLibrary: MovieLibraryRepository
 ): RequestHandler {
   return async (req: Request, res: Response): Promise<Response> => {
