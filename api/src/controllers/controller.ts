@@ -1,7 +1,5 @@
 import { Request, Response, RequestHandler } from "express";
 import { MovieLibraryRepository } from "../MovieLibraryRepository";
-import { ResolveFnOutput } from "module";
-import { error } from "console";
 
 // controller to get all videos
 export function getAllVideosController(
@@ -193,6 +191,30 @@ export function getTvShowByIdController(
       return res.json(tvShow);
     } catch (error) {
       console.error("Error fetching tv show by ID", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}
+
+// controller to filter films by genre
+export function getFilmsByGenreController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { genre } = req.query;
+
+    if (!genre || typeof genre !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'genre' query param` });
+    }
+
+    try {
+      const filmsByGenre = await movieLibrary.getFilmsByGenre(genre);
+
+      return res.json(filmsByGenre);
+    } catch (error) {
+      console.error(`Error fetching films by ${genre} genre:`, error);
       return res.status(500).json({ error: "Internal Server Error" });
     }
   };
