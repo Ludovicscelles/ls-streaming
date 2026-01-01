@@ -220,7 +220,7 @@ export function getFilmsByGenreController(
   };
 }
 
-// Controller to filter documentary by genre
+// Controller to filter documentaries by genre
 export function getDocumentariesByGenreController(
   movieLibrary: MovieLibraryRepository
 ): RequestHandler {
@@ -239,6 +239,29 @@ export function getDocumentariesByGenreController(
       return res.json(documentariesByGenre);
     } catch (error) {
       console.error(`Error fetching documentaries by ${genre} genre:`, error);
+      return res.status(500).json({ error: `Internal Server Error` });
+    }
+  };
+}
+
+// Controller to filter series by genre
+export function getSeriesByGenreController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { genre } = req.query;
+
+    if (!genre || typeof genre !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'genre' query param` });
+    }
+
+    try {
+      const seriesByGenre = await movieLibrary.getSeriesByGenre(genre);
+      return res.json(seriesByGenre);
+    } catch (error) {
+      console.error(`Error fetching series by ${genre} genre:`, error);
       return res.status(500).json({ error: `Internal Server Error` });
     }
   };
