@@ -346,9 +346,13 @@ export function searchSeriesController(
         .status(400)
         .json({ error: `Missing or invalid 'title' query param` });
     }
-
-    const series = await movieLibrary.searchSeries(title);
-    return res.json(series);
+    try {
+      const series = await movieLibrary.searchSeries(title);
+      return res.json(series);
+    } catch (error) {
+      console.error(`Error searching serie by title ${title}:`, error);
+      return res.status(500).json({ error: `Internal Server Error` });
+    }
   };
 }
 
