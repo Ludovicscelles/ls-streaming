@@ -266,3 +266,26 @@ export function getSeriesByGenreController(
     }
   };
 }
+
+// Controller to filter tv shows by genre
+export function getTvShowsByGenreController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { genre } = req.query;
+
+    if (!genre || typeof genre !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'genre' query parmam` });
+    }
+
+    try {
+      const tvShowsByGenre = await movieLibrary.getTvShowsByGenre(genre);
+      return res.json(tvShowsByGenre);
+    } catch (error) {
+      console.error(`Error fetching tv shows by ${genre} genre:`, error);
+      return res.status(500).json({ error: `Internal Server Error` });
+    }
+  };
+}
