@@ -289,3 +289,75 @@ export function getTvShowsByGenreController(
     }
   };
 }
+
+// Controller to search films by title
+export function searchFilmsController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { title } = req.query;
+
+    if (!title || typeof title !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'title' query param" });
+    }
+
+    const films = await movieLibrary.searchFilms(title);
+    return res.json(films);
+  };
+}
+
+// Controller to search documentaries by title
+export function searchDocumentariesController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { title } = req.query;
+
+    if (!title || typeof title !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'title' query param` });
+    }
+
+    const documentaries = await movieLibrary.searchDocumentaries(title);
+    return res.json(documentaries);
+  };
+}
+
+// Controller to search series by title
+export function searchSeriesController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { title } = req.query;
+
+    if (!title || typeof title !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'title' query param` });
+    }
+
+    const series = await movieLibrary.searchSeries(title);
+    return res.json(series);
+  };
+}
+
+// Controller to search tv shows by titles
+export function searchTvShowsController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { title } = req.query;
+
+    if (!title || typeof title !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'title' query param` });
+    }
+
+    const tvShows = await movieLibrary.searchTvShows(title);
+    return res.json(tvShows);
+  };
+}
