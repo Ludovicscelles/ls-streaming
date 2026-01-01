@@ -11,6 +11,7 @@ import {
   getSerieByIdController,
   getTvShowByIdController,
   getFilmsByGenreController,
+  getDocumentariesByGenreController,
 } from "../controllers/controller";
 
 export function createVideoRouter(
@@ -37,26 +38,10 @@ export function createVideoRouter(
   router.get("/films/genre", getFilmsByGenreController(movieLibrary));
 
   // Route to filter documentaries by genre
-  router.get("/documentaries/genre", async (req, res) => {
-    const { genre } = req.query;
-
-    if (!genre || typeof genre !== "string") {
-      return res
-        .status(400)
-        .json({ error: `Missing or invalid 'genre' query param` });
-    }
-
-    const documentariesByGenre =
-      await movieLibrary.getDocumentariesByGenre(genre);
-
-    if (documentariesByGenre.length === 0) {
-      return res
-        .status(404)
-        .json({ error: `Documentaries not found for genre ${genre}` });
-    }
-
-    return res.json(documentariesByGenre);
-  });
+  router.get(
+    "/documentaries/genre",
+    getDocumentariesByGenreController(movieLibrary)
+  );
 
   // Route to filter series by genre
 
