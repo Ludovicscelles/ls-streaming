@@ -324,9 +324,13 @@ export function searchDocumentariesController(
         .status(400)
         .json({ error: `Missing or invalid 'title' query param` });
     }
-
-    const documentaries = await movieLibrary.searchDocumentaries(title);
-    return res.json(documentaries);
+    try {
+      const documentaries = await movieLibrary.searchDocumentaries(title);
+      return res.json(documentaries);
+    } catch (error) {
+      console.error(`Error searching documentary by title ${title}:`, error);
+      return res.status(500).json({ error: `Internal Server Error` });
+    }
   };
 }
 
