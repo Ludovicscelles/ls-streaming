@@ -369,7 +369,12 @@ export function searchTvShowsController(
         .json({ error: `Missing or invalid 'title' query param` });
     }
 
-    const tvShows = await movieLibrary.searchTvShows(title);
-    return res.json(tvShows);
+    try {
+      const tvShows = await movieLibrary.searchTvShows(title);
+      return res.json(tvShows);
+    } catch (error) {
+      console.error(`Error searching tv show by title ${title}:`, error);
+      return res.status(500).json({ error: `Internal Server Error` });
+    }
   };
 }
