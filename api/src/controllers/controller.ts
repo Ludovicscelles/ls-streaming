@@ -289,3 +289,92 @@ export function getTvShowsByGenreController(
     }
   };
 }
+
+// Controller to search films by title
+export function searchFilmsController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { title } = req.query;
+
+    if (!title || typeof title !== "string") {
+      return res
+        .status(400)
+        .json({ error: "Missing or invalid 'title' query param" });
+    }
+    try {
+      const films = await movieLibrary.searchFilms(title);
+      return res.json(films);
+    } catch (error) {
+      console.error(`Error searching film by title ${title}:`, error);
+      return res.status(500).json({ error: `Internal Server Error` });
+    }
+  };
+}
+
+// Controller to search documentaries by title
+export function searchDocumentariesController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { title } = req.query;
+
+    if (!title || typeof title !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'title' query param` });
+    }
+    try {
+      const documentaries = await movieLibrary.searchDocumentaries(title);
+      return res.json(documentaries);
+    } catch (error) {
+      console.error(`Error searching documentary by title ${title}:`, error);
+      return res.status(500).json({ error: `Internal Server Error` });
+    }
+  };
+}
+
+// Controller to search series by title
+export function searchSeriesController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { title } = req.query;
+
+    if (!title || typeof title !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'title' query param` });
+    }
+    try {
+      const series = await movieLibrary.searchSeries(title);
+      return res.json(series);
+    } catch (error) {
+      console.error(`Error searching serie by title ${title}:`, error);
+      return res.status(500).json({ error: `Internal Server Error` });
+    }
+  };
+}
+
+// Controller to search tv shows by titles
+export function searchTvShowsController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { title } = req.query;
+
+    if (!title || typeof title !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'title' query param` });
+    }
+
+    try {
+      const tvShows = await movieLibrary.searchTvShows(title);
+      return res.json(tvShows);
+    } catch (error) {
+      console.error(`Error searching tv show by title ${title}:`, error);
+      return res.status(500).json({ error: `Internal Server Error` });
+    }
+  };
+}
