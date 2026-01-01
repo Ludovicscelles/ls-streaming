@@ -1,6 +1,5 @@
 import { Request, Response, RequestHandler } from "express";
 import { MovieLibraryRepository } from "../MovieLibraryRepository";
-import { ResolveFnOutput } from "module";
 import { error } from "console";
 
 // controller to get all videos
@@ -194,6 +193,99 @@ export function getTvShowByIdController(
     } catch (error) {
       console.error("Error fetching tv show by ID", error);
       return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}
+
+// controller to filter films by genre
+export function getFilmsByGenreController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { genre } = req.query;
+
+    if (!genre || typeof genre !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'genre' query param` });
+    }
+
+    try {
+      const filmsByGenre = await movieLibrary.getFilmsByGenre(genre);
+      return res.json(filmsByGenre);
+    } catch (error) {
+      console.error(`Error fetching films by ${genre} genre:`, error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+}
+
+// Controller to filter documentaries by genre
+export function getDocumentariesByGenreController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { genre } = req.query;
+
+    if (!genre || typeof genre !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'genre' query param` });
+    }
+
+    try {
+      const documentariesByGenre =
+        await movieLibrary.getDocumentariesByGenre(genre);
+      return res.json(documentariesByGenre);
+    } catch (error) {
+      console.error(`Error fetching documentaries by ${genre} genre:`, error);
+      return res.status(500).json({ error: `Internal Server Error` });
+    }
+  };
+}
+
+// Controller to filter series by genre
+export function getSeriesByGenreController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { genre } = req.query;
+
+    if (!genre || typeof genre !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'genre' query param` });
+    }
+
+    try {
+      const seriesByGenre = await movieLibrary.getSeriesByGenre(genre);
+      return res.json(seriesByGenre);
+    } catch (error) {
+      console.error(`Error fetching series by ${genre} genre:`, error);
+      return res.status(500).json({ error: `Internal Server Error` });
+    }
+  };
+}
+
+// Controller to filter tv shows by genre
+export function getTvShowsByGenreController(
+  movieLibrary: MovieLibraryRepository
+): RequestHandler {
+  return async (req: Request, res: Response): Promise<Response> => {
+    const { genre } = req.query;
+
+    if (!genre || typeof genre !== "string") {
+      return res
+        .status(400)
+        .json({ error: `Missing or invalid 'genre' query parmam` });
+    }
+
+    try {
+      const tvShowsByGenre = await movieLibrary.getTvShowsByGenre(genre);
+      return res.json(tvShowsByGenre);
+    } catch (error) {
+      console.error(`Error fetching tv shows by ${genre} genre:`, error);
+      return res.status(500).json({ error: `Internal Server Error` });
     }
   };
 }

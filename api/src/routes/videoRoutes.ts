@@ -10,8 +10,11 @@ import {
   getDocumentaryByIdController,
   getSerieByIdController,
   getTvShowByIdController,
+  getFilmsByGenreController,
+  getDocumentariesByGenreController,
+  getSeriesByGenreController,
+  getTvShowsByGenreController,
 } from "../controllers/controller";
-
 
 export function createVideoRouter(
   movieLibrary: MovieLibraryRepository
@@ -34,91 +37,19 @@ export function createVideoRouter(
   router.get("/tvshows", getAllTvShowsController(movieLibrary));
 
   // Route to filter films by genre
-  router.get("/films/genre", async (req, res) => {
-    const { genre } = req.query;
-
-    if (!genre || typeof genre !== "string") {
-      return res
-        .status(400)
-        .json({ error: `Missing or invalid 'genre' query param` });
-    }
-
-    const filmsByGenre = await movieLibrary.getFilmsByGenre(genre);
-
-    if (filmsByGenre.length === 0) {
-      return res
-        .status(404)
-        .json({ error: `Films not found for genre ${genre}` });
-    }
-
-    return res.json(filmsByGenre);
-  });
+  router.get("/films/genre", getFilmsByGenreController(movieLibrary));
 
   // Route to filter documentaries by genre
-  router.get("/documentaries/genre", async (req, res) => {
-    const { genre } = req.query;
-
-    if (!genre || typeof genre !== "string") {
-      return res
-        .status(400)
-        .json({ error: `Missing or invalid 'genre' query param` });
-    }
-
-    const documentariesByGenre =
-      await movieLibrary.getDocumentariesByGenre(genre);
-
-    if (documentariesByGenre.length === 0) {
-      return res
-        .status(404)
-        .json({ error: `Documentaries not found for genre ${genre}` });
-    }
-
-    return res.json(documentariesByGenre);
-  });
+  router.get(
+    "/documentaries/genre",
+    getDocumentariesByGenreController(movieLibrary)
+  );
 
   // Route to filter series by genre
-
-  router.get("/series/genre", async (req, res) => {
-    const { genre } = req.query;
-
-    if (!genre || typeof genre !== "string") {
-      return res
-        .status(400)
-        .json({ error: `Missing or invalid 'genre' query param` });
-    }
-
-    const seriesByGenre = await movieLibrary.getSeriesByGenre(genre);
-
-    if (seriesByGenre.length === 0) {
-      return res
-        .status(404)
-        .json({ error: `Series not found for genre ${genre}` });
-    }
-
-    return res.json(seriesByGenre);
-  });
+  router.get("/series/genre", getSeriesByGenreController(movieLibrary));
 
   // Route to filter tv shows by genre
-
-  router.get("/tvshows/genre", async (req, res) => {
-    const { genre } = req.query;
-
-    if (!genre || typeof genre !== "string") {
-      return res
-        .status(400)
-        .json({ error: `Missing or invalid 'genre' query param` });
-    }
-
-    const tvShowsByGenre = await movieLibrary.getTvShowsByGenre(genre);
-
-    if (tvShowsByGenre.length === 0) {
-      return res
-        .status(404)
-        .json({ error: `Tv show not found for genre ${genre}` });
-    }
-
-    return res.json(tvShowsByGenre);
-  });
+  router.get("/tvshows/genre", getTvShowsByGenreController(movieLibrary));
 
   // Route to create a new film
   router.post("/films", async (req, res) => {
@@ -291,7 +222,6 @@ export function createVideoRouter(
   });
 
   // Route to update a tv show
-
   router.patch("/tvshows/:id", async (req, res) => {
     const { id } = req.params;
 
