@@ -3,6 +3,7 @@ import { MovieLibraryRepository } from "../MovieLibraryRepository";
 import { makeSearchByTitleController } from "./helpers/searchByTitle.helper";
 import { makeGetAllVideosController } from "./helpers/getAll.helper";
 import { makeGetByIdController } from "./helpers/getById.helper";
+import { makeGetByGenreController } from "./helpers/getByGenre.helper";
 
 // controller to get all videos
 export const getAllVideosController = (
@@ -92,97 +93,44 @@ export const getTvShowByIdController = (
 };
 
 // controller to filter films by genre
-export function getFilmsByGenreController(
+export const getFilmsByGenreController = (
   movieLibrary: MovieLibraryRepository
-): RequestHandler {
-  return async (req: Request, res: Response): Promise<Response> => {
-    const { genre } = req.query;
-
-    if (!genre || typeof genre !== "string") {
-      return res
-        .status(400)
-        .json({ error: `Missing or invalid 'genre' query param` });
-    }
-
-    try {
-      const filmsByGenre = await movieLibrary.getFilmsByGenre(genre);
-      return res.json(filmsByGenre);
-    } catch (error) {
-      console.error(`Error fetching films by ${genre} genre:`, error);
-      return res.status(500).json({ error: "Internal Server Error" });
-    }
-  };
-}
+): RequestHandler => {
+  return makeGetByGenreController(
+    (genre: string) => movieLibrary.getFilmsByGenre(genre),
+    "films"
+  );
+};
 
 // Controller to filter documentaries by genre
-export function getDocumentariesByGenreController(
+export const getDocumentariesByGenreController = (
   movieLibrary: MovieLibraryRepository
-): RequestHandler {
-  return async (req: Request, res: Response): Promise<Response> => {
-    const { genre } = req.query;
-
-    if (!genre || typeof genre !== "string") {
-      return res
-        .status(400)
-        .json({ error: `Missing or invalid 'genre' query param` });
-    }
-
-    try {
-      const documentariesByGenre =
-        await movieLibrary.getDocumentariesByGenre(genre);
-      return res.json(documentariesByGenre);
-    } catch (error) {
-      console.error(`Error fetching documentaries by ${genre} genre:`, error);
-      return res.status(500).json({ error: `Internal Server Error` });
-    }
-  };
-}
+): RequestHandler => {
+  return makeGetByGenreController(
+    (genre: string) => movieLibrary.getDocumentariesByGenre(genre),
+    "documentaries"
+  );
+};
 
 // Controller to filter series by genre
-export function getSeriesByGenreController(
+export const getSeriesByGenreController = (
   movieLibrary: MovieLibraryRepository
-): RequestHandler {
-  return async (req: Request, res: Response): Promise<Response> => {
-    const { genre } = req.query;
-
-    if (!genre || typeof genre !== "string") {
-      return res
-        .status(400)
-        .json({ error: `Missing or invalid 'genre' query param` });
-    }
-
-    try {
-      const seriesByGenre = await movieLibrary.getSeriesByGenre(genre);
-      return res.json(seriesByGenre);
-    } catch (error) {
-      console.error(`Error fetching series by ${genre} genre:`, error);
-      return res.status(500).json({ error: `Internal Server Error` });
-    }
-  };
-}
+): RequestHandler => {
+  return makeGetByGenreController(
+    (genre: string) => movieLibrary.getSeriesByGenre(genre),
+    "series"
+  );
+};
 
 // Controller to filter tv shows by genre
-export function getTvShowsByGenreController(
+export const getTvShowsByGenreController = (
   movieLibrary: MovieLibraryRepository
-): RequestHandler {
-  return async (req: Request, res: Response): Promise<Response> => {
-    const { genre } = req.query;
-
-    if (!genre || typeof genre !== "string") {
-      return res
-        .status(400)
-        .json({ error: `Missing or invalid 'genre' query parmam` });
-    }
-
-    try {
-      const tvShowsByGenre = await movieLibrary.getTvShowsByGenre(genre);
-      return res.json(tvShowsByGenre);
-    } catch (error) {
-      console.error(`Error fetching tv shows by ${genre} genre:`, error);
-      return res.status(500).json({ error: `Internal Server Error` });
-    }
-  };
-}
+): RequestHandler => {
+  return makeGetByGenreController(
+    (genre: string) => movieLibrary.getTvShowsByGenre(genre),
+    "tv shows"
+  );
+};
 
 // Controller to search films by title
 // Uses the factory function to create the controller

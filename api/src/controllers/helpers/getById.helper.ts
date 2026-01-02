@@ -1,8 +1,8 @@
 import { RequestHandler } from "express";
 
-// Factory: returns an Express request handler that gets all items.
-// <T> represents the item type returned by the provided getAll function.
-// "label" is used for logging purposes (e.g., "films", "series").
+// Factory: returns an Express request handler that gets an item by ID.
+// <T> represents the item type returned by the provided getById function.
+// "label" is used for logging purposes (e.g., "film", "serie").
 export function makeGetByIdController<T>(
   getById: (id: string) => Promise<T | null>,
   label: string
