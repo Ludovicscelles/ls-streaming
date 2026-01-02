@@ -1,6 +1,7 @@
 import { Request, Response, RequestHandler } from "express";
 import { MovieLibraryRepository } from "../MovieLibraryRepository";
-import { error } from "console";
+import { makeSearchByTitleController } from "./helpers/searchByTitle.helper";
+import { title } from "process";
 
 // controller to get all videos
 export function getAllVideosController(
@@ -291,90 +292,46 @@ export function getTvShowsByGenreController(
 }
 
 // Controller to search films by title
-export function searchFilmsController(
+// Uses the factory function to create the controller
+// that handles film search by title.
+// Two parameters are passed:
+// 1. The search function from the MovieLibraryRepository
+// 2. A label "films" for logging purposes
+export const searchFilmsController = (
   movieLibrary: MovieLibraryRepository
-): RequestHandler {
-  return async (req: Request, res: Response): Promise<Response> => {
-    const { title } = req.query;
-
-    if (!title || typeof title !== "string") {
-      return res
-        .status(400)
-        .json({ error: "Missing or invalid 'title' query param" });
-    }
-    try {
-      const films = await movieLibrary.searchFilms(title);
-      return res.json(films);
-    } catch (error) {
-      console.error(`Error searching film by title ${title}:`, error);
-      return res.status(500).json({ error: `Internal Server Error` });
-    }
-  };
-}
+): RequestHandler => {
+  return makeSearchByTitleController(
+    (title: string) => movieLibrary.searchFilms(title),
+    "films"
+  );
+};
 
 // Controller to search documentaries by title
-export function searchDocumentariesController(
+export const searchDocumentariesController = (
   movieLibrary: MovieLibraryRepository
-): RequestHandler {
-  return async (req: Request, res: Response): Promise<Response> => {
-    const { title } = req.query;
-
-    if (!title || typeof title !== "string") {
-      return res
-        .status(400)
-        .json({ error: `Missing or invalid 'title' query param` });
-    }
-    try {
-      const documentaries = await movieLibrary.searchDocumentaries(title);
-      return res.json(documentaries);
-    } catch (error) {
-      console.error(`Error searching documentary by title ${title}:`, error);
-      return res.status(500).json({ error: `Internal Server Error` });
-    }
-  };
-}
+): RequestHandler => {
+  return makeSearchByTitleController(
+    (title: string) => movieLibrary.searchDocumentaries(title),
+    "documentaries"
+  );
+};
 
 // Controller to search series by title
-export function searchSeriesController(
+export const searchSeriesController = (
   movieLibrary: MovieLibraryRepository
-): RequestHandler {
-  return async (req: Request, res: Response): Promise<Response> => {
-    const { title } = req.query;
-
-    if (!title || typeof title !== "string") {
-      return res
-        .status(400)
-        .json({ error: `Missing or invalid 'title' query param` });
-    }
-    try {
-      const series = await movieLibrary.searchSeries(title);
-      return res.json(series);
-    } catch (error) {
-      console.error(`Error searching serie by title ${title}:`, error);
-      return res.status(500).json({ error: `Internal Server Error` });
-    }
-  };
-}
+): RequestHandler => {
+  return makeSearchByTitleController(
+    (title: string) => movieLibrary.searchSeries(title),
+    "series"
+  );
+};
 
 // Controller to search tv shows by titles
-export function searchTvShowsController(
+export const searchTvShowsController = (
   movieLibrary: MovieLibraryRepository
-): RequestHandler {
-  return async (req: Request, res: Response): Promise<Response> => {
-    const { title } = req.query;
-
-    if (!title || typeof title !== "string") {
-      return res
-        .status(400)
-        .json({ error: `Missing or invalid 'title' query param` });
-    }
-
-    try {
-      const tvShows = await movieLibrary.searchTvShows(title);
-      return res.json(tvShows);
-    } catch (error) {
-      console.error(`Error searching tv show by title ${title}:`, error);
-      return res.status(500).json({ error: `Internal Server Error` });
-    }
-  };
+): RequestHandler => {
+  return makeSearchByTitleController(
+    (title: string) => movieLibrary.searchTvShows(title),
+    "tv shows"
+  )
 }
