@@ -4,6 +4,7 @@ import { makeSearchByTitleController } from "./helpers/searchByTitle.helper";
 import { makeGetAllVideosController } from "./helpers/getAll.helper";
 import { makeGetByIdController } from "./helpers/getById.helper";
 import { makeGetByGenreController } from "./helpers/getByGenre.helper";
+import { makeCreateController } from "./helpers/create.helper";
 
 // controller to get all videos
 export const getAllVideosController = (
@@ -129,6 +130,43 @@ export const getTvShowsByGenreController = (
   return makeGetByGenreController(
     (genre: string) => movieLibrary.getTvShowsByGenre(genre),
     "tv shows"
+  );
+};
+
+// Controller to create a new film
+export const createFilmController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeCreateController((data) => movieLibrary.createFilm(data), "film");
+};
+
+// Controller to create a new documentary
+export const createDocumentaryController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeCreateController(
+    (data) => movieLibrary.createDocumentary(data),
+    "documentary"
+  );
+};
+
+// Controller to create a new serie
+export const createSerieController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeCreateController(
+    (data) => movieLibrary.createSerie(data),
+    "serie"
+  );
+};
+
+// Controller to create a new tv show
+export const createTvShowController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeCreateController(
+    (data) => movieLibrary.createTvShow(data),
+    "tv show"
   );
 };
 
