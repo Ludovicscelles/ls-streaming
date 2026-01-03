@@ -86,10 +86,27 @@ export class MovieLibraryRepository {
   }
 
   // Method to get serie by ID
+  // includes related seasons and episodes, ordered by season and episode number
   async getSerieById(id: string): Promise<SerieEntity | null> {
+    // findOne method to retrieve a single serie by its ID
     return this.serieRepo.findOne({
       where: { id },
-      relations: ["seasonEntities", "seasonEntities.episodes"],
+      // relations to include related seasons and episodes
+      relations: {
+        seasonEntities: {
+          episodes: true,
+        },
+      },
+      order: {
+        // ordering seasons by seasonNumber in ascending order
+        // and episodes within each season by episodeNumber in ascending order
+        seasonEntities: {
+          seasonNumber: "ASC",
+          episodes: {
+            episodeNumber: "ASC",
+          },
+        },
+      },
     });
   }
 
@@ -97,10 +114,19 @@ export class MovieLibraryRepository {
   async getTvShowById(id: string): Promise<TvShowEntity | null> {
     return this.tvShowRepo.findOne({
       where: { id },
-      relations: [
-        "seasonTvShowEntities",
-        "seasonTvShowEntities.episodeTvShowEntities",
-      ],
+      relations: {
+        seasonTvShowEntities: {
+          episodeTvShowEntities: true,
+        },
+      },
+      order: {
+        seasonTvShowEntities: {
+          seasonNumber: "ASC",
+          episodeTvShowEntities: {
+            episodeNumber: "ASC",
+          },
+        },
+      },
     });
   }
 
