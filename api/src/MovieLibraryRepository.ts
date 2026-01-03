@@ -428,11 +428,14 @@ export class MovieLibraryRepository {
   }
 
   // methode to search epidode series by title
-
   async searchEpisodesInSeriesByTitle(title: string) {
     return this.episodeRepo.find({
       where: { title: Like(`%${title.trim().toLowerCase()}%`) },
-      relations: ["season.serie"],
+      relations: {
+        season: {
+          serie: true,
+        },
+      },
     });
   }
 
