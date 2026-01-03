@@ -423,7 +423,19 @@ export class MovieLibraryRepository {
   async searchSeries(title: string): Promise<SerieEntity[]> {
     return this.serieRepo.find({
       where: { title: Like(`%${title.trim().toLowerCase()}%`) },
-      relations: ["seasonEntities", "seasonEntities.episodes"],
+      relations: {
+        seasonEntities: {
+          episodes: true,
+        },
+      },
+      order: {
+        seasonEntities: {
+          seasonNumber: "ASC",
+          episodes: {
+            episodeNumber: "ASC",
+          },
+        },
+      },
     });
   }
 
@@ -468,10 +480,19 @@ export class MovieLibraryRepository {
   async searchTvShows(title: string): Promise<TvShowEntity[]> {
     return this.tvShowRepo.find({
       where: { title: Like(`%${title.trim().toLowerCase()}%`) },
-      relations: [
-        "seasonTvShowEntities",
-        "seasonTvShowEntities.episodeTvShowEntities",
-      ],
+      relations: {
+        seasonTvShowEntities: {
+          episodeTvShowEntities: true,
+        },
+      },
+      order: {
+        seasonTvShowEntities: {
+          seasonNumber: "ASC",
+          episodeTvShowEntities: {
+            episodeNumber: "ASC",
+          },
+        },
+      },
     });
   }
 
