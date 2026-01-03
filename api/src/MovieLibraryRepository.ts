@@ -46,17 +46,40 @@ export class MovieLibraryRepository {
     // relations option is used to specify related entities to be loaded
     // here, we are loading seasons and episodes related to each series
     return this.serieRepo.find({
-      relations: ["seasonEntities", "seasonEntities.episodes"],
+      relations: {
+        seasonEntities: {
+          episodes: true,
+        },
+      },
+      order: {
+        id: "ASC",
+        seasonEntities: {
+          seasonNumber: "ASC",
+          episodes: {
+            episodeNumber: "ASC",
+          },
+        },
+      },
     });
   }
 
   // method to get all TV shows with their seasons and episodes
   async getAllTvShows(): Promise<TvShowEntity[]> {
     return this.tvShowRepo.find({
-      relations: [
-        "seasonTvShowEntities",
-        "seasonTvShowEntities.episodeTvShowEntities",
-      ],
+      relations: {
+        seasonTvShowEntities: {
+          episodeTvShowEntities: true,
+        },
+      },
+      order: {
+        id: "ASC",
+        seasonTvShowEntities: {
+          seasonNumber: "ASC",
+          episodeTvShowEntities: {
+            episodeNumber: "ASC",
+          },
+        },
+      },
     });
   }
 
