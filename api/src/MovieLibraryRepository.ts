@@ -148,7 +148,19 @@ export class MovieLibraryRepository {
   async getSeriesByGenre(genre: string) {
     return this.serieRepo.find({
       where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
-      relations: [`seasonEntities`, `seasonEntities.episodes`],
+      relations: {
+        seasonEntities: {
+          episodes: true,
+        },
+      },
+      order: {
+        seasonEntities: {
+          seasonNumber: "ASC",
+          episodes: {
+            episodeNumber: "ASC",
+          },
+        },
+      },
     });
   }
 
@@ -156,10 +168,19 @@ export class MovieLibraryRepository {
   async getTvShowsByGenre(genre: string) {
     return this.tvShowRepo.find({
       where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
-      relations: [
-        `seasonTvShowEntities`,
-        `seasonTvShowEntities.episodeTvShowEntities`,
-      ],
+      relations: {
+        seasonTvShowEntities: {
+          episodeTvShowEntities: true,
+        },
+      },
+      order: {
+        seasonTvShowEntities: {
+          seasonNumber: "ASC",
+          episodeTvShowEntities: {
+            episodeNumber: "ASC",
+          },
+        },
+      },
     });
   }
 
