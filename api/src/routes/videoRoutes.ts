@@ -14,6 +14,10 @@ import {
   getDocumentariesByGenreController,
   getSeriesByGenreController,
   getTvShowsByGenreController,
+  createFilmController,
+  createDocumentaryController,
+  createSerieController,
+  createTvShowController,
   searchFilmsController,
   searchDocumentariesController,
   searchSeriesController,
@@ -56,71 +60,16 @@ export function createVideoRouter(
   router.get("/tvshows/genre", getTvShowsByGenreController(movieLibrary));
 
   // Route to create a new film
-  router.post("/films", async (req, res) => {
-    try {
-      const film = await movieLibrary.createFilm(req.body);
-      return res.status(201).json(film);
-    } catch (error: any) {
-      if (error.code === "SQLITE_CONSTRAINT") {
-        return res
-          .status(409)
-          .json({ error: "Film with this ID already exists" });
-      }
-      return res.status(400).json({ error: "Invalid film data" });
-    }
-  });
+  router.post("/films", createFilmController(movieLibrary));
 
   // Route to create a new documentary
-  router.post("/documentaries", async (req, res) => {
-    try {
-      const documentary = await movieLibrary.createDocumentary(req.body);
-      return res.status(201).json(documentary);
-    } catch (error: any) {
-      // Handle unique constraint violation (e.g., duplicate ID)
-      // SQLITE_CONSTRAINT is the error code for SQLite, adjust if using a different DBMS (Database Management System).
-      if (error.code === "SQLITE_CONSTRAINT") {
-        return (
-          res
-            // error 409 indicates a conflict, such as a duplicate resource
-            .status(409)
-            .json({ error: "Documentary with this ID already exists" })
-        );
-      }
-      return res.status(400).json({ error: "Invalid documentary data" });
-    }
-  });
+  router.post("/documentaries", createDocumentaryController(movieLibrary));
 
   // Route to create a new serie
-  router.post("/series", async (req, res) => {
-    try {
-      const serie = await movieLibrary.createSerie(req.body);
-      return res.status(201).json(serie);
-    } catch (error: any) {
-      console.error(error);
-      if (error.code === "SQLITE_CONSTRAINT") {
-        return res
-          .status(409)
-          .json({ error: "Serie with this ID already exists" });
-      }
-      return res.status(400).json({ error: "Invalid serie data" });
-    }
-  });
+  router.post("/series", createSerieController(movieLibrary));
 
   // Route to create a new tv show
-  router.post("/tvshows", async (req, res) => {
-    try {
-      const tvShow = await movieLibrary.createTvShow(req.body);
-      return res.status(201).json(tvShow);
-    } catch (error: any) {
-      console.error(error);
-      if (error.code === "SQLITE_CONSTRAINT") {
-        return res
-          .status(409)
-          .json({ error: "Tv show with this ID already exists" });
-      }
-      return res.status(400).json({ error: "Invalid tv show data" });
-    }
-  });
+  router.post("/tvshows", createTvShowController(movieLibrary));
 
   // Route to update a film
   router.patch("/films/:id", async (req, res) => {
