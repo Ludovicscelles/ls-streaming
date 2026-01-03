@@ -18,6 +18,10 @@ import {
   createDocumentaryController,
   createSerieController,
   createTvShowController,
+  updateFilmController,
+  updateDocumentaryController,
+  updateSerieController,
+  updateTvShowController,
   searchFilmsController,
   searchDocumentariesController,
   searchSeriesController,
@@ -72,135 +76,16 @@ export function createVideoRouter(
   router.post("/tvshows", createTvShowController(movieLibrary));
 
   // Route to update a film
-  router.patch("/films/:id", async (req, res) => {
-    const { id } = req.params;
-
-    if (!id) {
-      return res.status(400).json({ error: "Missing 'id' route param" });
-    }
-
-    if (!req.body || Object.keys(req.body).length === 0) {
-      return res.status(400).json({ error: "No update data provided" });
-    }
-
-    try {
-      const updatedFilm = await movieLibrary.updateFilm(id, req.body);
-      return res.json(updatedFilm);
-    } catch (error: any) {
-      console.error(error);
-      // Handle case where film to update is not found
-      // Assuming the MovieLibraryRepository throws an error with code "FILM_NOT_FOUND" in such cases
-      if (error?.code === "FILM_NOT_FOUND") {
-        return res.status(404).json({ error: "Film not found" });
-      }
-      if (error?.code === "NO_VALID_FIELDS") {
-        return res
-          .status(400)
-          .json({ error: "No valid update fields provided" });
-      }
-      return res.status(500).json({ error: "Server error" });
-    }
-  });
+  router.patch("/films/:id", updateFilmController(movieLibrary));
 
   // Route to update a documentary
-  router.patch("/documentaries/:id", async (req, res) => {
-    const { id } = req.params;
-
-    if (!id) {
-      return res.status(400).json({ error: "Missing 'id' route param" });
-    }
-
-    if (!req.body || Object.keys(req.body).length === 0) {
-      return res.status(400).json({ error: "No update data provided" });
-    }
-
-    try {
-      const updatedDocumentary = await movieLibrary.updateDocumentary(
-        id,
-        req.body
-      );
-      return res.json(updatedDocumentary);
-    } catch (error: any) {
-      console.error(error);
-      if (error?.code === "DOCUMENTARY_NOT_FOUND") {
-        return res.status(404).json({ error: "Documentary not found" });
-      }
-      if (error?.code === "NO_VALID_FIELDS") {
-        return res
-          .status(400)
-          .json({ error: "No valid update fields provided" });
-      }
-      return res.status(500).json({ error: "Server error" });
-    }
-  });
+  router.patch("/documentaries/:id", updateDocumentaryController(movieLibrary));
 
   // Route to update a serie
-  router.patch("/series/:id", async (req, res) => {
-    const { id } = req.params;
-
-    // Validate the 'id' param
-    if (!id) {
-      return res.status(400).json({ error: "Missing 'id' param" });
-    }
-
-    // Validate that there is at least one field to update
-    // to prevent empty updates
-    // for this, we use Object.keys to check if req.body has any keys
-    if (!req.body || Object.keys(req.body).length === 0) {
-      return res.status(400).json({ error: "No update data provided" });
-    }
-
-    // Attempt to update the serie
-    // and handle potential errors
-    try {
-      // Call the updateSerie method from the repository
-      const updatedSerie = await movieLibrary.updateSerie(id, req.body);
-      // Return the updated serie
-      return res.json(updatedSerie);
-      // Catch errors during the update process
-    } catch (error: any) {
-      // Check if the error indicates that the serie was not found
-      if (error?.code === "SERIE_NOT_FOUND") {
-        return res.status(404).json({ error: "Serie not found" });
-      }
-      // Check if the error indicates no valid fields were provided for update
-      if (error?.code === "NO_VALID_FIELDS") {
-        return res
-          .status(400)
-          .json({ error: "No valid update fields provided" });
-      }
-      // For other errors, return a generic invalid data error
-      return res.status(500).json({ error: "Server error" });
-    }
-  });
+  router.patch("/series/:id", updateSerieController(movieLibrary));
 
   // Route to update a tv show
-  router.patch("/tvshows/:id", async (req, res) => {
-    const { id } = req.params;
-
-    if (!id) {
-      return res.status(400).json({ error: "Missing 'id' param" });
-    }
-
-    if (!req.body || Object.keys(req.body).length === 0) {
-      return res.status(400).json({ error: "No update data provided" });
-    }
-
-    try {
-      const updatedTvShow = await movieLibrary.updateTvShow(id, req.body);
-      return res.json(updatedTvShow);
-    } catch (error: any) {
-      if (error?.code === "TV_SHOW_NOT_FOUND") {
-        return res.status(404).json({ error: "Tv show not found" });
-      }
-      if (error?.code === "NO_VALID_FIELDS") {
-        return res
-          .status(400)
-          .json({ error: "No valid update fields provided" });
-      }
-      return res.status(500).json({ error: "Server error" });
-    }
-  });
+  router.patch("/tvshows/:id", updateTvShowController(movieLibrary));
 
   // Route to search film by title
   router.get("/films/search", searchFilmsController(movieLibrary));
