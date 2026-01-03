@@ -5,6 +5,7 @@ import { makeGetAllVideosController } from "./helpers/getAll.helper";
 import { makeGetByIdController } from "./helpers/getById.helper";
 import { makeGetByGenreController } from "./helpers/getByGenre.helper";
 import { makeCreateController } from "./helpers/create.helper";
+import { makeUpdateController } from "./helpers/update.helper";
 
 // controller to get all videos
 export const getAllVideosController = (
@@ -166,6 +167,51 @@ export const createTvShowController = (
 ): RequestHandler => {
   return makeCreateController(
     (data) => movieLibrary.createTvShow(data),
+    "tv show"
+  );
+};
+
+// Controller to update a film
+export const updateFilmController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeUpdateController(
+    (id: string, data: Partial<any>) => movieLibrary.updateFilm(id, data),
+    "FILM_NOT_FOUND",
+    "film"
+  );
+};
+
+// Controller to update a documentary
+export const updateDocumentaryController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeUpdateController(
+    (id: string, data: Partial<any>) =>
+      movieLibrary.updateDocumentary(id, data),
+    "DOCUMENTARY_NOT_FOUND",
+    "documentary"
+  );
+};
+
+// Controller to update a serie
+export const updateSerieController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeUpdateController(
+    (id: string, data: Partial<any>) => movieLibrary.updateSerie(id, data),
+    "SERIE_NOT_FOUND",
+    "serie"
+  );
+};
+
+// Controller to update a tv show
+export const updateTvShowController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeUpdateController(
+    (id: string, data: Partial<any>) => movieLibrary.updateTvShow(id, data),
+    "TV_SHOW_NOT_FOUND",
     "tv show"
   );
 };
