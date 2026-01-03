@@ -193,7 +193,19 @@ export class MovieLibraryRepository {
     await this.serieRepo.save(serie);
     return this.serieRepo.findOneOrFail({
       where: { id: serie.id! },
-      relations: ["seasonEntities", "seasonEntities.episodes"],
+      relations: {
+        seasonEntities: {
+          episodes: true,
+        },
+      },
+      order: {
+        seasonEntities: {
+          seasonNumber: "ASC",
+          episodes: {
+            episodeNumber: "ASC",
+          },
+        },
+      },
     });
   }
 
@@ -205,10 +217,19 @@ export class MovieLibraryRepository {
     await this.tvShowRepo.save(tvShow);
     return this.tvShowRepo.findOneOrFail({
       where: { id: tvShow.id! },
-      relations: [
-        "seasonTvShowEntities",
-        "seasonTvShowEntities.episodeTvShowEntities",
-      ],
+      relations: {
+        seasonTvShowEntities: {
+          episodeTvShowEntities: true,
+        },
+      },
+      order: {
+        seasonTvShowEntities: {
+          seasonNumber: "ASC",
+          episodeTvShowEntities: {
+            episodeNumber: "ASC",
+          },
+        },
+      },
     });
   }
 
