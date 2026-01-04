@@ -251,6 +251,26 @@ export const searchSeriesController = (
   );
 };
 
+// Controller to search serie by episodes title
+export const searchSerieByEpisodeTitleController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeSearchByTitleController(
+    (title: string) => movieLibrary.searchSerieByEpisodeTitle(title),
+    "series by episode title"
+  );
+};
+
+// Controller to search episodes by title
+export const searchEpisodesController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeSearchByTitleController(
+    (title: string) => movieLibrary.searchEpisodesInSeriesByTitle(title),
+    "episodes"
+  );
+};
+
 // Controller to search tv shows by titles
 export const searchTvShowsController = (
   movieLibrary: MovieLibraryRepository
