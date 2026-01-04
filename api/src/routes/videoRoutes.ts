@@ -25,6 +25,7 @@ import {
   searchFilmsController,
   searchDocumentariesController,
   searchSeriesController,
+  searchEpisodesController,
   searchTvShowsController,
 } from "../controllers/controller";
 
@@ -100,17 +101,7 @@ export function createVideoRouter(
   router.get("/series/search", searchSeriesController(movieLibrary));
 
   // Route to search episodes in series by title
-  router.get("/episodes/search", async (req, res) => {
-    const { title } = req.query;
-
-    if (!title || typeof title !== "string") {
-      return res
-        .status(400)
-        .json({ error: "Missing or invalid 'title' query param" });
-    }
-    const episodes = await movieLibrary.searchEpisodesInSeriesByTitle(title);
-    return res.json(episodes);
-  });
+  router.get("/episodes/search", searchEpisodesController(movieLibrary));
 
   // Route to search episodes in series by title with query builder
   router.get("/series/search-by-episode", async (req, res) => {
