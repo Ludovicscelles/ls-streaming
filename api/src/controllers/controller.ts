@@ -251,7 +251,17 @@ export const searchSeriesController = (
   );
 };
 
-// Controller to search episodes in series by title
+// Controller to search serie by episodes title
+export const searchSerieByEpisodeTitleController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeSearchByTitleController(
+    (title: string) => movieLibrary.searchSerieByEpisodeTitle(title),
+    "series by episode title"
+  );
+};
+
+// Controller to search episodes by title
 export const searchEpisodesController = (
   movieLibrary: MovieLibraryRepository
 ): RequestHandler => {
