@@ -280,3 +280,13 @@ export const searchTvShowsController = (
     "tv shows"
   );
 };
+
+// Controller to search videos by title across all categories
+export const searchAllVideosController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeSearchByTitleController(
+    (title: string) => movieLibrary.searchAllVideosByTitle(title),
+    "all videos"
+  );
+};
