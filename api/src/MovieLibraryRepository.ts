@@ -405,6 +405,46 @@ export class MovieLibraryRepository {
     return this.tvShowRepo.save(tvShow);
   }
 
+  // method to delete a film by ID
+  async deleteFilm(id: string): Promise<void> {
+    const result = await this.filmRepo.delete(id);
+    if (!result.affected || result.affected === 0) {
+      throw Object.assign(new Error("Film not found"), {
+        code: "FILM_NOT_FOUND",
+      });
+    }
+  }
+
+  // method to delete a documentary by ID
+  async deleteDocumentary(id: string): Promise<void> {
+    const result = await this.documentaryRepo.delete(id);
+    if (!result.affected || result.affected === 0) {
+      throw Object.assign(new Error("Documentary not found"), {
+        code: "DOCUMENTARY_NOT_FOUND",
+      });
+    }
+  }
+
+  // method to delete a serie by ID
+  async deleteSerie(id: string): Promise<void> {
+    const result = await this.serieRepo.delete(id);
+    if (!result.affected || result.affected === 0) {
+      throw Object.assign(new Error("Serie not found"), {
+        code: "SERIE_NOT_FOUND",
+      });
+    }
+  }
+
+  // method to delete a tv show by ID
+  async deleteTvShow(id: string): Promise<void> {
+    const result = await this.tvShowRepo.delete(id);
+    if (!result.affected || result.affected === 0) {
+      throw Object.assign(new Error("Tv show not found"), {
+        code: "TV_SHOW_NOT_FOUND",
+      });
+    }
+  }
+
   // method to search films by title
   async searchFilms(title: string): Promise<FilmEntity[]> {
     return this.filmRepo.find({
