@@ -6,6 +6,7 @@ import { makeGetByIdController } from "./helpers/getById.helper";
 import { makeGetByGenreController } from "./helpers/getByGenre.helper";
 import { makeCreateController } from "./helpers/create.helper";
 import { makeUpdateController } from "./helpers/update.helper";
+import { makeDeleteController } from "./helpers/delete.helper";
 
 // controller to get all videos
 export const getAllVideosController = (
@@ -211,6 +212,50 @@ export const updateTvShowController = (
 ): RequestHandler => {
   return makeUpdateController(
     (id: string, data: Partial<any>) => movieLibrary.updateTvShow(id, data),
+    "TV_SHOW_NOT_FOUND",
+    "tv show"
+  );
+};
+
+// Controller to delete a film
+export const deleteFilmController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeDeleteController(
+    (id: string) => movieLibrary.deleteFilm(id),
+    "FILM_NOT_FOUND",
+    "film"
+  );
+};
+
+// Controller to delete a documentary
+export const deleteDocumentaryController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeDeleteController(
+    (id: string) => movieLibrary.deleteDocumentary(id),
+    "DOCUMENTARY_NOT_FOUND",
+    "documentary"
+  );
+};
+
+// Controller to delete a serie
+export const deleteSerieController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeDeleteController(
+    (id: string) => movieLibrary.deleteSerie(id),
+    "SERIE_NOT_FOUND",
+    "serie"
+  );
+};
+
+// Controller to delete a tv show
+export const deleteTvShowController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeDeleteController(
+    (id: string) => movieLibrary.deleteTvShow(id),
     "TV_SHOW_NOT_FOUND",
     "tv show"
   );

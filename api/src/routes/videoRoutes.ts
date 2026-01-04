@@ -22,6 +22,10 @@ import {
   updateDocumentaryController,
   updateSerieController,
   updateTvShowController,
+  deleteFilmController,
+  deleteDocumentaryController,
+  deleteSerieController,
+  deleteTvShowController,
   searchFilmsController,
   searchDocumentariesController,
   searchSeriesController,
@@ -90,6 +94,21 @@ export function createVideoRouter(
   // Route to update a tv show
   router.patch("/tvshows/:id", updateTvShowController(movieLibrary));
 
+  // Route to delete a film
+  router.delete("/films/:id", deleteFilmController(movieLibrary));
+
+  // Route to delete a documentary
+  router.delete(
+    "/documentaries/:id",
+    deleteDocumentaryController(movieLibrary)
+  );
+
+  // Route to delete a serie
+  router.delete("/series/:id", deleteSerieController(movieLibrary));
+
+  // Route to delete a tv show
+  router.delete("/tvshows/:id", deleteTvShowController(movieLibrary));
+
   // Route to search film by title
   router.get("/films/search", searchFilmsController(movieLibrary));
 
@@ -103,7 +122,10 @@ export function createVideoRouter(
   router.get("/series/search", searchSeriesController(movieLibrary));
 
   // Route to search serie by episode title
-  router.get("/series/search-by-episode", searchSerieByEpisodeTitleController(movieLibrary));
+  router.get(
+    "/series/search-by-episode",
+    searchSerieByEpisodeTitleController(movieLibrary)
+  );
 
   // Route to search episodes by title
   router.get("/episodes/search", searchEpisodesController(movieLibrary));
