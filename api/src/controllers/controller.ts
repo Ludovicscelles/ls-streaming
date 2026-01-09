@@ -95,6 +95,16 @@ export const getTvShowByIdController = (
   );
 };
 
+// controller to get episodes of a serie by serie ID
+export const getEpisodesBySerieIdController = (
+  movieLibrary: MovieLibraryRepository
+): RequestHandler => {
+  return makeGetByIdController(
+    (id: string) => movieLibrary.getEpisodesBySerieId(id),
+    "episodes for serie"
+  );
+};
+
 // controller to filter films by genre
 export const getFilmsByGenreController = (
   movieLibrary: MovieLibraryRepository
