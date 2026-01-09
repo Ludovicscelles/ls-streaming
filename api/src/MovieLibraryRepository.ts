@@ -153,6 +153,41 @@ export class MovieLibraryRepository {
     });
   }
 
+  // Method to get episodes by serie ID
+  async getEpisodesBySerieId(serieId: string): Promise<EpisodeEntity[]> {
+    // find method to retrieve episodes associated with a specific serie ID
+    return this.episodeRepo.find({
+      where: {
+        season: {
+          serie: {
+            id: serieId,
+          },
+        },
+      },
+      relations: {
+        season: {
+          serie: true,
+        },
+      },
+      // select specific fields to return for each episode
+      select: {
+        id: true,
+        title: true,
+        duration: true,
+        episodeNumber: true,
+        director: true,
+        season: { id: true, seasonNumber: true },
+      },
+      // order episodes by season number and episode number in ascending order
+      order: {
+        season: {
+          seasonNumber: "ASC",
+        },
+        episodeNumber: "ASC",
+      },
+    });
+  }
+
   // Method to filter films by genre
   async getFilmsByGenre(genre: string) {
     return this.filmRepo.find({
@@ -380,7 +415,6 @@ export class MovieLibraryRepository {
   }
 
   // methode to update a tv show
-
   async updateTvShow(id: string, data: Partial<TvShowEntity>) {
     const safeData: Partial<TvShowEntity> = {};
 
