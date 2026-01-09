@@ -11,6 +11,7 @@ import {
   getSerieByIdController,
   getTvShowByIdController,
   getEpisodesBySerieIdController,
+  getEpisodesByTvShowIdController,
   getFilmsByGenreController,
   getDocumentariesByGenreController,
   getSeriesByGenreController,
@@ -153,6 +154,12 @@ export function createVideoRouter(
   router.get(
     "/series/:id/episodes",
     getEpisodesBySerieIdController(movieLibrary)
+  );
+
+  // Route to get episodes of a tv-show by tv-show ID
+  router.get(
+    "/tvshows/:id/episodes",
+    getEpisodesByTvShowIdController(movieLibrary)
   );
 
   // Return the configured router

@@ -10,6 +10,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { createVideoRouter } from "./routes/videoRoutes";
+import { EpisodeTvShowEntity } from "./entities/EpisodeTvShowEntity";
 dotenv.config();
 
 const app = express();
@@ -27,7 +28,6 @@ app.use("/api/images", express.static("images"));
 
 AppDataSource.initialize()
   .then(() => {
-
     // Initialize MovieLibraryRepository with repositories for each entity
     // This sets up the repository to interact with the database
     const movieLibrary = new MovieLibraryRepository(
@@ -35,7 +35,8 @@ AppDataSource.initialize()
       AppDataSource.getRepository(FilmEntity),
       AppDataSource.getRepository(SerieEntity),
       AppDataSource.getRepository(TvShowEntity),
-      AppDataSource.getRepository(EpisodeEntity)
+      AppDataSource.getRepository(EpisodeEntity),
+      AppDataSource.getRepository(EpisodeTvShowEntity)
     );
 
     // Use the video router for handling /api/videos routes

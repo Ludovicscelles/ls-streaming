@@ -13,6 +13,7 @@ import {
   generateSerieId,
   generateTvShowId,
 } from "./utils/generateIds";
+import { EpisodeTvShowEntity } from "./entities/EpisodeTvShowEntity";
 
 // MovieLibraryRepository class definition
 export class MovieLibraryRepository {
@@ -22,7 +23,8 @@ export class MovieLibraryRepository {
     private filmRepo: Repository<FilmEntity>,
     private serieRepo: Repository<SerieEntity>,
     private tvShowRepo: Repository<TvShowEntity>,
-    private episodeRepo: Repository<EpisodeEntity>
+    private episodeRepo: Repository<EpisodeEntity>,
+    private episodeTvShowRepo: Repository<EpisodeTvShowEntity>
   ) {}
 
   // method to get all documentaries
@@ -181,6 +183,42 @@ export class MovieLibraryRepository {
       // order episodes by season number and episode number in ascending order
       order: {
         season: {
+          seasonNumber: "ASC",
+        },
+        episodeNumber: "ASC",
+      },
+    });
+  }
+
+  // Methode to get episodes by tv show ID
+  async getEpisodesByTvShowId(
+    tvShowId: string
+  ): Promise<EpisodeTvShowEntity[]> {
+    return this.episodeTvShowRepo.find({
+      where: {
+        seasonTvShow: {
+          tvShow: {
+            id: tvShowId,
+          },
+        },
+      },
+      relations: {
+        seasonTvShow: {
+          tvShow: true,
+        },
+      },
+      select: {
+        id: true,
+        episodeNumber: true,
+        duration: true,
+        seasonTvShow: {
+          id: true,
+          seasonNumber: true,
+        },
+      },
+
+      order: {
+        seasonTvShow: {
           seasonNumber: "ASC",
         },
         episodeNumber: "ASC",
