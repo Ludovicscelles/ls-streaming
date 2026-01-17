@@ -334,6 +334,7 @@ export class MovieLibraryRepository {
     serieId: string,
     seasonData: Partial<{
       seasonNumber: number;
+      seasonYear: number;
     }>,
   ) {
     // find the serie by its ID, including its existing seasons

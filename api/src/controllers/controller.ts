@@ -5,6 +5,7 @@ import { makeGetAllVideosController } from "./helpers/getAll.helper";
 import { makeGetByIdController } from "./helpers/getById.helper";
 import { makeGetByGenreController } from "./helpers/getByGenre.helper";
 import { makeCreateController } from "./helpers/create.helper";
+import { makeCreateWithIdParamController } from "./helpers/createWithIdParam.helper";
 import { makeUpdateController } from "./helpers/update.helper";
 import { makeDeleteController } from "./helpers/delete.helper";
 
@@ -183,30 +184,22 @@ export const createSerieController = (
 };
 
 // Controller to create a new season for a serie
-
-export const createSeasonController =
-  (movieLibrary: MovieLibraryRepository): RequestHandler =>
-  async (req, res) => {
-    const serieId = req.params.serieId;
-
-    if (!serieId) {
-      return res.status(400).json({ error: "Serie ID is required in params" });
-    }
-    const { seasonNumber } = req.body;
-
-    const result = await movieLibrary.addSeasonToSerie(serieId, {
-      seasonNumber,
-    });
-    return res.status(201).json(result);
-  };
-// export const createSeasonController = (
-//   movieLibrary: MovieLibraryRepository
-// ): RequestHandler => {
-//   return makeCreateController(
-//     (data) => movieLibrary.addSeasonToSerie(data.serieId, { seasonNumber: data.seasonNumber }),
-//     "season"
-//   );
-// };
+export const createSeasonController = (
+  movieLibrary: MovieLibraryRepository,
+): RequestHandler => {
+  return makeCreateWithIdParamController<
+    { seasonNumber: number; seasonYear: number },
+    any
+  >(
+    "id",
+    (serieId: string, data: { seasonNumber: number; seasonYear: number }) =>
+      movieLibrary.addSeasonToSerie(serieId, {
+        seasonNumber: data.seasonNumber,
+        seasonYear: data.seasonYear,
+      }),
+    "season",
+  );
+};
 
 // Controller to create a new tv show
 export const createTvShowController = (

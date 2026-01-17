@@ -19,6 +19,7 @@ import {
   createFilmController,
   createDocumentaryController,
   createSerieController,
+  createSeasonController,
   createTvShowController,
   updateFilmController,
   updateDocumentaryController,
@@ -80,6 +81,12 @@ export function createVideoRouter(
 
   // Route to create a new serie
   router.post("/series", createSerieController(movieLibrary));
+
+  // Route to create a new season for a serie
+  router.post(
+    "/series/:id/seasons",
+    createSeasonController(movieLibrary)
+  );
 
   // Route to create a new tv show
   router.post("/tvshows", createTvShowController(movieLibrary));
