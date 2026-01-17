@@ -10,274 +10,300 @@ import { makeDeleteController } from "./helpers/delete.helper";
 
 // controller to get all videos
 export const getAllVideosController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetAllVideosController(
     () => movieLibrary.getAllVideos(),
-    "videos"
+    "videos",
   );
 };
 
 // controller to get all films
 export const getAllFilmsController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetAllVideosController(() => movieLibrary.getAllFilms(), "films");
 };
 
 // controller to get all documentaries
 export const getAllDocumentariesController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetAllVideosController(
     () => movieLibrary.getAllDocumentaries(),
-    "documentaries"
+    "documentaries",
   );
 };
 
 // controller to get all series
 export const getAllSeriesController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetAllVideosController(
     () => movieLibrary.getAllSeries(),
-    "series"
+    "series",
   );
 };
 
 // controller to get all tv shows
 export const getAllTvShowsController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetAllVideosController(
     () => movieLibrary.getAllTvShows(),
-    "tv shows"
+    "tv shows",
   );
 };
 
 // controller to get film by ID
 export const getFilmByIdController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetByIdController(
     (id: string) => movieLibrary.getFilmById(id),
-    "film"
+    "film",
   );
 };
 
 // controller to get documentary by ID
 export const getDocumentaryByIdController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetByIdController(
     (id: string) => movieLibrary.getDocumentaryById(id),
-    "documentary"
+    "documentary",
   );
 };
 
 // controller to get serie by ID
 export const getSerieByIdController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetByIdController(
     (id: string) => movieLibrary.getSerieById(id),
-    "serie"
+    "serie",
   );
 };
 
 // controller to get tv show by ID
 export const getTvShowByIdController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetByIdController(
     (id: string) => movieLibrary.getTvShowById(id),
-    "tv show"
+    "tv show",
   );
 };
 
 // controller to get episodes of a serie by serie ID
 export const getEpisodesBySerieIdController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetByIdController(
     (id: string) => movieLibrary.getEpisodesBySerieId(id),
-    "episodes for serie"
+    "episodes for serie",
   );
 };
 
 // controller to get episodes of a tv show by tv show ID
 export const getEpisodesByTvShowIdController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetByIdController(
     (id: string) => movieLibrary.getEpisodesByTvShowId(id),
-    "episodes for tv show"
+    "episodes for tv show",
   );
 };
 
 // controller to filter films by genre
 export const getFilmsByGenreController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetByGenreController(
     (genre: string) => movieLibrary.getFilmsByGenre(genre),
-    "films"
+    "films",
   );
 };
 
 // Controller to filter documentaries by genre
 export const getDocumentariesByGenreController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetByGenreController(
     (genre: string) => movieLibrary.getDocumentariesByGenre(genre),
-    "documentaries"
+    "documentaries",
   );
 };
 
 // Controller to filter series by genre
 export const getSeriesByGenreController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetByGenreController(
     (genre: string) => movieLibrary.getSeriesByGenre(genre),
-    "series"
+    "series",
   );
 };
 
 // Controller to filter tv shows by genre
 export const getTvShowsByGenreController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeGetByGenreController(
     (genre: string) => movieLibrary.getTvShowsByGenre(genre),
-    "tv shows"
+    "tv shows",
   );
 };
 
 // Controller to create a new film
 export const createFilmController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeCreateController((data) => movieLibrary.createFilm(data), "film");
 };
 
 // Controller to create a new documentary
 export const createDocumentaryController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeCreateController(
     (data) => movieLibrary.createDocumentary(data),
-    "documentary"
+    "documentary",
   );
 };
 
 // Controller to create a new serie
 export const createSerieController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeCreateController(
     (data) => movieLibrary.createSerie(data),
-    "serie"
+    "serie",
   );
 };
 
+// Controller to create a new season for a serie
+
+export const createSeasonController =
+  (movieLibrary: MovieLibraryRepository): RequestHandler =>
+  async (req, res) => {
+    const serieId = req.params.serieId;
+
+    if (!serieId) {
+      return res.status(400).json({ error: "Serie ID is required in params" });
+    }
+    const { seasonNumber } = req.body;
+
+    const result = await movieLibrary.addSeasonToSerie(serieId, {
+      seasonNumber,
+    });
+    return res.status(201).json(result);
+  };
+// export const createSeasonController = (
+//   movieLibrary: MovieLibraryRepository
+// ): RequestHandler => {
+//   return makeCreateController(
+//     (data) => movieLibrary.addSeasonToSerie(data.serieId, { seasonNumber: data.seasonNumber }),
+//     "season"
+//   );
+// };
+
 // Controller to create a new tv show
 export const createTvShowController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeCreateController(
     (data) => movieLibrary.createTvShow(data),
-    "tv show"
+    "tv show",
   );
 };
 
 // Controller to update a film
 export const updateFilmController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeUpdateController(
     (id: string, data: Partial<any>) => movieLibrary.updateFilm(id, data),
     "FILM_NOT_FOUND",
-    "film"
+    "film",
   );
 };
 
 // Controller to update a documentary
 export const updateDocumentaryController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeUpdateController(
     (id: string, data: Partial<any>) =>
       movieLibrary.updateDocumentary(id, data),
     "DOCUMENTARY_NOT_FOUND",
-    "documentary"
+    "documentary",
   );
 };
 
 // Controller to update a serie
 export const updateSerieController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeUpdateController(
     (id: string, data: Partial<any>) => movieLibrary.updateSerie(id, data),
     "SERIE_NOT_FOUND",
-    "serie"
+    "serie",
   );
 };
 
 // Controller to update a tv show
 export const updateTvShowController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeUpdateController(
     (id: string, data: Partial<any>) => movieLibrary.updateTvShow(id, data),
     "TV_SHOW_NOT_FOUND",
-    "tv show"
+    "tv show",
   );
 };
 
 // Controller to delete a film
 export const deleteFilmController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeDeleteController(
     (id: string) => movieLibrary.deleteFilm(id),
     "FILM_NOT_FOUND",
-    "film"
+    "film",
   );
 };
 
 // Controller to delete a documentary
 export const deleteDocumentaryController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeDeleteController(
     (id: string) => movieLibrary.deleteDocumentary(id),
     "DOCUMENTARY_NOT_FOUND",
-    "documentary"
+    "documentary",
   );
 };
 
 // Controller to delete a serie
 export const deleteSerieController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeDeleteController(
     (id: string) => movieLibrary.deleteSerie(id),
     "SERIE_NOT_FOUND",
-    "serie"
+    "serie",
   );
 };
 
 // Controller to delete a tv show
 export const deleteTvShowController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeDeleteController(
     (id: string) => movieLibrary.deleteTvShow(id),
     "TV_SHOW_NOT_FOUND",
-    "tv show"
+    "tv show",
   );
 };
 
@@ -288,70 +314,70 @@ export const deleteTvShowController = (
 // 1. The search function from the MovieLibraryRepository
 // 2. A label "films" for logging purposes
 export const searchFilmsController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeSearchByTitleController(
     (title: string) => movieLibrary.searchFilms(title),
-    "films"
+    "films",
   );
 };
 
 // Controller to search documentaries by title
 export const searchDocumentariesController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeSearchByTitleController(
     (title: string) => movieLibrary.searchDocumentaries(title),
-    "documentaries"
+    "documentaries",
   );
 };
 
 // Controller to search series by title
 export const searchSeriesController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeSearchByTitleController(
     (title: string) => movieLibrary.searchSeries(title),
-    "series"
+    "series",
   );
 };
 
 // Controller to search serie by episodes title
 export const searchSerieByEpisodeTitleController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeSearchByTitleController(
     (title: string) => movieLibrary.searchSerieByEpisodeTitle(title),
-    "series by episode title"
+    "series by episode title",
   );
 };
 
 // Controller to search episodes by title
 export const searchEpisodesController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeSearchByTitleController(
     (title: string) => movieLibrary.searchEpisodesInSeriesByTitle(title),
-    "episodes"
+    "episodes",
   );
 };
 
 // Controller to search tv shows by titles
 export const searchTvShowsController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeSearchByTitleController(
     (title: string) => movieLibrary.searchTvShows(title),
-    "tv shows"
+    "tv shows",
   );
 };
 
 // Controller to search videos by title across all categories
 export const searchAllVideosController = (
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
   return makeSearchByTitleController(
     (title: string) => movieLibrary.searchAllVideosByTitle(title),
-    "all videos"
+    "all videos",
   );
 };
