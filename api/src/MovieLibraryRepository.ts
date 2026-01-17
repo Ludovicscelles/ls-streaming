@@ -4,6 +4,7 @@ import { Repository, Like, Code } from "typeorm";
 import { DocumentaryEntity } from "./entities/DocumentaryEntity";
 import { FilmEntity } from "./entities/FilmEntity";
 import { SerieEntity } from "./entities/SerieEntity";
+import { SeasonEntity } from "./entities/SeasonEntity";
 import { EpisodeEntity } from "./entities/EpisodeEntity";
 import { TvShowEntity } from "./entities/TvShowEntity";
 
@@ -24,7 +25,8 @@ export class MovieLibraryRepository {
     private serieRepo: Repository<SerieEntity>,
     private tvShowRepo: Repository<TvShowEntity>,
     private episodeRepo: Repository<EpisodeEntity>,
-    private episodeTvShowRepo: Repository<EpisodeTvShowEntity>
+    private seasonRepo: Repository<SeasonEntity>,
+    private episodeTvShowRepo: Repository<EpisodeTvShowEntity>,
   ) {}
 
   // method to get all documentaries
@@ -192,7 +194,7 @@ export class MovieLibraryRepository {
 
   // Methode to get episodes by tv show ID
   async getEpisodesByTvShowId(
-    tvShowId: string
+    tvShowId: string,
   ): Promise<EpisodeTvShowEntity[]> {
     return this.episodeTvShowRepo.find({
       where: {
@@ -315,6 +317,57 @@ export class MovieLibraryRepository {
           episodes: true,
         },
       },
+      order: {
+        seasonEntities: {
+          seasonNumber: "ASC",
+          episodes: {
+            episodeNumber: "ASC",
+          },
+        },
+      },
+    });
+  }
+
+  // method to add a new season to an existing serie
+  // takes the serie ID and a partial SeasonEntity object as input
+  async addSeasonToSerie(
+    serieId: string,
+    seasonData: Partial<{
+      seasonNumber: number;
+      seasonYear: number;
+    }>,
+  ) {
+    // find the serie by its ID, including its existing seasons
+    const serie = await this.serieRepo.findOne({
+      where: { id: serieId },
+      relations: { seasonEntities: true },
+    });
+
+    // if the serie does not exist, throw an error
+    if (!serie) {
+      throw Object.assign(new Error("Serie not found"), {
+        code: "SERIE_NOT_FOUND",
+      });
+    }
+
+    // create a new season instance associated with the serie
+    const newSeason = this.seasonRepo.create({
+      ...seasonData,
+      serie: serie,
+    });
+
+    // save the updated serie (with the new season) back to the database
+    await this.seasonRepo.save(newSeason);
+
+    // return the updated serie with its seasons and episodes
+    return this.serieRepo.findOneOrFail({
+      where: { id: serie.id! },
+      relations: {
+        seasonEntities: {
+          episodes: true,
+        },
+      },
+      //  order seasons and episodes by their respective numbers in ascending order
       order: {
         seasonEntities: {
           seasonNumber: "ASC",
@@ -612,7 +665,7 @@ export class MovieLibraryRepository {
 
   async searchAllVideosByTitle(
     // title parameter of type string
-    title: string
+    title: string,
     // returns a promise that resolves to an array of various entity types
   ): Promise<(DocumentaryEntity | FilmEntity | SerieEntity | TvShowEntity)[]> {
     // trim and convert the title to lowercase for consistent searching
