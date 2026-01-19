@@ -4,16 +4,20 @@ import {
   Column,
   OneToMany,
   ManyToOne,
+  Index,
 } from "typeorm";
 import { SerieEntity } from "./SerieEntity";
 import { EpisodeEntity } from "./EpisodeEntity";
 
 @Entity()
+@Index(["serie", "seasonNumber"], { unique: true })
 export class SeasonEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => SerieEntity, (serie) => serie.seasonEntities)
+  @ManyToOne(() => SerieEntity, (serie) => serie.seasonEntities, {
+    nullable: false,
+  })
   serie!: SerieEntity;
 
   @Column()
