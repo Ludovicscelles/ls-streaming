@@ -7,11 +7,13 @@ import { SerieEntity } from "./entities/SerieEntity";
 import { SeasonEntity } from "./entities/SeasonEntity";
 import { EpisodeEntity } from "./entities/EpisodeEntity";
 import { TvShowEntity } from "./entities/TvShowEntity";
+import { SeasonTvShowEntity } from "./entities/SeasonTvShowEntity";
+import { EpisodeTvShowEntity } from "./entities/EpisodeTvShowEntity";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { createVideoRouter } from "./routes/videoRoutes";
-import { EpisodeTvShowEntity } from "./entities/EpisodeTvShowEntity";
+
 dotenv.config();
 
 const app = express();
@@ -39,6 +41,7 @@ AppDataSource.initialize()
       AppDataSource.getRepository(EpisodeEntity),
       AppDataSource.getRepository(SeasonEntity),
       AppDataSource.getRepository(EpisodeTvShowEntity),
+      AppDataSource.getRepository(SeasonTvShowEntity),
     );
 
     // Use the video router for handling /api/videos routes

@@ -21,6 +21,7 @@ import {
   createSerieController,
   createSeasonController,
   createTvShowController,
+  createSeasonTvShowController,
   updateFilmController,
   updateDocumentaryController,
   updateSerieController,
@@ -39,7 +40,7 @@ import {
 } from "../controllers/controller";
 
 export function createVideoRouter(
-  movieLibrary: MovieLibraryRepository
+  movieLibrary: MovieLibraryRepository,
 ): Router {
   const router = Router();
 
@@ -64,7 +65,7 @@ export function createVideoRouter(
   // Route to filter documentaries by genre
   router.get(
     "/documentaries/genre",
-    getDocumentariesByGenreController(movieLibrary)
+    getDocumentariesByGenreController(movieLibrary),
   );
 
   // Route to filter series by genre
@@ -83,13 +84,16 @@ export function createVideoRouter(
   router.post("/series", createSerieController(movieLibrary));
 
   // Route to create a new season for a serie
-  router.post(
-    "/series/:id/seasons",
-    createSeasonController(movieLibrary)
-  );
+  router.post("/series/:id/seasons", createSeasonController(movieLibrary));
 
   // Route to create a new tv show
   router.post("/tvshows", createTvShowController(movieLibrary));
+
+  // Route to add a new season to an existing tv show
+  router.post(
+    "/tvshows/:id/seasons",
+    createSeasonTvShowController(movieLibrary),
+  );
 
   // Route to update a film
   router.patch("/films/:id", updateFilmController(movieLibrary));
@@ -109,7 +113,7 @@ export function createVideoRouter(
   // Route to delete a documentary
   router.delete(
     "/documentaries/:id",
-    deleteDocumentaryController(movieLibrary)
+    deleteDocumentaryController(movieLibrary),
   );
 
   // Route to delete a serie
@@ -124,7 +128,7 @@ export function createVideoRouter(
   // Route to search documentary by title
   router.get(
     "/documentaries/search",
-    searchDocumentariesController(movieLibrary)
+    searchDocumentariesController(movieLibrary),
   );
 
   // Route to search serie by title
@@ -133,7 +137,7 @@ export function createVideoRouter(
   // Route to search serie by episode title
   router.get(
     "/series/search-by-episode",
-    searchSerieByEpisodeTitleController(movieLibrary)
+    searchSerieByEpisodeTitleController(movieLibrary),
   );
 
   // Route to search episodes by title
@@ -160,13 +164,13 @@ export function createVideoRouter(
   // Route to get episodes of a serie by serie ID
   router.get(
     "/series/:id/episodes",
-    getEpisodesBySerieIdController(movieLibrary)
+    getEpisodesBySerieIdController(movieLibrary),
   );
 
   // Route to get episodes of a tv-show by tv-show ID
   router.get(
     "/tvshows/:id/episodes",
-    getEpisodesByTvShowIdController(movieLibrary)
+    getEpisodesByTvShowIdController(movieLibrary),
   );
 
   // Return the configured router
