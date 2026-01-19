@@ -30,7 +30,11 @@ export function makeCreateWithIdParamController<TBody, TResult>(
           .status(409)
           .json({ error: `${label} already exists or constraint violation` });
       }
-      if (error.code === "NOT_FOUND" || error.code === "SERIE_NOT_FOUND") {
+      if (
+        error.code === "NOT_FOUND" ||
+        error.code === "SERIE_NOT_FOUND" ||
+        error.code === "TV_SHOW_NOT_FOUND"
+      ) {
         return res.status(404).json({ error: error.message });
       }
       return next(error);

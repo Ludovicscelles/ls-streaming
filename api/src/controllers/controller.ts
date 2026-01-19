@@ -8,6 +8,8 @@ import { makeCreateController } from "./helpers/create.helper";
 import { makeCreateWithIdParamController } from "./helpers/createWithIdParam.helper";
 import { makeUpdateController } from "./helpers/update.helper";
 import { makeDeleteController } from "./helpers/delete.helper";
+import { TvShowEntity } from "../entities/TvShowEntity";
+import { SeasonTvShowEntity } from "../entities/SeasonTvShowEntity";
 
 // controller to get all videos
 export const getAllVideosController = (
@@ -208,6 +210,20 @@ export const createTvShowController = (
   return makeCreateController(
     (data) => movieLibrary.createTvShow(data),
     "tv show",
+  );
+};
+
+// Controller to create a new season for a tv show
+export const createSeasonTvShowController = (
+  MovieLibrary: MovieLibraryRepository,
+): RequestHandler => {
+  return makeCreateWithIdParamController<
+    Partial<SeasonTvShowEntity>,
+    TvShowEntity
+  >(
+    "id",
+    (tvShowId: string, data) => MovieLibrary.addSeasonToTvShow(tvShowId, data),
+    "season",
   );
 };
 

@@ -7,6 +7,7 @@ import { SerieEntity } from "./entities/SerieEntity";
 import { SeasonEntity } from "./entities/SeasonEntity";
 import { EpisodeEntity } from "./entities/EpisodeEntity";
 import { TvShowEntity } from "./entities/TvShowEntity";
+import { SeasonTvShowEntity } from "./entities/SeasonTvShowEntity";
 
 import {
   generateFilmId,
@@ -27,6 +28,7 @@ export class MovieLibraryRepository {
     private episodeRepo: Repository<EpisodeEntity>,
     private seasonRepo: Repository<SeasonEntity>,
     private episodeTvShowRepo: Repository<EpisodeTvShowEntity>,
+    private seasonTvShowRepo: Repository<SeasonTvShowEntity>,
   ) {}
 
   // method to get all documentaries
@@ -379,6 +381,47 @@ export class MovieLibraryRepository {
 
     const tvShow = this.tvShowRepo.create({ ...data, id });
     await this.tvShowRepo.save(tvShow);
+    return this.tvShowRepo.findOneOrFail({
+      where: { id: tvShow.id! },
+      relations: {
+        seasonTvShowEntities: {
+          episodeTvShowEntities: true,
+        },
+      },
+      order: {
+        seasonTvShowEntities: {
+          seasonNumber: "ASC",
+          episodeTvShowEntities: {
+            episodeNumber: "ASC",
+          },
+        },
+      },
+    });
+  }
+
+  // methode to add a new season to an existing tv show
+  async addSeasonToTvShow(
+    tvShowId: string,
+    seasonData: Partial<SeasonTvShowEntity>,
+  ) {
+    const tvShow = await this.tvShowRepo.findOne({
+      where: { id: tvShowId },
+      relations: { seasonTvShowEntities: true },
+    });
+
+    if (!tvShow) {
+      throw Object.assign(new Error("Tv show not found"), {
+        code: "TV_SHOW_NOT_FOUND",
+      });
+    }
+
+    const newTvShowSeason = this.seasonTvShowRepo.create({
+      ...seasonData,
+      tvShow: tvShow,
+    });
+
+    await this.seasonTvShowRepo.save(newTvShowSeason);
+
     return this.tvShowRepo.findOneOrFail({
       where: { id: tvShow.id! },
       relations: {
