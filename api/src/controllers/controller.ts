@@ -10,6 +10,8 @@ import { makeUpdateController } from "./helpers/update.helper";
 import { makeDeleteController } from "./helpers/delete.helper";
 import { TvShowEntity } from "../entities/TvShowEntity";
 import { SeasonTvShowEntity } from "../entities/SeasonTvShowEntity";
+import { SerieEntity } from "../entities/SerieEntity";
+import { SeasonEntity } from "../entities/SeasonEntity";
 
 // controller to get all videos
 export const getAllVideosController = (
@@ -189,16 +191,9 @@ export const createSerieController = (
 export const createSeasonController = (
   movieLibrary: MovieLibraryRepository,
 ): RequestHandler => {
-  return makeCreateWithIdParamController<
-    { seasonNumber: number; seasonYear: number },
-    any
-  >(
+  return makeCreateWithIdParamController<Partial<SeasonEntity>, SerieEntity>(
     "id",
-    (serieId: string, data: { seasonNumber: number; seasonYear: number }) =>
-      movieLibrary.addSeasonToSerie(serieId, {
-        seasonNumber: data.seasonNumber,
-        seasonYear: data.seasonYear,
-      }),
+    (serieId: string, data) => movieLibrary.addSeasonToSerie(serieId, data),
     "season",
   );
 };
