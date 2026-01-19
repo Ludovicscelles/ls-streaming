@@ -330,13 +330,7 @@ export class MovieLibraryRepository {
 
   // method to add a new season to an existing serie
   // takes the serie ID and a partial SeasonEntity object as input
-  async addSeasonToSerie(
-    serieId: string,
-    seasonData: Partial<{
-      seasonNumber: number;
-      seasonYear: number;
-    }>,
-  ) {
+  async addSeasonToSerie(serieId: string, seasonData: Partial<SeasonEntity>) {
     // find the serie by its ID, including its existing seasons
     const serie = await this.serieRepo.findOne({
       where: { id: serieId },
