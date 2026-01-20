@@ -1,50 +1,55 @@
 // import necessary modules and entities
 // from TypeORM and entity definitions
-import { Repository, Like, Code } from "typeorm";
-import { DocumentaryEntity } from "./entities/DocumentaryEntity";
-import { FilmEntity } from "./entities/FilmEntity";
-import { SerieEntity } from "./entities/SerieEntity";
-import { SeasonEntity } from "./entities/SeasonEntity";
-import { EpisodeEntity } from "./entities/EpisodeEntity";
-import { TvShowEntity } from "./entities/TvShowEntity";
-import { SeasonTvShowEntity } from "./entities/SeasonTvShowEntity";
+import { Repository, Like } from "typeorm";
+import { DocumentaryEntity } from "../entities/DocumentaryEntity";
+import { FilmEntity } from "../entities/FilmEntity";
+import { SerieEntity } from "../entities/SerieEntity";
+import { SeasonEntity } from "../entities/SeasonEntity";
+import { EpisodeEntity } from "../entities/EpisodeEntity";
+import { TvShowEntity } from "../entities/TvShowEntity";
+import { SeasonTvShowEntity } from "../entities/SeasonTvShowEntity";
+import { DocumentaryRepository } from "./documentary.repository";
 
 import {
   generateFilmId,
-  generateDocumentaryId,
   generateSerieId,
   generateTvShowId,
-} from "./utils/generateIds";
-import { EpisodeTvShowEntity } from "./entities/EpisodeTvShowEntity";
+} from "../utils/generateIds";
+import { EpisodeTvShowEntity } from "../entities/EpisodeTvShowEntity";
+
+type MovieLibraryDeps = {
+  documentaryRepo: DocumentaryRepository;
+  filmRepo: Repository<FilmEntity>;
+  serieRepo: Repository<SerieEntity>;
+  tvShowRepo: Repository<TvShowEntity>;
+  episodeRepo: Repository<EpisodeEntity>;
+  seasonRepo: Repository<SeasonEntity>;
+  episodeTvShowRepo: Repository<EpisodeTvShowEntity>;
+  seasonTvShowRepo: Repository<SeasonTvShowEntity>;
+};
 
 // MovieLibraryRepository class definition
 export class MovieLibraryRepository {
   // constructor to initialize repositories for each entity
   constructor(
-    private documentaryRepo: Repository<DocumentaryEntity>,
-    private filmRepo: Repository<FilmEntity>,
-    private serieRepo: Repository<SerieEntity>,
-    private tvShowRepo: Repository<TvShowEntity>,
-    private episodeRepo: Repository<EpisodeEntity>,
-    private seasonRepo: Repository<SeasonEntity>,
-    private episodeTvShowRepo: Repository<EpisodeTvShowEntity>,
-    private seasonTvShowRepo: Repository<SeasonTvShowEntity>,
+    private readonly documentaryRepo: DocumentaryRepository,
+    private readonly filmRepo: Repository<FilmEntity>,
+    private readonly serieRepo: Repository<SerieEntity>,
+    private readonly tvShowRepo: Repository<TvShowEntity>,
+    private readonly episodeRepo: Repository<EpisodeEntity>,
+    private readonly seasonRepo: Repository<SeasonEntity>,
+    private readonly episodeTvShowRepo: Repository<EpisodeTvShowEntity>,
+    private readonly seasonTvShowRepo: Repository<SeasonTvShowEntity>,
   ) {}
-
-  // method to get all documentaries
-  // async means it returns a promise and that function is asynchronous
-  // Promise<DocumentaryEntity[]> indicates the return type
-  // which is an array of DocumentaryEntity
-  async getAllDocumentaries(): Promise<DocumentaryEntity[]> {
-    // use the repository to find and return all documentaries
-    // this signifies that we are calling the find method on the documentaryRepo
-    // the find() method fetches all records from the database table
-    return this.documentaryRepo.find();
-  }
 
   // method to get all films
   async getAllFilms(): Promise<FilmEntity[]> {
     return this.filmRepo.find();
+  }
+
+  // method to get all documentaries
+  async getAllDocumentaries(): Promise<DocumentaryEntity[]> {
+    return this.documentaryRepo.getAllDocumentaries();
   }
 
   // method to get all series with their seasons and episodes
@@ -95,7 +100,7 @@ export class MovieLibraryRepository {
   // DocumentaryEntity, FilmEntity, SerieEntity, TvShowEntity
   Promise<(DocumentaryEntity | FilmEntity | SerieEntity | TvShowEntity)[]> {
     // await each method to get the respective lists
-    const documentaries = await this.getAllDocumentaries();
+    const documentaries = await this.documentaryRepo.getAllDocumentaries();
     const films = await this.getAllFilms();
     const series = await this.getAllSeries();
     const tvShows = await this.getAllTvShows();
@@ -111,7 +116,7 @@ export class MovieLibraryRepository {
 
   // Method to get documentary by ID
   async getDocumentaryById(id: string): Promise<DocumentaryEntity | null> {
-    return this.documentaryRepo.findOne({ where: { id } });
+    return this.documentaryRepo.getDocumentaryById(id);
   }
 
   // Method to get serie by ID
@@ -237,11 +242,9 @@ export class MovieLibraryRepository {
     });
   }
 
-  // Method to filter documentary by genre
+  // Method to filter documentaries by genre
   async getDocumentariesByGenre(genre: string) {
-    return this.documentaryRepo.find({
-      where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
-    });
+    return this.documentaryRepo.getDocumentariesByGenre(genre);
   }
 
   // Method to filter series by genre
@@ -294,16 +297,8 @@ export class MovieLibraryRepository {
   }
 
   // method to create a new documentary
-  // takes a partial DocumentaryEntity object as input data
   async createDocumentary(data: Partial<DocumentaryEntity>) {
-    const id = await generateDocumentaryId(this.documentaryRepo);
-    // create a new documentary instance using the repository's create method
-    const documentary = this.documentaryRepo.create({ ...data, id });
-    // insert the new documentary into the database
-    await this.documentaryRepo.insert(documentary);
-    // retrieve and return the newly created documentary by its ID
-    // this ensures we return the complete entity as stored in the database
-    return this.documentaryRepo.findOneByOrFail({ id: documentary.id! });
+    return this.documentaryRepo.createDocumentary(data);
   }
 
   // method to create a new serie
@@ -481,29 +476,7 @@ export class MovieLibraryRepository {
 
   // Method to update a documentary
   async updateDocumentary(id: string, data: Partial<DocumentaryEntity>) {
-    const safeData: Partial<DocumentaryEntity> = {};
-
-    if (data.title !== undefined) safeData.title = data.title;
-    if (data.genre !== undefined) safeData.genre = data.genre;
-    if (data.image !== undefined) safeData.image = data.image;
-    if (data.duration !== undefined) safeData.duration = data.duration;
-    if (data.releaseDate !== undefined) safeData.releaseDate = data.releaseDate;
-    if (data.subject !== undefined) safeData.subject = data.subject;
-
-    if (Object.keys(safeData).length === 0) {
-      throw Object.assign(new Error("No valid update fields provided"), {
-        code: "NO_VALID_FIELDS",
-      });
-    }
-    const documentary = await this.documentaryRepo.preload({ id, ...safeData });
-
-    if (!documentary) {
-      throw Object.assign(new Error("Documentary not found"), {
-        code: "DOCUMENTARY_NOT_FOUND",
-      });
-    }
-
-    return this.documentaryRepo.save(documentary);
+    return this.documentaryRepo.updateDocumentary(id, data);
   }
 
   // Method to update a serie
@@ -579,12 +552,7 @@ export class MovieLibraryRepository {
 
   // method to delete a documentary by ID
   async deleteDocumentary(id: string): Promise<void> {
-    const result = await this.documentaryRepo.delete(id);
-    if (!result.affected || result.affected === 0) {
-      throw Object.assign(new Error("Documentary not found"), {
-        code: "DOCUMENTARY_NOT_FOUND",
-      });
-    }
+    return this.documentaryRepo.deleteDocumentary(id);
   }
 
   // method to delete a serie by ID
@@ -616,10 +584,9 @@ export class MovieLibraryRepository {
     });
   }
 
+  // method to search documentaries by title
   async searchDocumentaries(title: string): Promise<DocumentaryEntity[]> {
-    return this.documentaryRepo.find({
-      where: { title: Like(`%${title.trim().toLocaleLowerCase()}%`) },
-    });
+    return this.documentaryRepo.searchDocumentariesByTitle(title);
   }
 
   async searchSeries(title: string): Promise<SerieEntity[]> {
@@ -713,7 +680,7 @@ export class MovieLibraryRepository {
     const [films, documentaries, series, tvShows] = await Promise.all([
       // this calls each search method with the processed title
       this.searchFilms(searchedTitle),
-      this.searchDocumentaries(searchedTitle),
+      this.documentaryRepo.searchDocumentariesByTitle(searchedTitle),
       this.searchSeries(searchedTitle),
       this.searchTvShows(searchedTitle),
     ]);
