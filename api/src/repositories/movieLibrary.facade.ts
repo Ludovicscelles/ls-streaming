@@ -10,6 +10,7 @@ import { TvShowEntity } from "../entities/TvShowEntity";
 import { SeasonTvShowEntity } from "../entities/SeasonTvShowEntity";
 import { DocumentaryRepository } from "./documentary.repository";
 import { FilmRepository } from "./film.repository";
+import { SerieRepository } from "./serie.repository";
 
 import { generateSerieId, generateTvShowId } from "../utils/generateIds";
 import { EpisodeTvShowEntity } from "../entities/EpisodeTvShowEntity";
@@ -17,7 +18,7 @@ import { EpisodeTvShowEntity } from "../entities/EpisodeTvShowEntity";
 type MovieLibraryDeps = {
   documentaryRepo: DocumentaryRepository;
   filmRepo: FilmRepository;
-  serieRepo: Repository<SerieEntity>;
+  serieRepo: SerieRepository;
   tvShowRepo: Repository<TvShowEntity>;
   episodeRepo: Repository<EpisodeEntity>;
   seasonRepo: Repository<SeasonEntity>;
@@ -31,10 +32,8 @@ export class MovieLibraryRepository {
   constructor(
     private readonly documentaryRepo: DocumentaryRepository,
     private readonly filmRepo: FilmRepository,
-    private readonly serieRepo: Repository<SerieEntity>,
+    private readonly serieRepo: SerieRepository,
     private readonly tvShowRepo: Repository<TvShowEntity>,
-    private readonly episodeRepo: Repository<EpisodeEntity>,
-    private readonly seasonRepo: Repository<SeasonEntity>,
     private readonly episodeTvShowRepo: Repository<EpisodeTvShowEntity>,
     private readonly seasonTvShowRepo: Repository<SeasonTvShowEntity>,
   ) {}
@@ -51,24 +50,7 @@ export class MovieLibraryRepository {
 
   // method to get all series with their seasons and episodes
   async getAllSeries(): Promise<SerieEntity[]> {
-    // relations option is used to specify related entities to be loaded
-    // here, we are loading seasons and episodes related to each series
-    return this.serieRepo.find({
-      relations: {
-        seasonEntities: {
-          episodes: true,
-        },
-      },
-      order: {
-        id: "ASC",
-        seasonEntities: {
-          seasonNumber: "ASC",
-          episodes: {
-            episodeNumber: "ASC",
-          },
-        },
-      },
-    });
+    return this.serieRepo.getAllSeries();
   }
 
   // method to get all TV shows with their seasons and episodes
@@ -99,7 +81,7 @@ export class MovieLibraryRepository {
     // await each method to get the respective lists
     const documentaries = await this.documentaryRepo.getAllDocumentaries();
     const films = await this.filmRepo.getAllFilms();
-    const series = await this.getAllSeries();
+    const series = await this.serieRepo.getAllSeries();
     const tvShows = await this.getAllTvShows();
 
     // concatenate all lists into a single array and return it
@@ -117,28 +99,8 @@ export class MovieLibraryRepository {
   }
 
   // Method to get serie by ID
-  // includes related seasons and episodes, ordered by season and episode number
   async getSerieById(id: string): Promise<SerieEntity | null> {
-    // findOne method to retrieve a single serie by its ID
-    return this.serieRepo.findOne({
-      where: { id },
-      // relations to include related seasons and episodes
-      relations: {
-        seasonEntities: {
-          episodes: true,
-        },
-      },
-      order: {
-        // ordering seasons by seasonNumber in ascending order
-        // and episodes within each season by episodeNumber in ascending order
-        seasonEntities: {
-          seasonNumber: "ASC",
-          episodes: {
-            episodeNumber: "ASC",
-          },
-        },
-      },
-    });
+    return this.serieRepo.getSerieById(id);
   }
 
   // Method to get tv-show by ID
@@ -163,37 +125,7 @@ export class MovieLibraryRepository {
 
   // Method to get episodes by serie ID
   async getEpisodesBySerieId(serieId: string): Promise<EpisodeEntity[]> {
-    // find method to retrieve episodes associated with a specific serie ID
-    return this.episodeRepo.find({
-      where: {
-        season: {
-          serie: {
-            id: serieId,
-          },
-        },
-      },
-      relations: {
-        season: {
-          serie: true,
-        },
-      },
-      // select specific fields to return for each episode
-      select: {
-        id: true,
-        title: true,
-        duration: true,
-        episodeNumber: true,
-        director: true,
-        season: { id: true, seasonNumber: true },
-      },
-      // order episodes by season number and episode number in ascending order
-      order: {
-        season: {
-          seasonNumber: "ASC",
-        },
-        episodeNumber: "ASC",
-      },
-    });
+    return this.serieRepo.getEpisodesBySerieId(serieId);
   }
 
   // Methode to get episodes by tv show ID
@@ -244,22 +176,7 @@ export class MovieLibraryRepository {
 
   // Method to filter series by genre
   async getSeriesByGenre(genre: string) {
-    return this.serieRepo.find({
-      where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
-      relations: {
-        seasonEntities: {
-          episodes: true,
-        },
-      },
-      order: {
-        seasonEntities: {
-          seasonNumber: "ASC",
-          episodes: {
-            episodeNumber: "ASC",
-          },
-        },
-      },
-    });
+    return this.serieRepo.getSeriesByGenre(genre);
   }
 
   // Method to filter tv shows by genre
@@ -294,71 +211,12 @@ export class MovieLibraryRepository {
 
   // method to create a new serie
   async createSerie(data: Partial<SerieEntity>) {
-    const id = await generateSerieId(this.serieRepo);
-
-    const serie = this.serieRepo.create({ ...data, id });
-    await this.serieRepo.save(serie);
-    return this.serieRepo.findOneOrFail({
-      where: { id: serie.id! },
-      relations: {
-        seasonEntities: {
-          episodes: true,
-        },
-      },
-      order: {
-        seasonEntities: {
-          seasonNumber: "ASC",
-          episodes: {
-            episodeNumber: "ASC",
-          },
-        },
-      },
-    });
+    return this.serieRepo.createSerie(data);
   }
 
   // method to add a new season to an existing serie
-  // takes the serie ID and a partial SeasonEntity object as input
   async addSeasonToSerie(serieId: string, seasonData: Partial<SeasonEntity>) {
-    // find the serie by its ID, including its existing seasons
-    const serie = await this.serieRepo.findOne({
-      where: { id: serieId },
-      relations: { seasonEntities: true },
-    });
-
-    // if the serie does not exist, throw an error
-    if (!serie) {
-      throw Object.assign(new Error("Serie not found"), {
-        code: "SERIE_NOT_FOUND",
-      });
-    }
-
-    // create a new season instance associated with the serie
-    const newSeason = this.seasonRepo.create({
-      ...seasonData,
-      serie: serie,
-    });
-
-    // save the updated serie (with the new season) back to the database
-    await this.seasonRepo.save(newSeason);
-
-    // return the updated serie with its seasons and episodes
-    return this.serieRepo.findOneOrFail({
-      where: { id: serie.id! },
-      relations: {
-        seasonEntities: {
-          episodes: true,
-        },
-      },
-      //  order seasons and episodes by their respective numbers in ascending order
-      order: {
-        seasonEntities: {
-          seasonNumber: "ASC",
-          episodes: {
-            episodeNumber: "ASC",
-          },
-        },
-      },
-    });
+    return this.serieRepo.addSeasonToSerie(serieId, seasonData);
   }
 
   // methode to create a new tv show
@@ -438,38 +296,7 @@ export class MovieLibraryRepository {
 
   // Method to update a serie
   async updateSerie(id: string, data: Partial<SerieEntity>) {
-    // create a safeData object to hold only the fields that are allowed to be updated
-    // this prevents accidental overwriting of the id field
-    // by excluding id from the data object and other unwanted fields
-    // we ensure that only title, genre, and image can be updated
-    // this is a common practice to maintain data integrity
-    // for this reason, we manually construct the safeData object here
-    const safeData: Partial<SerieEntity> = {};
-
-    // Only copy allowed fields to safeData
-    if (data.title !== undefined) safeData.title = data.title;
-    if (data.genre !== undefined) safeData.genre = data.genre;
-    if (data.image !== undefined) safeData.image = data.image;
-
-    // if no valid fields are provided for update, throw an error
-    // this prevents unnecessary database operations
-    if (Object.keys(safeData).length === 0) {
-      throw Object.assign(new Error("No valid update fields provided"), {
-        code: "NO_VALID_FIELDS",
-      });
-    }
-
-    // preload the existing serie entity with the new data
-    const serie = await this.serieRepo.preload({ id, ...safeData });
-
-    // if the serie does not exist, throw an error
-    if (!serie) {
-      throw Object.assign(new Error("Serie not found"), {
-        code: "SERIE_NOT_FOUND",
-      });
-    }
-    // save the updated serie entity back to the database
-    return this.serieRepo.save(serie);
+    return this.serieRepo.updateSerie(id, data);
   }
 
   // methode to update a tv show
@@ -509,12 +336,7 @@ export class MovieLibraryRepository {
 
   // method to delete a serie by ID
   async deleteSerie(id: string): Promise<void> {
-    const result = await this.serieRepo.delete(id);
-    if (!result.affected || result.affected === 0) {
-      throw Object.assign(new Error("Serie not found"), {
-        code: "SERIE_NOT_FOUND",
-      });
-    }
+    return this.serieRepo.deleteSerie(id);
   }
 
   // method to delete a tv show by ID
@@ -537,61 +359,19 @@ export class MovieLibraryRepository {
     return this.documentaryRepo.searchDocumentariesByTitle(title);
   }
 
+  // method to search series by title
   async searchSeries(title: string): Promise<SerieEntity[]> {
-    return this.serieRepo.find({
-      where: { title: Like(`%${title.trim().toLowerCase()}%`) },
-      relations: {
-        seasonEntities: {
-          episodes: true,
-        },
-      },
-      order: {
-        seasonEntities: {
-          seasonNumber: "ASC",
-          episodes: {
-            episodeNumber: "ASC",
-          },
-        },
-      },
-    });
+    return this.serieRepo.searchSeriesByTitle(title);
   }
 
-  // methode to search epidode series by title
+  // method to search episode series by title
   async searchEpisodesInSeriesByTitle(title: string) {
-    return this.episodeRepo.find({
-      where: { title: Like(`%${title.trim().toLowerCase()}%`) },
-      relations: {
-        season: {
-          serie: true,
-        },
-      },
-    });
+    return this.serieRepo.searchEpisodesInSeriesByTitle(title);
   }
 
-  // methode to search episode series by title with query builder
-
-  // This method searches for series that contain episodes with titles matching the provided title.
+  // method to search episode series by title with query builder
   async searchSerieByEpisodeTitle(title: string): Promise<SerieEntity[]> {
-    // Using QueryBuilder to construct a more complex query
-    return (
-      this.serieRepo
-        // create a query builder for the SerieEntity
-        .createQueryBuilder("serie")
-        // left join the seasonEntities related to the series
-        // This allows us to access seasons of the series, even if there are no seasons (left join)
-        .leftJoinAndSelect("serie.seasonEntities", "season")
-        // left join the episodes related to the seasons
-        // This allows us to access episodes of the seasons, even if there are no episodes (left join)
-        .leftJoinAndSelect("season.episodes", "episode")
-        // add a where clause to filter series based on episode titles
-        .where("episode.title LIKE :title", {
-          title: `%${title.trim().toLowerCase()}%`,
-        })
-        // execute the query and get the results as an array of SerieEntity
-        // getMany() executes the built query and returns the matching series
-        // getMany() allows us to retrieve multiple records that match the criteria
-        .getMany()
-    );
+    return this.serieRepo.searchSerieByEpisodeTitle(title);
   }
 
   async searchTvShows(title: string): Promise<TvShowEntity[]> {
@@ -614,7 +394,6 @@ export class MovieLibraryRepository {
   }
 
   // global search method to search across all video types
-
   async searchAllVideosByTitle(
     // title parameter of type string
     title: string,

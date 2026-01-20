@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { MovieLibraryRepository } from "../MovieLibraryRepository";
+import { MovieLibraryRepository } from "../repositories/movieLibrary.facade";
 import {
   getAllVideosController,
   getAllFilmsController,

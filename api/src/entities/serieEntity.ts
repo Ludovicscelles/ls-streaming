@@ -16,6 +16,6 @@ export class SerieEntity {
   @Column()
   image!: string;
 
-  @OneToMany(() => SeasonEntity, (season) => season.serie, { cascade: true })
+  @OneToMany(() => SeasonEntity, (season) => season.serie, { cascade: ["insert", "update", "remove"] })
   seasonEntities!: SeasonEntity[];
 }

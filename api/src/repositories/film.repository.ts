@@ -1,6 +1,5 @@
 import { Repository, Like } from "typeorm";
 import { FilmEntity } from "../entities/FilmEntity";
-import { AppDataSource } from "../data-source";
 
 import { generateFilmId } from "../utils/generateIds";
 
@@ -20,7 +19,7 @@ export class FilmRepository {
   // Method to filter films by genre
   async getFilmsByGenre(genre: string): Promise<FilmEntity[]> {
     return this.filmRepo.find({
-      where: { genre: Like(`%${genre}%`) },
+      where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
     });
   }
 
