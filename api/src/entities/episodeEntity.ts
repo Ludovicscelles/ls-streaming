@@ -6,7 +6,10 @@ export class EpisodeEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => SeasonEntity, (season) => season.episodes)
+  @ManyToOne(() => SeasonEntity, (season) => season.episodes, {
+    nullable: false,
+    onDelete: "CASCADE",
+  })
   season!: SeasonEntity;
 
   @Column()

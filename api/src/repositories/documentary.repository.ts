@@ -26,7 +26,7 @@ export class DocumentaryRepository {
   // Method to filter documentary by genre
   async getDocumentariesByGenre(genre: string): Promise<DocumentaryEntity[]> {
     return this.documentaryRepo.find({
-      where: { genre: Like(`%${genre}%`) },
+      where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
     });
   }
 

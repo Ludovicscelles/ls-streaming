@@ -3,6 +3,7 @@ import { AppDataSource } from "./data-source";
 import { MovieLibraryRepository } from "./repositories/movieLibrary.facade";
 import { DocumentaryRepository } from "./repositories/documentary.repository";
 import { FilmRepository } from "./repositories/film.repository";
+import { SerieRepository } from "./repositories/serie.repository";
 import { DocumentaryEntity } from "./entities/DocumentaryEntity";
 import { FilmEntity } from "./entities/FilmEntity";
 import { SerieEntity } from "./entities/SerieEntity";
@@ -41,15 +42,19 @@ AppDataSource.initialize()
       AppDataSource.getRepository(FilmEntity),
     );
 
+    const serieRepository = new SerieRepository(
+      AppDataSource.getRepository(SerieEntity),
+      AppDataSource.getRepository(EpisodeEntity),
+      AppDataSource.getRepository(SeasonEntity),
+    );
+
     // Initialize MovieLibraryRepository with repositories for each entity
     // This sets up the repository to interact with the database
     const movieLibrary = new MovieLibraryRepository(
       documentaryRepository,
       filmRepository,
-      AppDataSource.getRepository(SerieEntity),
+      serieRepository,
       AppDataSource.getRepository(TvShowEntity),
-      AppDataSource.getRepository(EpisodeEntity),
-      AppDataSource.getRepository(SeasonEntity),
       AppDataSource.getRepository(EpisodeTvShowEntity),
       AppDataSource.getRepository(SeasonTvShowEntity),
     );

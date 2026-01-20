@@ -16,6 +16,7 @@ export class SeasonEntity {
   id!: number;
 
   @ManyToOne(() => SerieEntity, (serie) => serie.seasonEntities, {
+    onDelete: "CASCADE",
     nullable: false,
   })
   serie!: SerieEntity;
@@ -27,7 +28,7 @@ export class SeasonEntity {
   seasonNumber!: number;
 
   @OneToMany(() => EpisodeEntity, (episode) => episode.season, {
-    cascade: true,
+    cascade: ["insert", "update", "remove"],
   })
   episodes!: EpisodeEntity[];
 }
