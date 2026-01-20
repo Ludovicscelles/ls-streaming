@@ -1,5 +1,5 @@
-import { Request, Response, RequestHandler } from "express";
-import { MovieLibraryRepository } from "../MovieLibraryRepository";
+import { RequestHandler } from "express";
+import { MovieLibraryRepository } from "../repositories/movieLibrary.facade";
 import { makeSearchByTitleController } from "./helpers/searchByTitle.helper";
 import { makeGetAllVideosController } from "./helpers/getAll.helper";
 import { makeGetByIdController } from "./helpers/getById.helper";
@@ -12,6 +12,8 @@ import { TvShowEntity } from "../entities/TvShowEntity";
 import { SeasonTvShowEntity } from "../entities/SeasonTvShowEntity";
 import { SerieEntity } from "../entities/SerieEntity";
 import { SeasonEntity } from "../entities/SeasonEntity";
+
+
 
 // controller to get all videos
 export const getAllVideosController = (
