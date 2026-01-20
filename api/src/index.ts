@@ -2,6 +2,7 @@ import express from "express";
 import { AppDataSource } from "./data-source";
 import { MovieLibraryRepository } from "./repositories/movieLibrary.facade";
 import { DocumentaryRepository } from "./repositories/documentary.repository";
+import { FilmRepository } from "./repositories/film.repository";
 import { DocumentaryEntity } from "./entities/DocumentaryEntity";
 import { FilmEntity } from "./entities/FilmEntity";
 import { SerieEntity } from "./entities/SerieEntity";
@@ -35,11 +36,16 @@ AppDataSource.initialize()
     const documentaryRepository = new DocumentaryRepository(
       AppDataSource.getRepository(DocumentaryEntity),
     );
+
+    const filmRepository = new FilmRepository(
+      AppDataSource.getRepository(FilmEntity),
+    );
+
     // Initialize MovieLibraryRepository with repositories for each entity
     // This sets up the repository to interact with the database
     const movieLibrary = new MovieLibraryRepository(
       documentaryRepository,
-      AppDataSource.getRepository(FilmEntity),
+      filmRepository,
       AppDataSource.getRepository(SerieEntity),
       AppDataSource.getRepository(TvShowEntity),
       AppDataSource.getRepository(EpisodeEntity),

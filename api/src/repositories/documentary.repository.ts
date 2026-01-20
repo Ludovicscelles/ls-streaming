@@ -85,7 +85,7 @@ export class DocumentaryRepository {
     title: string,
   ): Promise<DocumentaryEntity[]> {
     return this.documentaryRepo.find({
-      where: { title: Like(`%${title}%`) },
+      where: { title: Like(`%${title.trim().toLowerCase()}%`) },
     });
   }
 }

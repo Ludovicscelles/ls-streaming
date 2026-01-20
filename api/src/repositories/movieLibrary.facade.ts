@@ -9,17 +9,14 @@ import { EpisodeEntity } from "../entities/EpisodeEntity";
 import { TvShowEntity } from "../entities/TvShowEntity";
 import { SeasonTvShowEntity } from "../entities/SeasonTvShowEntity";
 import { DocumentaryRepository } from "./documentary.repository";
+import { FilmRepository } from "./film.repository";
 
-import {
-  generateFilmId,
-  generateSerieId,
-  generateTvShowId,
-} from "../utils/generateIds";
+import { generateSerieId, generateTvShowId } from "../utils/generateIds";
 import { EpisodeTvShowEntity } from "../entities/EpisodeTvShowEntity";
 
 type MovieLibraryDeps = {
   documentaryRepo: DocumentaryRepository;
-  filmRepo: Repository<FilmEntity>;
+  filmRepo: FilmRepository;
   serieRepo: Repository<SerieEntity>;
   tvShowRepo: Repository<TvShowEntity>;
   episodeRepo: Repository<EpisodeEntity>;
@@ -33,7 +30,7 @@ export class MovieLibraryRepository {
   // constructor to initialize repositories for each entity
   constructor(
     private readonly documentaryRepo: DocumentaryRepository,
-    private readonly filmRepo: Repository<FilmEntity>,
+    private readonly filmRepo: FilmRepository,
     private readonly serieRepo: Repository<SerieEntity>,
     private readonly tvShowRepo: Repository<TvShowEntity>,
     private readonly episodeRepo: Repository<EpisodeEntity>,
@@ -44,7 +41,7 @@ export class MovieLibraryRepository {
 
   // method to get all films
   async getAllFilms(): Promise<FilmEntity[]> {
-    return this.filmRepo.find();
+    return this.filmRepo.getAllFilms();
   }
 
   // method to get all documentaries
@@ -101,7 +98,7 @@ export class MovieLibraryRepository {
   Promise<(DocumentaryEntity | FilmEntity | SerieEntity | TvShowEntity)[]> {
     // await each method to get the respective lists
     const documentaries = await this.documentaryRepo.getAllDocumentaries();
-    const films = await this.getAllFilms();
+    const films = await this.filmRepo.getAllFilms();
     const series = await this.getAllSeries();
     const tvShows = await this.getAllTvShows();
 
@@ -111,7 +108,7 @@ export class MovieLibraryRepository {
 
   // Method to get film by ID
   async getFilmById(id: string): Promise<FilmEntity | null> {
-    return this.filmRepo.findOne({ where: { id } });
+    return this.filmRepo.getFilmById(id);
   }
 
   // Method to get documentary by ID
@@ -237,9 +234,7 @@ export class MovieLibraryRepository {
 
   // Method to filter films by genre
   async getFilmsByGenre(genre: string) {
-    return this.filmRepo.find({
-      where: { genre: Like(`%${genre.trim().toLowerCase()}%`) },
-    });
+    return this.filmRepo.getFilmsByGenre(genre);
   }
 
   // Method to filter documentaries by genre
@@ -289,11 +284,7 @@ export class MovieLibraryRepository {
 
   // method to create a new film
   async createFilm(data: Partial<FilmEntity>) {
-    const id = await generateFilmId(this.filmRepo);
-
-    const film = this.filmRepo.create({ ...data, id });
-    await this.filmRepo.insert(film);
-    return this.filmRepo.findOneByOrFail({ id: film.id! });
+    return this.filmRepo.createFilm(data);
   }
 
   // method to create a new documentary
@@ -436,42 +427,8 @@ export class MovieLibraryRepository {
   }
 
   // method to update a film
-  // takes the film ID and a partial FilmEntity object with updated data
   async updateFilm(id: string, data: Partial<FilmEntity>) {
-    // create a safeData object to hold only the fields that are allowed to be updated
-    // this prevents accidental overwriting of the id field
-    // by excluding id from the data object and other unwanted fields
-    // we ensure that only title, genre, image, duration, releaseDate, and director can be updated
-    // this is a common practice to maintain data integrity
-    const safeData: Partial<FilmEntity> = {};
-
-    // Only copy allowed fields to safeData
-    if (data.title !== undefined) safeData.title = data.title;
-    if (data.genre !== undefined) safeData.genre = data.genre;
-    if (data.image !== undefined) safeData.image = data.image;
-    if (data.duration !== undefined) safeData.duration = data.duration;
-    if (data.releaseDate !== undefined) safeData.releaseDate = data.releaseDate;
-    if (data.director !== undefined) safeData.director = data.director;
-
-    // if no valid fields are provided for update, throw an error
-    // this prevents unnecessary database operations
-    if (Object.keys(safeData).length === 0) {
-      throw Object.assign(new Error("No valid update fields provided"), {
-        code: "NO_VALID_FIELDS",
-      });
-    }
-
-    // preload the existing film entity with the new data
-    const film = await this.filmRepo.preload({ id, ...safeData });
-
-    // if the film does not exist, throw an error
-    if (!film) {
-      throw Object.assign(new Error("Film not found"), {
-        code: "FILM_NOT_FOUND",
-      });
-    }
-    // save the updated film entity back to the database
-    return this.filmRepo.save(film);
+    return this.filmRepo.updateFilm(id, data);
   }
 
   // Method to update a documentary
@@ -542,12 +499,7 @@ export class MovieLibraryRepository {
 
   // method to delete a film by ID
   async deleteFilm(id: string): Promise<void> {
-    const result = await this.filmRepo.delete(id);
-    if (!result.affected || result.affected === 0) {
-      throw Object.assign(new Error("Film not found"), {
-        code: "FILM_NOT_FOUND",
-      });
-    }
+    return this.filmRepo.deleteFilm(id);
   }
 
   // method to delete a documentary by ID
@@ -577,11 +529,7 @@ export class MovieLibraryRepository {
 
   // method to search films by title
   async searchFilms(title: string): Promise<FilmEntity[]> {
-    return this.filmRepo.find({
-      // where clause to filter films by title
-      // this performs a search in the database for films matching the given title
-      where: { title: Like(`%${title.trim().toLowerCase()}%`) },
-    });
+    return this.filmRepo.searchFilmsByTitle(title);
   }
 
   // method to search documentaries by title
