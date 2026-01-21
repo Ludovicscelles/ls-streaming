@@ -8,7 +8,11 @@ export class EpisodeTvShowEntity {
 
   @ManyToOne(
     () => SeasonTvShowEntity,
-    (seasonTvShow) => seasonTvShow.episodeTvShowEntities
+    (seasonTvShow) => seasonTvShow.episodeTvShowEntities,
+    {
+      nullable: false,
+      onDelete: "CASCADE",
+    },
   )
   seasonTvShow!: SeasonTvShowEntity;
 

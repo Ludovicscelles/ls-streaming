@@ -17,6 +17,7 @@ export class SeasonTvShowEntity {
 
   @ManyToOne(() => TvShowEntity, (tvShow) => tvShow.seasonTvShowEntities, {
     nullable: false,
+    onDelete: "CASCADE",
   })
   tvShow!: TvShowEntity;
 
@@ -33,7 +34,7 @@ export class SeasonTvShowEntity {
     () => EpisodeTvShowEntity,
     (episodeTvShow) => episodeTvShow.seasonTvShow,
     {
-      cascade: true,
+      cascade: ["insert", "update", "remove"],
     },
   )
   episodeTvShowEntities!: EpisodeTvShowEntity[];
