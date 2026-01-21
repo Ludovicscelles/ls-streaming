@@ -23,16 +23,6 @@ export const getAllVideosController = (
   );
 };
 
-// controller to get all documentaries
-export const getAllDocumentariesController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeGetAllVideosController(
-    () => movieLibrary.getAllDocumentaries(),
-    "documentaries",
-  );
-};
-
 // controller to get all series
 export const getAllSeriesController = (
   movieLibrary: MovieLibraryFacade,
@@ -50,16 +40,6 @@ export const getAllTvShowsController = (
   return makeGetAllVideosController(
     () => movieLibrary.getAllTvShows(),
     "tv shows",
-  );
-};
-
-// controller to get documentary by ID
-export const getDocumentaryByIdController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeGetByIdController(
-    (id: string) => movieLibrary.getDocumentaryById(id),
-    "documentary",
   );
 };
 
@@ -103,16 +83,6 @@ export const getEpisodesByTvShowIdController = (
   );
 };
 
-// Controller to filter documentaries by genre
-export const getDocumentariesByGenreController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeGetByGenreController(
-    (genre: string) => movieLibrary.getDocumentariesByGenre(genre),
-    "documentaries",
-  );
-};
-
 // Controller to filter series by genre
 export const getSeriesByGenreController = (
   movieLibrary: MovieLibraryFacade,
@@ -130,16 +100,6 @@ export const getTvShowsByGenreController = (
   return makeGetByGenreController(
     (genre: string) => movieLibrary.getTvShowsByGenre(genre),
     "tv shows",
-  );
-};
-
-// Controller to create a new documentary
-export const createDocumentaryController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeCreateController(
-    (data) => movieLibrary.createDocumentary(data),
-    "documentary",
   );
 };
 
@@ -188,18 +148,6 @@ export const createSeasonTvShowController = (
   );
 };
 
-// Controller to update a documentary
-export const updateDocumentaryController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeUpdateController(
-    (id: string, data: Partial<any>) =>
-      movieLibrary.updateDocumentary(id, data),
-    "DOCUMENTARY_NOT_FOUND",
-    "documentary",
-  );
-};
-
 // Controller to update a serie
 export const updateSerieController = (
   movieLibrary: MovieLibraryFacade,
@@ -222,17 +170,6 @@ export const updateTvShowController = (
   );
 };
 
-// Controller to delete a documentary
-export const deleteDocumentaryController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeDeleteController(
-    (id: string) => movieLibrary.deleteDocumentary(id),
-    "DOCUMENTARY_NOT_FOUND",
-    "documentary",
-  );
-};
-
 // Controller to delete a serie
 export const deleteSerieController = (
   movieLibrary: MovieLibraryFacade,
@@ -252,16 +189,6 @@ export const deleteTvShowController = (
     (id: string) => movieLibrary.deleteTvShow(id),
     "TV_SHOW_NOT_FOUND",
     "tv show",
-  );
-};
-
-// Controller to search documentaries by title
-export const searchDocumentariesController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeSearchByTitleController(
-    (title: string) => movieLibrary.searchDocumentaries(title),
-    "documentaries",
   );
 };
 
