@@ -16,8 +16,8 @@ export class SeasonEntity {
   id!: number;
 
   @ManyToOne(() => SerieEntity, (serie) => serie.seasonEntities, {
-    onDelete: "CASCADE",
     nullable: false,
+    onDelete: "CASCADE",
   })
   serie!: SerieEntity;
 
