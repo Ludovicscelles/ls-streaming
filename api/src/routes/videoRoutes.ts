@@ -1,47 +1,48 @@
 import { Router } from "express";
-import { MovieLibraryRepository } from "../repositories/movieLibrary.facade";
+import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
 import {
   getAllVideosController,
-  getAllFilmsController,
   getAllDocumentariesController,
   getAllSeriesController,
   getAllTvShowsController,
-  getFilmByIdController,
   getDocumentaryByIdController,
   getSerieByIdController,
   getTvShowByIdController,
   getEpisodesBySerieIdController,
   getEpisodesByTvShowIdController,
-  getFilmsByGenreController,
   getDocumentariesByGenreController,
   getSeriesByGenreController,
   getTvShowsByGenreController,
-  createFilmController,
   createDocumentaryController,
   createSerieController,
   createSeasonController,
   createTvShowController,
   createSeasonTvShowController,
-  updateFilmController,
   updateDocumentaryController,
   updateSerieController,
   updateTvShowController,
-  deleteFilmController,
   deleteDocumentaryController,
   deleteSerieController,
   deleteTvShowController,
-  searchFilmsController,
   searchDocumentariesController,
   searchSeriesController,
   searchSerieByEpisodeTitleController,
   searchEpisodesController,
   searchTvShowsController,
   searchAllVideosController,
-} from "../controllers/controller";
+} from "../controllers/videos.controller";
 
-export function createVideoRouter(
-  movieLibrary: MovieLibraryRepository,
-): Router {
+import {
+  getAllFilmsController,
+  getFilmByIdController,
+  getFilmsByGenreController,
+  createFilmController,
+  updateFilmController,
+  deleteFilmController,
+  searchFilmsController,
+} from "../controllers";
+
+export function createVideoRouter(movieLibrary: MovieLibraryFacade): Router {
   const router = Router();
 
   // Route to get all videos
