@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { MovieLibraryRepository } from "../repositories/movieLibrary.facade";
+import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
 import { makeSearchByTitleController } from "./helpers/searchByTitle.helper";
 import { makeGetAllVideosController } from "./helpers/getAll.helper";
 import { makeGetByIdController } from "./helpers/getById.helper";
@@ -8,16 +8,14 @@ import { makeCreateController } from "./helpers/create.helper";
 import { makeCreateWithIdParamController } from "./helpers/createWithIdParam.helper";
 import { makeUpdateController } from "./helpers/update.helper";
 import { makeDeleteController } from "./helpers/delete.helper";
-import { TvShowEntity } from "../entities/TvShowEntity";
-import { SeasonTvShowEntity } from "../entities/SeasonTvShowEntity";
-import { SerieEntity } from "../entities/SerieEntity";
-import { SeasonEntity } from "../entities/SeasonEntity";
-
-
+import type { TvShowEntity } from "../entities/TvShowEntity";
+import type { SeasonTvShowEntity } from "../entities/SeasonTvShowEntity";
+import type { SerieEntity } from "../entities/SerieEntity";
+import type { SeasonEntity } from "../entities/SeasonEntity";
 
 // controller to get all videos
 export const getAllVideosController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetAllVideosController(
     () => movieLibrary.getAllVideos(),
@@ -27,14 +25,14 @@ export const getAllVideosController = (
 
 // controller to get all films
 export const getAllFilmsController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetAllVideosController(() => movieLibrary.getAllFilms(), "films");
 };
 
 // controller to get all documentaries
 export const getAllDocumentariesController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetAllVideosController(
     () => movieLibrary.getAllDocumentaries(),
@@ -44,7 +42,7 @@ export const getAllDocumentariesController = (
 
 // controller to get all series
 export const getAllSeriesController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetAllVideosController(
     () => movieLibrary.getAllSeries(),
@@ -54,7 +52,7 @@ export const getAllSeriesController = (
 
 // controller to get all tv shows
 export const getAllTvShowsController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetAllVideosController(
     () => movieLibrary.getAllTvShows(),
@@ -64,7 +62,7 @@ export const getAllTvShowsController = (
 
 // controller to get film by ID
 export const getFilmByIdController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetByIdController(
     (id: string) => movieLibrary.getFilmById(id),
@@ -74,7 +72,7 @@ export const getFilmByIdController = (
 
 // controller to get documentary by ID
 export const getDocumentaryByIdController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetByIdController(
     (id: string) => movieLibrary.getDocumentaryById(id),
@@ -84,7 +82,7 @@ export const getDocumentaryByIdController = (
 
 // controller to get serie by ID
 export const getSerieByIdController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetByIdController(
     (id: string) => movieLibrary.getSerieById(id),
@@ -94,7 +92,7 @@ export const getSerieByIdController = (
 
 // controller to get tv show by ID
 export const getTvShowByIdController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetByIdController(
     (id: string) => movieLibrary.getTvShowById(id),
@@ -104,7 +102,7 @@ export const getTvShowByIdController = (
 
 // controller to get episodes of a serie by serie ID
 export const getEpisodesBySerieIdController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetByIdController(
     (id: string) => movieLibrary.getEpisodesBySerieId(id),
@@ -114,7 +112,7 @@ export const getEpisodesBySerieIdController = (
 
 // controller to get episodes of a tv show by tv show ID
 export const getEpisodesByTvShowIdController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetByIdController(
     (id: string) => movieLibrary.getEpisodesByTvShowId(id),
@@ -124,7 +122,7 @@ export const getEpisodesByTvShowIdController = (
 
 // controller to filter films by genre
 export const getFilmsByGenreController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetByGenreController(
     (genre: string) => movieLibrary.getFilmsByGenre(genre),
@@ -134,7 +132,7 @@ export const getFilmsByGenreController = (
 
 // Controller to filter documentaries by genre
 export const getDocumentariesByGenreController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetByGenreController(
     (genre: string) => movieLibrary.getDocumentariesByGenre(genre),
@@ -144,7 +142,7 @@ export const getDocumentariesByGenreController = (
 
 // Controller to filter series by genre
 export const getSeriesByGenreController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetByGenreController(
     (genre: string) => movieLibrary.getSeriesByGenre(genre),
@@ -154,7 +152,7 @@ export const getSeriesByGenreController = (
 
 // Controller to filter tv shows by genre
 export const getTvShowsByGenreController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeGetByGenreController(
     (genre: string) => movieLibrary.getTvShowsByGenre(genre),
@@ -164,14 +162,14 @@ export const getTvShowsByGenreController = (
 
 // Controller to create a new film
 export const createFilmController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeCreateController((data) => movieLibrary.createFilm(data), "film");
 };
 
 // Controller to create a new documentary
 export const createDocumentaryController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeCreateController(
     (data) => movieLibrary.createDocumentary(data),
@@ -181,7 +179,7 @@ export const createDocumentaryController = (
 
 // Controller to create a new serie
 export const createSerieController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeCreateController(
     (data) => movieLibrary.createSerie(data),
@@ -191,7 +189,7 @@ export const createSerieController = (
 
 // Controller to create a new season for a serie
 export const createSeasonController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeCreateWithIdParamController<Partial<SeasonEntity>, SerieEntity>(
     "id",
@@ -202,7 +200,7 @@ export const createSeasonController = (
 
 // Controller to create a new tv show
 export const createTvShowController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeCreateController(
     (data) => movieLibrary.createTvShow(data),
@@ -212,21 +210,21 @@ export const createTvShowController = (
 
 // Controller to create a new season for a tv show
 export const createSeasonTvShowController = (
-  MovieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeCreateWithIdParamController<
     Partial<SeasonTvShowEntity>,
     TvShowEntity
   >(
     "id",
-    (tvShowId: string, data) => MovieLibrary.addSeasonToTvShow(tvShowId, data),
+    (tvShowId: string, data) => movieLibrary.addSeasonToTvShow(tvShowId, data),
     "season",
   );
 };
 
 // Controller to update a film
 export const updateFilmController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeUpdateController(
     (id: string, data: Partial<any>) => movieLibrary.updateFilm(id, data),
@@ -237,7 +235,7 @@ export const updateFilmController = (
 
 // Controller to update a documentary
 export const updateDocumentaryController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeUpdateController(
     (id: string, data: Partial<any>) =>
@@ -249,7 +247,7 @@ export const updateDocumentaryController = (
 
 // Controller to update a serie
 export const updateSerieController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeUpdateController(
     (id: string, data: Partial<any>) => movieLibrary.updateSerie(id, data),
@@ -260,7 +258,7 @@ export const updateSerieController = (
 
 // Controller to update a tv show
 export const updateTvShowController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeUpdateController(
     (id: string, data: Partial<any>) => movieLibrary.updateTvShow(id, data),
@@ -271,7 +269,7 @@ export const updateTvShowController = (
 
 // Controller to delete a film
 export const deleteFilmController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeDeleteController(
     (id: string) => movieLibrary.deleteFilm(id),
@@ -282,7 +280,7 @@ export const deleteFilmController = (
 
 // Controller to delete a documentary
 export const deleteDocumentaryController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeDeleteController(
     (id: string) => movieLibrary.deleteDocumentary(id),
@@ -293,7 +291,7 @@ export const deleteDocumentaryController = (
 
 // Controller to delete a serie
 export const deleteSerieController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeDeleteController(
     (id: string) => movieLibrary.deleteSerie(id),
@@ -304,7 +302,7 @@ export const deleteSerieController = (
 
 // Controller to delete a tv show
 export const deleteTvShowController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeDeleteController(
     (id: string) => movieLibrary.deleteTvShow(id),
@@ -320,7 +318,7 @@ export const deleteTvShowController = (
 // 1. The search function from the MovieLibraryRepository
 // 2. A label "films" for logging purposes
 export const searchFilmsController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeSearchByTitleController(
     (title: string) => movieLibrary.searchFilms(title),
@@ -330,7 +328,7 @@ export const searchFilmsController = (
 
 // Controller to search documentaries by title
 export const searchDocumentariesController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeSearchByTitleController(
     (title: string) => movieLibrary.searchDocumentaries(title),
@@ -340,7 +338,7 @@ export const searchDocumentariesController = (
 
 // Controller to search series by title
 export const searchSeriesController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeSearchByTitleController(
     (title: string) => movieLibrary.searchSeries(title),
@@ -350,7 +348,7 @@ export const searchSeriesController = (
 
 // Controller to search serie by episodes title
 export const searchSerieByEpisodeTitleController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeSearchByTitleController(
     (title: string) => movieLibrary.searchSerieByEpisodeTitle(title),
@@ -360,7 +358,7 @@ export const searchSerieByEpisodeTitleController = (
 
 // Controller to search episodes by title
 export const searchEpisodesController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeSearchByTitleController(
     (title: string) => movieLibrary.searchEpisodesInSeriesByTitle(title),
@@ -370,7 +368,7 @@ export const searchEpisodesController = (
 
 // Controller to search tv shows by titles
 export const searchTvShowsController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeSearchByTitleController(
     (title: string) => movieLibrary.searchTvShows(title),
@@ -380,7 +378,7 @@ export const searchTvShowsController = (
 
 // Controller to search videos by title across all categories
 export const searchAllVideosController = (
-  movieLibrary: MovieLibraryRepository,
+  movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeSearchByTitleController(
     (title: string) => movieLibrary.searchAllVideosByTitle(title),

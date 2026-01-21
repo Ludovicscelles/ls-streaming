@@ -1,9 +1,10 @@
 import express from "express";
 import { AppDataSource } from "./data-source";
-import { MovieLibraryRepository } from "./repositories/movieLibrary.facade";
+import { MovieLibraryFacade } from "./repositories/movieLibrary.facade";
 import { DocumentaryRepository } from "./repositories/documentary.repository";
 import { FilmRepository } from "./repositories/film.repository";
 import { SerieRepository } from "./repositories/serie.repository";
+import { TvShowRepository } from "./repositories/tvShow.repository";
 import { DocumentaryEntity } from "./entities/DocumentaryEntity";
 import { FilmEntity } from "./entities/FilmEntity";
 import { SerieEntity } from "./entities/SerieEntity";
@@ -48,16 +49,20 @@ AppDataSource.initialize()
       AppDataSource.getRepository(SeasonEntity),
     );
 
-    // Initialize MovieLibraryRepository with repositories for each entity
-    // This sets up the repository to interact with the database
-    const movieLibrary = new MovieLibraryRepository(
-      documentaryRepository,
-      filmRepository,
-      serieRepository,
+    const tvShowRepository = new TvShowRepository(
       AppDataSource.getRepository(TvShowEntity),
       AppDataSource.getRepository(EpisodeTvShowEntity),
       AppDataSource.getRepository(SeasonTvShowEntity),
     );
+
+    // Initialize MovieLibraryRepository with repositories for each entity
+    // This sets up the repository to interact with the database
+    const movieLibrary = new MovieLibraryFacade({
+      documentaryRepo: documentaryRepository,
+      filmRepo: filmRepository,
+      serieRepo: serieRepository,
+      tvShowRepo: tvShowRepository,
+    });
 
     // Use the video router for handling /api/videos routes
     app.use("/api/videos", createVideoRouter(movieLibrary));
