@@ -13,7 +13,6 @@ import {
 import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
 import { SeasonEntity } from "../entities/SeasonEntity";
 import { SerieEntity } from "../entities/SerieEntity";
-import { time } from "console";
 
 // controller to get all series
 export const getAllSeriesController = (
