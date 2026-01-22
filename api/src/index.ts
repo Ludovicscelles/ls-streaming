@@ -16,7 +16,8 @@ import { EpisodeTvShowEntity } from "./entities/EpisodeTvShowEntity";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { createVideoRouter } from "./routes/videoRoutes";
+import { createVideosRouter } from "./routes/videos.routes";
+import { createApiRouter } from "./routes";
 
 dotenv.config();
 
@@ -65,7 +66,7 @@ AppDataSource.initialize()
     });
 
     // Use the video router for handling /api/videos routes
-    app.use("/api/videos", createVideoRouter(movieLibrary));
+    app.use("/api/videos", createApiRouter(movieLibrary));
 
     console.log("Data Source has been initialized!");
 
