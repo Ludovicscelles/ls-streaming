@@ -2,15 +2,6 @@ import { Router } from "express";
 import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
 import {
   getAllVideosController,
-  getAllTvShowsController,
-  getTvShowByIdController,
-  getEpisodesByTvShowIdController,
-  getTvShowsByGenreController,
-  createTvShowController,
-  createSeasonTvShowController,
-  updateTvShowController,
-  deleteTvShowController,
-  searchTvShowsController,
   searchAllVideosController,
 } from "../controllers/videos.controller";
 
@@ -40,6 +31,15 @@ import {
   searchSeriesController,
   searchSerieByEpisodeTitleController,
   searchEpisodesController,
+  getAllTvShowsController,
+  getTvShowByIdController,
+  getEpisodesByTvShowIdController,
+  getTvShowsByGenreController,
+  createTvShowController,
+  createSeasonTvShowController,
+  updateTvShowController,
+  deleteTvShowController,
+  searchTvShowsController,
 } from "../controllers";
 
 export function createVideoRouter(movieLibrary: MovieLibraryFacade): Router {
