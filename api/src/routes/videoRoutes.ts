@@ -3,9 +3,6 @@ import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
 import {
   getAllVideosController,
   searchAllVideosController,
-} from "../controllers/videos.controller";
-
-import {
   getAllFilmsController,
   getFilmByIdController,
   getFilmsByGenreController,
