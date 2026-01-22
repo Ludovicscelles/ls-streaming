@@ -1,13 +1,9 @@
 import { RequestHandler } from "express";
 import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
-import { makeSearchByTitleController } from "./helpers/searchByTitle.helper";
-import { makeGetAllVideosController } from "./helpers/getAll.helper";
-import { makeGetByIdController } from "./helpers/getById.helper";
-import { makeGetByGenreController } from "./helpers/getByGenre.helper";
-import { makeCreateController } from "./helpers/create.helper";
-import { makeCreateWithIdParamController } from "./helpers/createWithIdParam.helper";
-import { makeUpdateController } from "./helpers/update.helper";
-import { makeDeleteController } from "./helpers/delete.helper";
+import {
+  makeGetAllVideosController,
+  makeSearchByTitleController,
+} from "./helpers";
 
 // controller to get all videos
 export const getAllVideosController = (
