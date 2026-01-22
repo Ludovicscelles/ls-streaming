@@ -3,13 +3,6 @@ import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
 import {
   getAllVideosController,
   searchAllVideosController,
-  getAllFilmsController,
-  getFilmByIdController,
-  getFilmsByGenreController,
-  createFilmController,
-  updateFilmController,
-  deleteFilmController,
-  searchFilmsController,
   getAllDocumentariesController,
   getDocumentaryByIdController,
   getDocumentariesByGenreController,
@@ -39,14 +32,11 @@ import {
   searchTvShowsController,
 } from "../controllers";
 
-export function createVideoRouter(movieLibrary: MovieLibraryFacade): Router {
+export function createVideosRouter(movieLibrary: MovieLibraryFacade): Router {
   const router = Router();
 
   // Route to get all videos
   router.get("/", getAllVideosController(movieLibrary));
-
-  // Route to get all films
-  router.get("/films", getAllFilmsController(movieLibrary));
 
   // Route to get all documentaries
   router.get("/documentaries", getAllDocumentariesController(movieLibrary));
@@ -56,9 +46,6 @@ export function createVideoRouter(movieLibrary: MovieLibraryFacade): Router {
 
   // Route to get all TV shows
   router.get("/tvshows", getAllTvShowsController(movieLibrary));
-
-  // Route to filter films by genre
-  router.get("/films/genre", getFilmsByGenreController(movieLibrary));
 
   // Route to filter documentaries by genre
   router.get(
@@ -71,9 +58,6 @@ export function createVideoRouter(movieLibrary: MovieLibraryFacade): Router {
 
   // Route to filter tv shows by genre
   router.get("/tvshows/genre", getTvShowsByGenreController(movieLibrary));
-
-  // Route to create a new film
-  router.post("/films", createFilmController(movieLibrary));
 
   // Route to create a new documentary
   router.post("/documentaries", createDocumentaryController(movieLibrary));
@@ -93,9 +77,6 @@ export function createVideoRouter(movieLibrary: MovieLibraryFacade): Router {
     createSeasonTvShowController(movieLibrary),
   );
 
-  // Route to update a film
-  router.patch("/films/:id", updateFilmController(movieLibrary));
-
   // Route to update a documentary
   router.patch("/documentaries/:id", updateDocumentaryController(movieLibrary));
 
@@ -104,9 +85,6 @@ export function createVideoRouter(movieLibrary: MovieLibraryFacade): Router {
 
   // Route to update a tv show
   router.patch("/tvshows/:id", updateTvShowController(movieLibrary));
-
-  // Route to delete a film
-  router.delete("/films/:id", deleteFilmController(movieLibrary));
 
   // Route to delete a documentary
   router.delete(
@@ -119,9 +97,6 @@ export function createVideoRouter(movieLibrary: MovieLibraryFacade): Router {
 
   // Route to delete a tv show
   router.delete("/tvshows/:id", deleteTvShowController(movieLibrary));
-
-  // Route to search film by title
-  router.get("/films/search", searchFilmsController(movieLibrary));
 
   // Route to search documentary by title
   router.get(
@@ -146,9 +121,6 @@ export function createVideoRouter(movieLibrary: MovieLibraryFacade): Router {
 
   // Route to search all videos by title across all categories
   router.get("/search", searchAllVideosController(movieLibrary));
-
-  // Route to get film by ID
-  router.get("/films/:id", getFilmByIdController(movieLibrary));
 
   // Route to get documentary by ID
   router.get("/documentaries/:id", getDocumentaryByIdController(movieLibrary));
