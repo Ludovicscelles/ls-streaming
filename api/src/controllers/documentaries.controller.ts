@@ -11,6 +11,7 @@ import {
 } from "./helpers";
 
 import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
+import type { DocumentaryEntity } from "../entities/DocumentaryEntity";
 
 // controller to get all documentaries
 export const getAllDocumentariesController = (
@@ -47,7 +48,7 @@ export const createDocumentaryController = (
   movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeCreateController(
-    (data: any) => movieLibrary.createDocumentary(data),
+    (data: Partial<DocumentaryEntity>) => movieLibrary.createDocumentary(data),
     "documentary",
   );
 };
@@ -57,7 +58,7 @@ export const updateDocumentaryController = (
   movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeUpdateController(
-    (id: string, data: Partial<any>) =>
+    (id: string, data: Partial<DocumentaryEntity>) =>
       movieLibrary.updateDocumentary(id, data),
     "DOCUMENTARY_NOT_FOUND",
     "documentary",
@@ -75,7 +76,7 @@ export const deleteDocumentaryController = (
   );
 };
 
-  // controller to search documentaries by title
+// controller to search documentaries by title
 export const searchDocumentariesController = (
   movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {

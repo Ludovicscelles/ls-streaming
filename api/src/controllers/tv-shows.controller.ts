@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { 
+import {
   makeGetAllVideosController,
   makeGetByIdController,
   makeGetByGenreController,
@@ -7,7 +7,7 @@ import {
   makeUpdateController,
   makeDeleteController,
   makeSearchByTitleController,
-  makeCreateWithIdParamController,  
+  makeCreateWithIdParamController,
 } from "./helpers";
 
 import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
@@ -83,7 +83,8 @@ export const updateTvShowController = (
   movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeUpdateController(
-    (id: string, data: Partial<any>) => movieLibrary.updateTvShow(id, data),
+    (id: string, data: Partial<TvShowEntity>) =>
+      movieLibrary.updateTvShow(id, data),
     "TV_SHOW_NOT_FOUND",
     "tv show",
   );
