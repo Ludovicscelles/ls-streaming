@@ -23,16 +23,6 @@ export const getAllVideosController = (
   );
 };
 
-// controller to get all series
-export const getAllSeriesController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeGetAllVideosController(
-    () => movieLibrary.getAllSeries(),
-    "series",
-  );
-};
-
 // controller to get all tv shows
 export const getAllTvShowsController = (
   movieLibrary: MovieLibraryFacade,
@@ -40,16 +30,6 @@ export const getAllTvShowsController = (
   return makeGetAllVideosController(
     () => movieLibrary.getAllTvShows(),
     "tv shows",
-  );
-};
-
-// controller to get serie by ID
-export const getSerieByIdController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeGetByIdController(
-    (id: string) => movieLibrary.getSerieById(id),
-    "serie",
   );
 };
 
@@ -63,16 +43,6 @@ export const getTvShowByIdController = (
   );
 };
 
-// controller to get episodes of a serie by serie ID
-export const getEpisodesBySerieIdController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeGetByIdController(
-    (id: string) => movieLibrary.getEpisodesBySerieId(id),
-    "episodes for serie",
-  );
-};
-
 // controller to get episodes of a tv show by tv show ID
 export const getEpisodesByTvShowIdController = (
   movieLibrary: MovieLibraryFacade,
@@ -83,16 +53,6 @@ export const getEpisodesByTvShowIdController = (
   );
 };
 
-// Controller to filter series by genre
-export const getSeriesByGenreController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeGetByGenreController(
-    (genre: string) => movieLibrary.getSeriesByGenre(genre),
-    "series",
-  );
-};
-
 // Controller to filter tv shows by genre
 export const getTvShowsByGenreController = (
   movieLibrary: MovieLibraryFacade,
@@ -100,27 +60,6 @@ export const getTvShowsByGenreController = (
   return makeGetByGenreController(
     (genre: string) => movieLibrary.getTvShowsByGenre(genre),
     "tv shows",
-  );
-};
-
-// Controller to create a new serie
-export const createSerieController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeCreateController(
-    (data) => movieLibrary.createSerie(data),
-    "serie",
-  );
-};
-
-// Controller to create a new season for a serie
-export const createSeasonController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeCreateWithIdParamController<Partial<SeasonEntity>, SerieEntity>(
-    "id",
-    (serieId: string, data) => movieLibrary.addSeasonToSerie(serieId, data),
-    "season",
   );
 };
 
@@ -148,17 +87,6 @@ export const createSeasonTvShowController = (
   );
 };
 
-// Controller to update a serie
-export const updateSerieController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeUpdateController(
-    (id: string, data: Partial<any>) => movieLibrary.updateSerie(id, data),
-    "SERIE_NOT_FOUND",
-    "serie",
-  );
-};
-
 // Controller to update a tv show
 export const updateTvShowController = (
   movieLibrary: MovieLibraryFacade,
@@ -170,17 +98,6 @@ export const updateTvShowController = (
   );
 };
 
-// Controller to delete a serie
-export const deleteSerieController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeDeleteController(
-    (id: string) => movieLibrary.deleteSerie(id),
-    "SERIE_NOT_FOUND",
-    "serie",
-  );
-};
-
 // Controller to delete a tv show
 export const deleteTvShowController = (
   movieLibrary: MovieLibraryFacade,
@@ -189,36 +106,6 @@ export const deleteTvShowController = (
     (id: string) => movieLibrary.deleteTvShow(id),
     "TV_SHOW_NOT_FOUND",
     "tv show",
-  );
-};
-
-// Controller to search series by title
-export const searchSeriesController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeSearchByTitleController(
-    (title: string) => movieLibrary.searchSeries(title),
-    "series",
-  );
-};
-
-// Controller to search serie by episodes title
-export const searchSerieByEpisodeTitleController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeSearchByTitleController(
-    (title: string) => movieLibrary.searchSerieByEpisodeTitle(title),
-    "series by episode title",
-  );
-};
-
-// Controller to search episodes by title
-export const searchEpisodesController = (
-  movieLibrary: MovieLibraryFacade,
-): RequestHandler => {
-  return makeSearchByTitleController(
-    (title: string) => movieLibrary.searchEpisodesInSeriesByTitle(title),
-    "episodes",
   );
 };
 
