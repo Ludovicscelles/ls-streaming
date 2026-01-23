@@ -29,7 +29,7 @@ export function createFilmsRouter(movieLibrary: MovieLibraryFacade): Router {
   router.get("/:id", getFilmByIdController(movieLibrary));
 
   // Route to update an existing film
-  router.put("/:id", updateFilmController(movieLibrary));
+  router.patch("/:id", updateFilmController(movieLibrary));
 
   // Route to delete a film
   router.delete("/:id", deleteFilmController(movieLibrary));
