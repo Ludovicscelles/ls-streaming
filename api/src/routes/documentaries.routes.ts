@@ -31,7 +31,7 @@ export function createDocumentariesRouter(
   router.get("/:id", getDocumentaryByIdController(movieLibrary));
 
   // Route to update an existing documentary
-  router.put("/:id", updateDocumentaryController(movieLibrary));
+  router.patch("/:id", updateDocumentaryController(movieLibrary));
 
   // Route to delete a documentary
   router.delete("/:id", deleteDocumentaryController(movieLibrary));
