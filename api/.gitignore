@@ -29,3 +29,5 @@ out/
 .env.*
 EOF
 
+# File SQLite
+*.sqlite

@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "npx tsc && node dist/index.js",
+    "check": "npx tsc && node dist/checkClassMethods.js",
+    "seed": "npx ts-node src/scripts/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -18,13 +20,17 @@
     "express": "^5.1.0",
     "helmet": "^8.1.0",
     "pino-pretty": "^13.1.2",
+    "reflect-metadata": "^0.2.2",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7",
+    "typeorm": "^0.3.27",
     "zod": "^4.1.12"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/helmet": "^0.0.48",
-    "@types/node": "^24.10.0",
+    "@types/node": "^24.10.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.3"
   }

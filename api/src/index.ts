@@ -1,8 +1,23 @@
 import express from "express";
+import { AppDataSource } from "./data-source";
+import { MovieLibraryFacade } from "./repositories/movieLibrary.facade";
+import { DocumentaryRepository } from "./repositories/documentary.repository";
+import { FilmRepository } from "./repositories/film.repository";
+import { SerieRepository } from "./repositories/serie.repository";
+import { TvShowRepository } from "./repositories/tvShow.repository";
+import { DocumentaryEntity } from "./entities/DocumentaryEntity";
+import { FilmEntity } from "./entities/FilmEntity";
+import { SerieEntity } from "./entities/SerieEntity";
+import { SeasonEntity } from "./entities/SeasonEntity";
+import { EpisodeEntity } from "./entities/EpisodeEntity";
+import { TvShowEntity } from "./entities/TvShowEntity";
+import { SeasonTvShowEntity } from "./entities/SeasonTvShowEntity";
+import { EpisodeTvShowEntity } from "./entities/EpisodeTvShowEntity";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
-// import routes from "./routes";
+import { createVideosRouter } from "./routes/videos.routes";
+import { createApiRouter } from "./routes";
 
 dotenv.config();
 
@@ -17,6 +32,48 @@ app.get("/", (req, res) => {
   res.send("Bienvenue sur l'API LS-Streaming !");
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+app.use("/api/images", express.static("images"));
+
+AppDataSource.initialize()
+  .then(() => {
+    const documentaryRepository = new DocumentaryRepository(
+      AppDataSource.getRepository(DocumentaryEntity),
+    );
+
+    const filmRepository = new FilmRepository(
+      AppDataSource.getRepository(FilmEntity),
+    );
+
+    const serieRepository = new SerieRepository(
+      AppDataSource.getRepository(SerieEntity),
+      AppDataSource.getRepository(EpisodeEntity),
+      AppDataSource.getRepository(SeasonEntity),
+    );
+
+    const tvShowRepository = new TvShowRepository(
+      AppDataSource.getRepository(TvShowEntity),
+      AppDataSource.getRepository(EpisodeTvShowEntity),
+      AppDataSource.getRepository(SeasonTvShowEntity),
+    );
+
+    // Initialize MovieLibraryRepository with repositories for each entity
+    // This sets up the repository to interact with the database
+    const movieLibrary = new MovieLibraryFacade({
+      documentaryRepo: documentaryRepository,
+      filmRepo: filmRepository,
+      serieRepo: serieRepository,
+      tvShowRepo: tvShowRepository,
+    });
+
+    // Use the video router for handling /api/videos routes
+    app.use("/api/videos", createApiRouter(movieLibrary));
+
+    console.log("Data Source has been initialized!");
+
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Error during Data Source initialization:", err);
+  });
