@@ -47,7 +47,7 @@ export function createSeriesRouter(movieLibrary: MovieLibraryFacade): Router {
   // Route to delete a serie
   router.delete("/:id", deleteSerieController(movieLibrary));
 
-    // Route to get episodes of a serie by ID
+  // Route to get episodes of a serie by ID
   router.get(
     "/:id/episodes",
     getEpisodesBySerieIdController(movieLibrary),
