@@ -10,6 +10,8 @@ export const seriesData = [
       {
         seasonYear: 1989,
         seasonNumber: 9,
+        seasonSynopsis:
+          "La neuvième saison de Columbo continue de suivre les enquêtes du lieutenant Columbo alors qu'il résout des affaires complexes avec son style unique. Chaque épisode présente un nouveau mystère à résoudre, mettant en lumière l'ingéniosité et la perspicacité de Columbo face à des criminels souvent arrogants et sûrs d'eux.",
         episodes: [
           {
             title: "Meurtre, un autoportrait",
@@ -34,6 +36,8 @@ export const seriesData = [
       {
         seasonYear: 1990,
         seasonNumber: 10,
+        seasonSynopsis:
+          "La dixième saison de Columbo poursuit les aventures du célèbre lieutenant, confronté à de nouveaux criminels et à des affaires toujours plus intrigantes. Avec son approche méthodique et son attention aux détails, Columbo continue de déjouer les plans des coupables, révélant la vérité derrière chaque mystère.",
         episodes: [
           {
             title: "Criminologie appliquée",
@@ -68,6 +72,8 @@ export const seriesData = [
       {
         seasonYear: 2005,
         seasonNumber: 1,
+        seasonSynopsis:
+          "La première saison de Rome suit l'ascension de Jules César et les événements qui mènent à la fin de la République romaine. À travers les yeux des soldats Lucius Vorenus et Titus Pullo, la série explore les intrigues politiques, les alliances changeantes et les conflits militaires qui définissent cette période cruciale de l'histoire romaine.",
         episodes: [
           {
             title: "Le Vol de l'Aigle",
@@ -134,6 +140,8 @@ export const seriesData = [
       {
         seasonYear: 2007,
         seasonNumber: 2,
+        seasonSynopsis:
+          "La deuxième saison de Rome se concentre sur les conséquences de l'assassinat de Jules César et la lutte pour le pouvoir qui s'ensuit. Lucius Vorenus et Titus Pullo naviguent à travers les alliances changeantes, les guerres civiles et les ambitions personnelles des figures clés telles que Marc Antoine, Octave et Cléopâtre, alors que Rome se transforme en un empire sous le règne d'Auguste.",
         episodes: [
           {
             title: "L'Héritage de César",
