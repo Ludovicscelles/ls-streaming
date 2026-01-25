@@ -1,5 +1,5 @@
 import { Repository, Like } from "typeorm";
-import { DocumentaryEntity } from "../entities/DocumentaryEntity";
+import { DocumentaryEntity } from "../entities/documentary.entity";
 
 import { generateDocumentaryId } from "../utils/generateIds";
 

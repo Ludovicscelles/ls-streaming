@@ -11,7 +11,7 @@ import {
 } from "./helpers";
 
 import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
-import type { DocumentaryEntity } from "../entities/DocumentaryEntity";
+import type { DocumentaryEntity } from "../entities/documentary.entity";
 
 // controller to get all documentaries
 export const getAllDocumentariesController = (

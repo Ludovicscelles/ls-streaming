@@ -1,13 +1,13 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { FilmEntity } from "./entities/FilmEntity";
-import { DocumentaryEntity } from "./entities/DocumentaryEntity";
-import { SerieEntity } from "./entities/SerieEntity";
-import { SeasonEntity } from "./entities/SeasonEntity";
-import { EpisodeEntity } from "./entities/EpisodeEntity";
-import { TvShowEntity } from "./entities/TvShowEntity";
-import { SeasonTvShowEntity } from "./entities/SeasonTvShowEntity";
-import { EpisodeTvShowEntity } from "./entities/EpisodeTvShowEntity";
+import { FilmEntity } from "./entities/film.entity";
+import { DocumentaryEntity } from "./entities/documentary.entity";
+import { SerieEntity } from "./entities/series.entity";
+import { SeasonEntity } from "./entities/season.entity";
+import { EpisodeEntity } from "./entities/episode.entity";
+import { TvShowEntity } from "./entities/tv-show.entity";
+import { SeasonTvShowEntity } from "./entities/tv-show-season.entity";
+import { EpisodeTvShowEntity } from "./entities/tv-show-episode.entity";
 
 export const AppDataSource = new DataSource({
   type: "sqlite",

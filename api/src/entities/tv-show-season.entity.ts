@@ -6,8 +6,8 @@ import {
   ManyToOne,
   Index,
 } from "typeorm";
-import { TvShowEntity } from "./TvShowEntity";
-import { EpisodeTvShowEntity } from "./EpisodeTvShowEntity";
+import { TvShowEntity } from "./tv-show.entity";
+import { EpisodeTvShowEntity } from "./tv-show-episode.entity";
 
 @Entity()
 @Index(["tvShow", "seasonNumber"], { unique: true })
@@ -29,6 +29,9 @@ export class SeasonTvShowEntity {
 
   @Column()
   tvHost!: string;
+
+  @Column({ type: "text", nullable: true })
+  descriptionSeason?: string;
 
   @OneToMany(
     () => EpisodeTvShowEntity,

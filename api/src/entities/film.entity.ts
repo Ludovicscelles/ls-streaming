@@ -22,4 +22,7 @@ export class FilmEntity {
   
   @Column()
   director!: string;
+
+  @Column({ type: "text", nullable: true })
+  synopsis?: string;
 }

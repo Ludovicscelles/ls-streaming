@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { SeasonTvShowEntity } from "./SeasonTvShowEntity";
+import { SeasonTvShowEntity } from "./tv-show-season.entity";
 
 @Entity()
 export class EpisodeTvShowEntity {

@@ -1,5 +1,5 @@
 import { Entity, PrimaryColumn, Column, OneToMany } from "typeorm";
-import { SeasonTvShowEntity } from "./SeasonTvShowEntity";
+import { SeasonTvShowEntity } from "./tv-show-season.entity";
 
 @Entity()
 export class TvShowEntity {
@@ -14,6 +14,9 @@ export class TvShowEntity {
 
   @Column()
   image!: string;
+
+  @Column({ type: "text", nullable: true })
+  description?: string;
 
   @OneToMany(() => SeasonTvShowEntity, (seasonTvShow) => seasonTvShow.tvShow, {
     cascade: ["insert", "update", "remove"],

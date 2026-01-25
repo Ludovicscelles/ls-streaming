@@ -1,7 +1,7 @@
 import { Repository, Like } from "typeorm";
-import { TvShowEntity } from "../entities/TvShowEntity";
-import { SeasonTvShowEntity } from "../entities/SeasonTvShowEntity";
-import { EpisodeTvShowEntity } from "../entities/EpisodeTvShowEntity";
+import { TvShowEntity } from "../entities/tv-show.entity";
+import { SeasonTvShowEntity } from "../entities/tv-show-season.entity";
+import { EpisodeTvShowEntity } from "../entities/tv-show-episode.entity";
 
 import { generateTvShowId } from "../utils/generateIds";
 
