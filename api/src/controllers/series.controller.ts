@@ -11,8 +11,8 @@ import {
 } from "./helpers";
 
 import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
-import type { SeasonEntity } from "../entities/series-season.entity";
-import type { SerieEntity } from "../entities/series.entity";
+import type { SeriesSeasonEntity } from "../entities/series-season.entity";
+import type { SeriesEntity } from "../entities/series.entity";
 
 // controller to get all series
 export const getAllSeriesController = (
@@ -68,7 +68,10 @@ export const createSerieController = (
 export const createSeasonController = (
   movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
-  return makeCreateWithIdParamController<Partial<SeasonEntity>, SerieEntity>(
+  return makeCreateWithIdParamController<
+    Partial<SeriesSeasonEntity>,
+    SeriesEntity
+  >(
     "id",
     (serieId: string, data) => movieLibrary.addSeasonToSerie(serieId, data),
     "season",
@@ -80,7 +83,7 @@ export const updateSerieController = (
   movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeUpdateController(
-    (id: string, data: Partial<SerieEntity>) =>
+    (id: string, data: Partial<SeriesEntity>) =>
       movieLibrary.updateSerie(id, data),
     "SERIE_NOT_FOUND",
     "serie",

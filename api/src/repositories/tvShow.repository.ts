@@ -1,15 +1,15 @@
 import { Repository, Like } from "typeorm";
 import { TvShowEntity } from "../entities/tv-show.entity";
-import { SeasonTvShowEntity } from "../entities/tv-show-season.entity";
-import { EpisodeTvShowEntity } from "../entities/tv-show-episode.entity";
+import { TvShowSeasonEntity } from "../entities/tv-show-season.entity";
+import { TvShowEpisodeEntity } from "../entities/tv-show-episode.entity";
 
 import { generateTvShowId } from "../utils/generateIds";
 
 export class TvShowRepository {
   constructor(
     private readonly tvShowRepo: Repository<TvShowEntity>,
-    private readonly episodeTvShowRepo: Repository<EpisodeTvShowEntity>,
-    private readonly seasonTvShowRepo: Repository<SeasonTvShowEntity>,
+    private readonly episodeTvShowRepo: Repository<TvShowEpisodeEntity>,
+    private readonly seasonTvShowRepo: Repository<TvShowSeasonEntity>,
   ) {}
 
   // Method to get all TV shows with their seasons and episodes
@@ -56,7 +56,7 @@ export class TvShowRepository {
   // Method to get episodes by TV show ID
   async getEpisodesByTvShowId(
     tvShowId: string,
-  ): Promise<EpisodeTvShowEntity[]> {
+  ): Promise<TvShowEpisodeEntity[]> {
     return this.episodeTvShowRepo.find({
       where: {
         seasonTvShow: {
@@ -134,7 +134,7 @@ export class TvShowRepository {
   // Method to add a new season to an existing TV show
   async addSeasonToTvShow(
     tvShowId: string,
-    seasonData: Partial<SeasonTvShowEntity>,
+    seasonData: Partial<TvShowSeasonEntity>,
   ): Promise<TvShowEntity> {
     const tvShow = await this.tvShowRepo.findOne({
       where: { id: tvShowId },

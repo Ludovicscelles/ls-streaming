@@ -1,19 +1,19 @@
 import { Repository, Like } from "typeorm";
-import { SerieEntity } from "../entities/series.entity";
-import { SeasonEntity } from "../entities/series-season.entity";
-import { EpisodeEntity } from "../entities/series-episode.entity";
+import { SeriesEntity } from "../entities/series.entity";
+import { SeriesSeasonEntity } from "../entities/series-season.entity";
+import { SeriesEpisodeEntity } from "../entities/series-episode.entity";
 
 import { generateSerieId } from "../utils/generateIds";
 
 export class SerieRepository {
   constructor(
-    private readonly serieRepo: Repository<SerieEntity>,
-    private readonly episodeRepo: Repository<EpisodeEntity>,
-    private readonly seasonRepo: Repository<SeasonEntity>,
+    private readonly serieRepo: Repository<SeriesEntity>,
+    private readonly episodeRepo: Repository<SeriesEpisodeEntity>,
+    private readonly seasonRepo: Repository<SeriesSeasonEntity>,
   ) {}
 
   // Method to get all series with their seasons and episodes
-  async getAllSeries(): Promise<SerieEntity[]> {
+  async getAllSeries(): Promise<SeriesEntity[]> {
     // relations option is used to load related entities (seasons and episodes) along with the series
     return this.serieRepo.find({
       relations: {
@@ -35,7 +35,7 @@ export class SerieRepository {
 
   // Method to get a serie by its ID
   // includes related seasons and episodes, ordered by seasonNumber and episodeNumber
-  async getSerieById(id: string): Promise<SerieEntity | null> {
+  async getSerieById(id: string): Promise<SeriesEntity | null> {
     // findOne method to retrieve a single serie by its ID
     return this.serieRepo.findOne({
       where: { id },
@@ -59,7 +59,7 @@ export class SerieRepository {
   }
 
   // Methode de get episodes by serie ID
-  async getEpisodesBySerieId(serieId: string): Promise<EpisodeEntity[]> {
+  async getEpisodesBySerieId(serieId: string): Promise<SeriesEpisodeEntity[]> {
     // find method to retrieve all episodes associated with a specific serie ID
     return this.episodeRepo.find({
       where: {
@@ -95,7 +95,7 @@ export class SerieRepository {
   }
 
   // Method to filter series by genre
-  async getSeriesByGenre(genre: string): Promise<SerieEntity[]> {
+  async getSeriesByGenre(genre: string): Promise<SeriesEntity[]> {
     return this.serieRepo.find({
       where: { genre: Like(`%${genre.trim().toLocaleLowerCase()}%`) },
       relations: {
@@ -115,7 +115,7 @@ export class SerieRepository {
   }
 
   // Method to create a new serie
-  async createSerie(data: Partial<SerieEntity>): Promise<SerieEntity> {
+  async createSerie(data: Partial<SeriesEntity>): Promise<SeriesEntity> {
     const id = await generateSerieId(this.serieRepo);
     const newSerie = this.serieRepo.create({ id, ...data });
     await this.serieRepo.save(newSerie);
@@ -141,8 +141,8 @@ export class SerieRepository {
   // Takes the serie ID and a partial SeasonEntity object as input data.
   async addSeasonToSerie(
     serieId: string,
-    seasonData: Partial<SeasonEntity>,
-  ): Promise<SerieEntity> {
+    seasonData: Partial<SeriesSeasonEntity>,
+  ): Promise<SeriesEntity> {
     // find the serie by its ID, including its existing seasons.
     const serie = await this.serieRepo.findOne({
       where: { id: serieId },
@@ -185,14 +185,14 @@ export class SerieRepository {
   }
 
   // Method to update an existing serie
-  async updateSerie(id: string, data: Partial<SerieEntity>) {
+  async updateSerie(id: string, data: Partial<SeriesEntity>) {
     // create a safeData object to hold only the fields that are allowed to be updated
     // this prevents accidental overwriting of the id field
     // by excluding id from the data object and other unwanted fields
     // we ensure that only title, genre, and image can be updated
     // this is a common practice to maintain data integrity
     // for this reason, we manually construct the safeData object here
-    const safeData: Partial<SerieEntity> = {};
+    const safeData: Partial<SeriesEntity> = {};
 
     // Only copy allowed fields if they are defined in the input data
     if (data.title !== undefined) safeData.title = data.title;
@@ -240,7 +240,7 @@ export class SerieRepository {
   }
 
   // Method to search series by title
-  async searchSeriesByTitle(title: string): Promise<SerieEntity[]> {
+  async searchSeriesByTitle(title: string): Promise<SeriesEntity[]> {
     return this.serieRepo.find({
       where: { title: Like(`%${title.trim().toLowerCase()}%`) },
       relations: {
@@ -260,7 +260,9 @@ export class SerieRepository {
   }
 
   // Method to search episode series by title
-  async searchEpisodesInSeriesByTitle(title: string): Promise<EpisodeEntity[]> {
+  async searchEpisodesInSeriesByTitle(
+    title: string,
+  ): Promise<SeriesEpisodeEntity[]> {
     return this.episodeRepo.find({
       where: {
         title: Like(`%${title.trim().toLowerCase()}%`),
@@ -275,7 +277,7 @@ export class SerieRepository {
 
   // Method to search series by episode title using QueryBuilder
   // This method searches for series that contain episodes with titles matching the provided title.
-  async searchSerieByEpisodeTitle(title: string): Promise<SerieEntity[]> {
+  async searchSerieByEpisodeTitle(title: string): Promise<SeriesEntity[]> {
     // Using QueryBuilder to construct a more complex query
     return (
       this.serieRepo

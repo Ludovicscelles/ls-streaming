@@ -7,7 +7,7 @@ import { SerieRepository } from "./repositories/serie.repository";
 import { TvShowRepository } from "./repositories/tvShow.repository";
 import { DocumentaryEntity } from "./entities/documentary.entity";
 import { FilmEntity } from "./entities/film.entity";
-import { SerieEntity } from "./entities/series.entity";
+import { SeriesEntity } from "./entities/series.entity";
 import { SeasonEntity } from "./entities/series-season.entity";
 import { EpisodeEntity } from "./entities/series-episode.entity";
 import { TvShowEntity } from "./entities/tv-show.entity";
