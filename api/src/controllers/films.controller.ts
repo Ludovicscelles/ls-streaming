@@ -10,7 +10,7 @@ import {
 } from "./helpers";
 
 import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
-import type { FilmEntity } from "../entities/FilmEntity";
+import type { FilmEntity } from "../entities/film.entity";
 
 // controller to get all films
 export const getAllFilmsController = (
@@ -54,7 +54,8 @@ export const updateFilmController = (
   movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeUpdateController(
-    (id: string, data: Partial<FilmEntity>) => movieLibrary.updateFilm(id, data),
+    (id: string, data: Partial<FilmEntity>) =>
+      movieLibrary.updateFilm(id, data),
     "FILM_NOT_FOUND",
     "film",
   );

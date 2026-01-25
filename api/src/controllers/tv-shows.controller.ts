@@ -11,8 +11,8 @@ import {
 } from "./helpers";
 
 import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
-import type { TvShowEntity } from "../entities/TvShowEntity";
-import type { SeasonTvShowEntity } from "../entities/SeasonTvShowEntity";
+import type { TvShowEntity } from "../entities/tv-show.entity";
+import type { SeasonTvShowEntity } from "../entities/tv-show-season.entity";
 
 // controller to get all tv shows
 export const getAllTvShowsController = (

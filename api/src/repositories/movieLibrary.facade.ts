@@ -1,11 +1,11 @@
 // import necessary modules and entities
 // from TypeORM and entity definitions
-import type { DocumentaryEntity } from "../entities/DocumentaryEntity";
-import type { FilmEntity } from "../entities/FilmEntity";
-import type { SerieEntity } from "../entities/SerieEntity";
-import type { SeasonEntity } from "../entities/SeasonEntity";
-import type { TvShowEntity } from "../entities/TvShowEntity";
-import type { SeasonTvShowEntity } from "../entities/SeasonTvShowEntity";
+import type { DocumentaryEntity } from "../entities/documentary.entity";
+import type { FilmEntity } from "../entities/film.entity";
+import type { SerieEntity } from "../entities/series.entity";
+import type { SeasonEntity } from "../entities/series-season.entity";
+import type { TvShowEntity } from "../entities/tv-show.entity";
+import type { SeasonTvShowEntity } from "../entities/tv-show-season.entity";
 import { DocumentaryRepository } from "./documentary.repository";
 import { FilmRepository } from "./film.repository";
 import { SerieRepository } from "./serie.repository";

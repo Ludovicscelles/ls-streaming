@@ -1,20 +1,20 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { SeasonTvShowEntity } from "./SeasonTvShowEntity";
+import { TvShowSeasonEntity } from "./tv-show-season.entity";
 
 @Entity()
-export class EpisodeTvShowEntity {
+export class TvShowEpisodeEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
   @ManyToOne(
-    () => SeasonTvShowEntity,
+    () => TvShowSeasonEntity,
     (seasonTvShow) => seasonTvShow.episodeTvShowEntities,
     {
       nullable: false,
       onDelete: "CASCADE",
     },
   )
-  seasonTvShow!: SeasonTvShowEntity;
+  seasonTvShow!: TvShowSeasonEntity;
 
   @Column()
   episodeNumber!: number;

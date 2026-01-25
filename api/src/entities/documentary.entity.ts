@@ -22,4 +22,7 @@ export class DocumentaryEntity {
 
   @Column()
   subject!: string;
+
+  @Column({ type: "text", nullable: true })
+  description?: string;
 }

@@ -1,5 +1,5 @@
 import { Entity, PrimaryColumn, Column, OneToMany } from "typeorm";
-import { SeasonTvShowEntity } from "./SeasonTvShowEntity";
+import { TvShowSeasonEntity } from "./tv-show-season.entity";
 
 @Entity()
 export class TvShowEntity {
@@ -15,8 +15,11 @@ export class TvShowEntity {
   @Column()
   image!: string;
 
-  @OneToMany(() => SeasonTvShowEntity, (seasonTvShow) => seasonTvShow.tvShow, {
+  @Column({ type: "text", nullable: true })
+  description?: string;
+
+  @OneToMany(() => TvShowSeasonEntity, (seasonTvShow) => seasonTvShow.tvShow, {
     cascade: ["insert", "update", "remove"],
   })
-  seasonTvShowEntities!: SeasonTvShowEntity[];
+  seasonTvShowEntities!: TvShowSeasonEntity[];
 }

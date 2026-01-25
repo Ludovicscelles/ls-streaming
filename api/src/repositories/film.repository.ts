@@ -1,5 +1,5 @@
 import { Repository, Like } from "typeorm";
-import { FilmEntity } from "../entities/FilmEntity";
+import { FilmEntity } from "../entities/film.entity";
 
 import { generateFilmId } from "../utils/generateIds";
 

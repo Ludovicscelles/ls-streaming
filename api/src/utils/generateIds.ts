@@ -1,14 +1,14 @@
-import { FilmEntity } from "../entities/FilmEntity";
-import { DocumentaryEntity } from "../entities/DocumentaryEntity";
-import { SerieEntity } from "../entities/SerieEntity";
-import { TvShowEntity } from "../entities/TvShowEntity";
+import { FilmEntity } from "../entities/film.entity";
+import { DocumentaryEntity } from "../entities/documentary.entity";
+import { SerieEntity } from "../entities/series.entity";
+import { TvShowEntity } from "../entities/tv-show.entity";
 import { Repository } from "typeorm";
 
 // Function to generate a new unique film ID
 export async function generateFilmId(
   // Repository for accessing FilmEntity records in the database
   // The function returns a Promise that resolves to a string (the new film ID)
-  filmRepo: Repository<FilmEntity>
+  filmRepo: Repository<FilmEntity>,
 ): Promise<string> {
   // Query the film repository to find the film with the highest ID
   const lastFilm = await filmRepo
@@ -37,7 +37,7 @@ export async function generateFilmId(
 
 // Function to generate a new unique documentary ID
 export async function generateDocumentaryId(
-  documentaryRepo: Repository<DocumentaryEntity>
+  documentaryRepo: Repository<DocumentaryEntity>,
 ): Promise<string> {
   const lastDocumentary = await documentaryRepo
     .createQueryBuilder("documentary")
@@ -57,7 +57,7 @@ export async function generateDocumentaryId(
 
 // Function to generate a new unique serie ID
 export async function generateSerieId(
-  serieRepo: Repository<SerieEntity>
+  serieRepo: Repository<SerieEntity>,
 ): Promise<string> {
   const lastSerie = await serieRepo
     .createQueryBuilder("serie")
@@ -77,7 +77,7 @@ export async function generateSerieId(
 
 // Function to generate a new unique tv show ID
 export async function generateTvShowId(
-  tvShowRepo: Repository<TvShowEntity>
+  tvShowRepo: Repository<TvShowEntity>,
 ): Promise<string> {
   const lastTvShow = await tvShowRepo
     .createQueryBuilder("tvShow")
