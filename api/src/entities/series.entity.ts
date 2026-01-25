@@ -1,8 +1,8 @@
 import { Entity, PrimaryColumn, Column, OneToMany } from "typeorm";
-import { SeasonEntity } from "./season.entity";
+import { SeriesSeasonEntity } from "./series-season.entity";
 
 @Entity()
-export class SerieEntity {
+export class SeriesEntity {
   @PrimaryColumn()
   id!: string;
 
@@ -18,8 +18,8 @@ export class SerieEntity {
   @Column({ type: "text", nullable: true })
   synopsis?: string;
 
-  @OneToMany(() => SeasonEntity, (season) => season.serie, {
+  @OneToMany(() => SeriesSeasonEntity, (season) => season.serie, {
     cascade: ["insert", "update", "remove"],
   })
-  seasonEntities!: SeasonEntity[];
+  seasonEntities!: SeriesSeasonEntity[];
 }

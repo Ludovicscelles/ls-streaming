@@ -7,11 +7,11 @@ import {
   Index,
 } from "typeorm";
 import { TvShowEntity } from "./tv-show.entity";
-import { EpisodeTvShowEntity } from "./tv-show-episode.entity";
+import { TvShowEpisodeEntity } from "./tv-show-episode.entity";
 
 @Entity()
 @Index(["tvShow", "seasonNumber"], { unique: true })
-export class SeasonTvShowEntity {
+export class TvShowSeasonEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -34,11 +34,11 @@ export class SeasonTvShowEntity {
   descriptionSeason?: string;
 
   @OneToMany(
-    () => EpisodeTvShowEntity,
+    () => TvShowEpisodeEntity,
     (episodeTvShow) => episodeTvShow.seasonTvShow,
     {
       cascade: ["insert", "update", "remove"],
     },
   )
-  episodeTvShowEntities!: EpisodeTvShowEntity[];
+  episodeTvShowEntities!: TvShowEpisodeEntity[];
 }

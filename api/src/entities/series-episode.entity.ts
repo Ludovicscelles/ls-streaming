@@ -1,16 +1,16 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { SeasonEntity } from "./season.entity";
+import { SeriesSeasonEntity } from "./series-season.entity";
 
 @Entity()
-export class EpisodeEntity {
+export class SeriesEpisodeEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => SeasonEntity, (season) => season.episodes, {
+  @ManyToOne(() => SeriesSeasonEntity, (season) => season.episodes, {
     nullable: false,
     onDelete: "CASCADE",
   })
-  season!: SeasonEntity;
+  season!: SeriesSeasonEntity;
 
   @Column()
   title!: string;

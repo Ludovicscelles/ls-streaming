@@ -3,7 +3,7 @@
 import type { DocumentaryEntity } from "../entities/documentary.entity";
 import type { FilmEntity } from "../entities/film.entity";
 import type { SerieEntity } from "../entities/series.entity";
-import type { SeasonEntity } from "../entities/season.entity";
+import type { SeasonEntity } from "../entities/series-season.entity";
 import type { TvShowEntity } from "../entities/tv-show.entity";
 import type { SeasonTvShowEntity } from "../entities/tv-show-season.entity";
 import { DocumentaryRepository } from "./documentary.repository";

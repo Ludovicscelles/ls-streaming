@@ -11,7 +11,7 @@ import {
 } from "./helpers";
 
 import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
-import type { SeasonEntity } from "../entities/season.entity";
+import type { SeasonEntity } from "../entities/series-season.entity";
 import type { SerieEntity } from "../entities/series.entity";
 
 // controller to get all series
