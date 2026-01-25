@@ -7,17 +7,17 @@ import { SerieRepository } from "./repositories/serie.repository";
 import { TvShowRepository } from "./repositories/tvShow.repository";
 import { DocumentaryEntity } from "./entities/documentary.entity";
 import { FilmEntity } from "./entities/film.entity";
-import { SerieEntity } from "./entities/series.entity";
-import { SeasonEntity } from "./entities/series-season.entity";
-import { EpisodeEntity } from "./entities/series-episode.entity";
+import { SeriesEntity } from "./entities/series.entity";
+import { SeriesSeasonEntity } from "./entities/series-season.entity";
+import { SeriesEpisodeEntity } from "./entities/series-episode.entity";
 import { TvShowEntity } from "./entities/tv-show.entity";
-import { SeasonTvShowEntity } from "./entities/tv-show-season.entity";
-import { EpisodeTvShowEntity } from "./entities/tv-show-episode.entity";
+import { TvShowSeasonEntity } from "./entities/tv-show-season.entity";
+import { TvShowEpisodeEntity } from "./entities/tv-show-episode.entity";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { createVideosRouter } from "./routes/videos.routes";
 import { createApiRouter } from "./routes";
+import { Episode } from "./models/Serie";
 
 dotenv.config();
 
@@ -45,15 +45,15 @@ AppDataSource.initialize()
     );
 
     const serieRepository = new SerieRepository(
-      AppDataSource.getRepository(SerieEntity),
-      AppDataSource.getRepository(EpisodeEntity),
-      AppDataSource.getRepository(SeasonEntity),
+      AppDataSource.getRepository(SeriesEntity),
+      AppDataSource.getRepository(SeriesEpisodeEntity),
+      AppDataSource.getRepository(SeriesSeasonEntity),
     );
 
     const tvShowRepository = new TvShowRepository(
       AppDataSource.getRepository(TvShowEntity),
-      AppDataSource.getRepository(EpisodeTvShowEntity),
-      AppDataSource.getRepository(SeasonTvShowEntity),
+      AppDataSource.getRepository(TvShowEpisodeEntity),
+      AppDataSource.getRepository(TvShowSeasonEntity),
     );
 
     // Initialize MovieLibraryRepository with repositories for each entity

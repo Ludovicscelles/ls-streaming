@@ -2,10 +2,10 @@
 // from TypeORM and entity definitions
 import type { DocumentaryEntity } from "../entities/documentary.entity";
 import type { FilmEntity } from "../entities/film.entity";
-import type { SerieEntity } from "../entities/series.entity";
-import type { SeasonEntity } from "../entities/series-season.entity";
+import type { SeriesEntity } from "../entities/series.entity";
+import type { SeriesSeasonEntity } from "../entities/series-season.entity";
 import type { TvShowEntity } from "../entities/tv-show.entity";
-import type { SeasonTvShowEntity } from "../entities/tv-show-season.entity";
+import type { TvShowSeasonEntity } from "../entities/tv-show-season.entity";
 import { DocumentaryRepository } from "./documentary.repository";
 import { FilmRepository } from "./film.repository";
 import { SerieRepository } from "./serie.repository";
@@ -45,7 +45,7 @@ export class MovieLibraryFacade {
   // combines results from all individual getAll methods
   async getAllVideos(): // promise that resolves to an array containing any of the four entity types
   // DocumentaryEntity, FilmEntity, SerieEntity, TvShowEntity
-  Promise<(DocumentaryEntity | FilmEntity | SerieEntity | TvShowEntity)[]> {
+  Promise<(DocumentaryEntity | FilmEntity | SeriesEntity | TvShowEntity)[]> {
     // use Promise.all to fetch all video types concurrently
     // destructure the results into respective variables
     // documentaries, films, series, and tvShows
@@ -121,12 +121,12 @@ export class MovieLibraryFacade {
   }
 
   // method to create a new serie
-  createSerie(data: Partial<SerieEntity>) {
+  createSerie(data: Partial<SeriesEntity>) {
     return this.deps.serieRepo.createSerie(data);
   }
 
   // method to add a new season to an existing serie
-  addSeasonToSerie(serieId: string, seasonData: Partial<SeasonEntity>) {
+  addSeasonToSerie(serieId: string, seasonData: Partial<SeriesSeasonEntity>) {
     return this.deps.serieRepo.addSeasonToSerie(serieId, seasonData);
   }
 
@@ -136,7 +136,7 @@ export class MovieLibraryFacade {
   }
 
   // method to add a new season to an existing tv show
-  addSeasonToTvShow(tvShowId: string, seasonData: Partial<SeasonTvShowEntity>) {
+  addSeasonToTvShow(tvShowId: string, seasonData: Partial<TvShowSeasonEntity>) {
     return this.deps.tvShowRepo.addSeasonToTvShow(tvShowId, seasonData);
   }
 
@@ -151,7 +151,7 @@ export class MovieLibraryFacade {
   }
 
   // Method to update a serie
-  updateSerie(id: string, data: Partial<SerieEntity>) {
+  updateSerie(id: string, data: Partial<SeriesEntity>) {
     return this.deps.serieRepo.updateSerie(id, data);
   }
 
@@ -214,7 +214,7 @@ export class MovieLibraryFacade {
     // title parameter of type string
     title: string,
     // returns a promise that resolves to an array of various entity types
-  ): Promise<(DocumentaryEntity | FilmEntity | SerieEntity | TvShowEntity)[]> {
+  ): Promise<(DocumentaryEntity | FilmEntity | SeriesEntity | TvShowEntity)[]> {
     // trim and convert the title to lowercase for consistent searching
     const searchedTitle = title.trim().toLowerCase();
     // perform searches for each video type concurrently using Promise.all

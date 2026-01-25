@@ -12,7 +12,7 @@ import {
 
 import { MovieLibraryFacade } from "../repositories/movieLibrary.facade";
 import type { TvShowEntity } from "../entities/tv-show.entity";
-import type { SeasonTvShowEntity } from "../entities/tv-show-season.entity";
+import type { TvShowSeasonEntity } from "../entities/tv-show-season.entity";
 
 // controller to get all tv shows
 export const getAllTvShowsController = (
@@ -69,7 +69,7 @@ export const createSeasonTvShowController = (
   movieLibrary: MovieLibraryFacade,
 ): RequestHandler => {
   return makeCreateWithIdParamController<
-    Partial<SeasonTvShowEntity>,
+    Partial<TvShowSeasonEntity>,
     TvShowEntity
   >(
     "id",
