@@ -31,3 +31,5 @@ EOF
 
 # File SQLite
 *.sqlite
+*.sqlite3
+api/data/ls-streaming.sqlite
