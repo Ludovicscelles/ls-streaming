@@ -48,6 +48,7 @@ export class FilmRepository {
     if (data.duration !== undefined) safeData.duration = data.duration;
     if (data.releaseDate !== undefined) safeData.releaseDate = data.releaseDate;
     if (data.director !== undefined) safeData.director = data.director;
+    if (data.synopsis !== undefined) safeData.synopsis = data.synopsis;
 
     // If no valid fields are provided for update, throw an error
     // this prevents unnecessary database operations and ensures that the caller is aware that no valid update data was provided
