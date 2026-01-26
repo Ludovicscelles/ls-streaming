@@ -2,7 +2,7 @@ export const seriesData = [
   {
     id: "S001",
     title: "Columbo",
-    genre: "crime",
+    genre: "policier",
     image: "/api/images/series/columbo.png",
     synopsis:
       "Le lieutenant Columbo, un enquêteur de la police de Los Angeles, est célèbre pour sa méthode d'investigation apparemment désordonnée mais redoutablement efficace. Avec son imperméable froissé, sa voiture délabrée et son air humble, il parvient à déjouer les criminels les plus rusés en posant des questions apparemment innocentes et en observant les moindres détails. Chaque épisode met en scène un meurtre sophistiqué suivi de la traque implacable de Columbo pour découvrir la vérité, souvent en confrontant le coupable avec ses propres contradictions.",
@@ -64,7 +64,7 @@ export const seriesData = [
   {
     id: "S002",
     title: "Rome",
-    genre: "historical_drama",
+    genre: "historique",
     image: "/api/images/series/rome.png",
     synopsis:
       "Rome est une série télévisée dramatique historique qui plonge les spectateurs dans l'Antiquité, explorant la vie politique, sociale et militaire de la Rome antique à travers les yeux de deux soldats romains ordinaires, Lucius Vorenus et Titus Pullo. La série dépeint des événements majeurs tels que la chute de la République romaine et l'ascension de l'Empire, tout en mettant en lumière les intrigues, les trahisons et les luttes de pouvoir qui ont façonné cette période tumultueuse de l'histoire. Avec des personnages historiques emblématiques comme Jules César, Marc Antoine et Cléopâtre, Rome offre un mélange captivant d'action, de drame et de romance.",
