@@ -182,6 +182,7 @@ export class TvShowRepository {
     if (data.title !== undefined) safeData.title = data.title;
     if (data.genre !== undefined) safeData.genre = data.genre;
     if (data.image !== undefined) safeData.image = data.image;
+    if (data.description !== undefined) safeData.description = data.description;
 
     if (Object.keys(safeData).length === 0) {
       throw Object.assign(new Error("No valid update fields provided"), {

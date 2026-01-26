@@ -198,6 +198,7 @@ export class SerieRepository {
     if (data.title !== undefined) safeData.title = data.title;
     if (data.genre !== undefined) safeData.genre = data.genre;
     if (data.image !== undefined) safeData.image = data.image;
+    if (data.synopsis !== undefined) safeData.synopsis = data.synopsis;
 
     // If no valid fields are provided for update, throw an error
     // this prevents unnecessary database operations
