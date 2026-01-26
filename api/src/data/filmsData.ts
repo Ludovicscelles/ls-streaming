@@ -2,7 +2,7 @@ export const filmsData = [
   {
     id: "F001",
     title: "Le Cinquième Élément",
-    genre: "science_fiction",
+    genre: "science-fiction",
     image: "/api/images/films/cinquieme-element.png",
     duration: 120,
     releaseDate: "1997",
@@ -24,7 +24,7 @@ export const filmsData = [
   {
     id: "F003",
     title: "Inception",
-    genre: "science_fiction",
+    genre: "science-fiction",
     image: "/api/images/films/inception.png",
     duration: 148,
     releaseDate: "2010",
@@ -35,7 +35,7 @@ export const filmsData = [
   {
     id: "F004",
     title: "Le Parrain",
-    genre: "crime",
+    genre: "gangsters",
     image: "/api/images/films/parrain.png",
     duration: 175,
     releaseDate: "1972",
@@ -46,7 +46,7 @@ export const filmsData = [
   {
     id: "F005",
     title: "Pulp Fiction",
-    genre: "crime",
+    genre: "gangsters",
     image: "/api/images/films/pulp-fiction.png",
     duration: 154,
     releaseDate: "1994",
@@ -57,7 +57,7 @@ export const filmsData = [
   {
     id: "F006",
     title: "Forrest Gump",
-    genre: "drama",
+    genre: "comédie dramatique",
     image: "/api/films/forrest-gump.png",
     duration: 142,
     releaseDate: "1994",
@@ -79,7 +79,7 @@ export const filmsData = [
   {
     id: "F008",
     title: "Le Fabuleux Destin d'Amélie Poulain",
-    genre: "romance",
+    genre: "comédie romantique",
     image: "/api/images/films/fabuleux-destin-amelie-poulain.png",
     duration: 122,
     releaseDate: "2001",
@@ -90,7 +90,7 @@ export const filmsData = [
   {
     id: "F009",
     title: "Gladiator",
-    genre: "action",
+    genre: "péplum",
     image: "/api/images/films/gladiator.png",
     duration: 155,
     releaseDate: "2000",
@@ -101,7 +101,7 @@ export const filmsData = [
   {
     id: "F010",
     title: "Braveheart",
-    genre: "historical_drama",
+    genre: "historique",
     image: "/api/images/films/braveheart.png",
     duration: 178,
     releaseDate: "1995",
@@ -112,7 +112,7 @@ export const filmsData = [
   {
     id: "F011",
     title: "Les Oiseaux",
-    genre: "horror",
+    genre: "thriller",
     image: "/api/images/films/oiseaux.png",
     duration: 119,
     releaseDate: "1963",
@@ -123,7 +123,7 @@ export const filmsData = [
   {
     id: "F012",
     title: "Le Dix Commandements",
-    genre: "historical_drama",
+    genre: "péplum",
     image: "/api/images/films/dix-commandements.png",
     duration: 220,
     releaseDate: "1956",
@@ -134,7 +134,7 @@ export const filmsData = [
   {
     id: "F013",
     title: "Les Liaisons Dangereuses",
-    genre: "drama",
+    genre: "drame",
     image: "/api/images/films/liaisons-dangereuses.png",
     duration: 120,
     releaseDate: "1988",
@@ -156,7 +156,7 @@ export const filmsData = [
   {
     id: "F015",
     title: "Ben-Hur",
-    genre: "historical_drama",
+    genre: "péplum",
     image: "/api/images/films/ben-hur.png",
     duration: 212,
     releaseDate: "1959",
@@ -167,7 +167,7 @@ export const filmsData = [
   {
     id: "F016",
     title: "Les Demoiselles de Rochefort",
-    genre: "musical",
+    genre: "film musical",
     image: "/api/images/films/demoiselles-rochefort.png",
     duration: 125,
     releaseDate: "1967",
@@ -178,7 +178,7 @@ export const filmsData = [
   {
     id: "F017",
     title: "Le Grand Bleu",
-    genre: "adventure",
+    genre: "drame",
     image: "/api/images/films/grand-bleu.png",
     duration: 168,
     releaseDate: "1988",
@@ -189,7 +189,7 @@ export const filmsData = [
   {
     id: "F018",
     title: "La La Land",
-    genre: "musical",
+    genre: "film musical",
     image: "/api/images/films/la-la-land.png",
     duration: 128,
     releaseDate: "2016",
@@ -211,7 +211,7 @@ export const filmsData = [
   {
     id: "F020",
     title: "Titanic",
-    genre: "romance",
+    genre: "catastrophe",
     image: "/api/images/films/titanic.png",
     duration: 195,
     releaseDate: "1997",
