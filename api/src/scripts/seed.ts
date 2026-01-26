@@ -1,12 +1,12 @@
 import { AppDataSource } from "../data-source";
 import { DocumentaryEntity } from "../entities/documentary.entity";
 import { FilmEntity } from "../entities/film.entity";
-import { SerieEntity } from "../entities/series.entity";
-import { SeasonEntity } from "../entities/series-season.entity";
-import { EpisodeEntity } from "../entities/series-episode.entity";
+import { SeriesEntity } from "../entities/series.entity";
+import { SeriesSeasonEntity } from "../entities/series-season.entity";
+import { SeriesEpisodeEntity } from "../entities/series-episode.entity";
 import { TvShowEntity } from "../entities/tv-show.entity";
-import { SeasonTvShowEntity } from "../entities/tv-show-season.entity";
-import { EpisodeTvShowEntity } from "../entities/tv-show-episode.entity";
+import { TvShowSeasonEntity } from "../entities/tv-show-season.entity";
+import { TvShowEpisodeEntity } from "../entities/tv-show-episode.entity";
 import { documentariesData } from "../data/documentariesData";
 import { filmsData } from "../data/filmsData";
 import { seriesData } from "../data/seriesData";
@@ -15,12 +15,12 @@ import { tvShowData } from "../data/TvShowData";
 AppDataSource.initialize().then(async () => {
   const docsRepo = AppDataSource.getRepository(DocumentaryEntity);
   const filmsRepo = AppDataSource.getRepository(FilmEntity);
-  const seriesRepo = AppDataSource.getRepository(SerieEntity);
-  const seasonsRepo = AppDataSource.getRepository(SeasonEntity);
-  const episodesRepo = AppDataSource.getRepository(EpisodeEntity);
+  const seriesRepo = AppDataSource.getRepository(SeriesEntity);
+  const seasonsRepo = AppDataSource.getRepository(SeriesSeasonEntity);
+  const episodesRepo = AppDataSource.getRepository(SeriesEpisodeEntity);
   const tvShowsRepo = AppDataSource.getRepository(TvShowEntity);
-  const seasonsTvShowRepo = AppDataSource.getRepository(SeasonTvShowEntity);
-  const episodesTvShowRepo = AppDataSource.getRepository(EpisodeTvShowEntity);
+  const seasonsTvShowRepo = AppDataSource.getRepository(TvShowSeasonEntity);
+  const episodesTvShowRepo = AppDataSource.getRepository(TvShowEpisodeEntity);
 
   for (const doc of documentariesData) {
     const entity = docsRepo.create({
@@ -31,6 +31,7 @@ AppDataSource.initialize().then(async () => {
       duration: doc.duration,
       releaseDate: doc.releaseDate,
       subject: doc.subject,
+      description: doc.description,
     });
     await docsRepo.save(entity);
   }
@@ -44,6 +45,7 @@ AppDataSource.initialize().then(async () => {
       duration: film.duration,
       releaseDate: film.releaseDate,
       director: film.director,
+      synopsis: film.synopsis,
     });
     await filmsRepo.save(entity);
   }
@@ -54,6 +56,7 @@ AppDataSource.initialize().then(async () => {
       title: serie.title,
       genre: serie.genre,
       image: serie.image,
+      synopsis: serie.synopsis,
       seasonEntities: [],
     });
     await seriesRepo.save(serieEntity);
@@ -62,6 +65,7 @@ AppDataSource.initialize().then(async () => {
       const seasonEntity = seasonsRepo.create({
         seasonYear: season.seasonYear,
         seasonNumber: season.seasonNumber,
+        seasonSynopsis: season.seasonSynopsis,
         serie: serieEntity,
         episodes: [],
       });
@@ -86,6 +90,7 @@ AppDataSource.initialize().then(async () => {
       title: tvShow.title,
       genre: tvShow.genre,
       image: tvShow.image,
+      description: tvShow.description,
       seasonTvShowEntities: [],
     });
     await tvShowsRepo.save(tvShowEntity);
@@ -95,6 +100,7 @@ AppDataSource.initialize().then(async () => {
         seasonYear: seasonTvShow.seasonYear,
         seasonNumber: seasonTvShow.seasonNumber,
         tvHost: seasonTvShow.tvHost,
+        seasonDescription: seasonTvShow.seasonDescription,
         tvShow: tvShowEntity,
         episodeTvShowEntities: [],
       });

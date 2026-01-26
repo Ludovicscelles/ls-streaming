@@ -31,7 +31,7 @@ export class TvShowSeasonEntity {
   tvHost!: string;
 
   @Column({ type: "text", nullable: true })
-  descriptionSeason?: string;
+  seasonDescription!: string;
 
   @OneToMany(
     () => TvShowEpisodeEntity,
