@@ -2,7 +2,7 @@ export const tvShowData = [
   {
     id: "T001",
     title: "Les Traîtres",
-    genre: "game_show",
+    genre: "jeu de télé-réalité",
     image: "/api/images/showsTV/traites.png",
     director: "Françis Côté",
     description:
@@ -152,7 +152,7 @@ export const tvShowData = [
   {
     id: "T002",
     title: "Fort Boyard",
-    genre: "game_show",
+    genre: "jeu d'aventure",
     image: "/api/images/showsTV/fort-boyard.png",
     director: "Françis Côté",
     description:
@@ -213,7 +213,7 @@ export const tvShowData = [
   {
     id: "T003",
     title: "Écho des Étoiles",
-    genre: "talent_show",
+    genre: "télé-crochet",
     image: "/api/images/showsTV/echo-etoiles.png",
     director: "Mathieu Ravel",
     description:
@@ -263,7 +263,7 @@ export const tvShowData = [
   {
     id: "T004",
     title: "On Dira Ce Qu'On En Veut",
-    genre: "talk_show",
+    genre: "talk-show",
     image: "/api/images/showsTV/on-dira-ce-qu-on-en-veut.png",
     director: "Romain Castelneau",
     description:
