@@ -1,4 +1,10 @@
-import { Entity, PrimaryColumn, Column, OneToMany } from "typeorm";
+import {
+  Entity,
+  PrimaryColumn,
+  Column,
+  OneToMany,
+  CreateDateColumn,
+} from "typeorm";
 import { TvShowSeasonEntity } from "./tv-show-season.entity";
 
 @Entity()
@@ -17,6 +23,9 @@ export class TvShowEntity {
 
   @Column({ type: "text", nullable: true })
   description?: string;
+
+  @CreateDateColumn()
+  createdAt!: Date;
 
   @OneToMany(() => TvShowSeasonEntity, (seasonTvShow) => seasonTvShow.tvShow, {
     cascade: ["insert", "update", "remove"],
