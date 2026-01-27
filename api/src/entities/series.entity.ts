@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, Column, OneToMany } from "typeorm";
+import { Entity, PrimaryColumn, Column, OneToMany, CreateDateColumn } from "typeorm";
 import { SeriesSeasonEntity } from "./series-season.entity";
 
 @Entity()
@@ -17,6 +17,9 @@ export class SeriesEntity {
 
   @Column({ type: "text", nullable: true })
   synopsis?: string;
+
+  @CreateDateColumn()
+  createdAt!: Date;
 
   @OneToMany(() => SeriesSeasonEntity, (season) => season.serie, {
     cascade: ["insert", "update", "remove"],

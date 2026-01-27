@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, Column } from "typeorm";
+import { Entity, PrimaryColumn, Column, CreateDateColumn } from "typeorm";
 
 @Entity()
 export class DocumentaryEntity {
@@ -19,6 +19,9 @@ export class DocumentaryEntity {
 
   @Column()
   releaseDate!: string;
+
+  @CreateDateColumn()
+  createdAt!: Date;
 
   @Column()
   subject!: string;
