@@ -25,7 +25,7 @@ export class TvShowEntity {
   description?: string;
 
   @CreateDateColumn()
-  createdAt!: Date;
+  addedAt!: Date;
 
   @OneToMany(() => TvShowSeasonEntity, (seasonTvShow) => seasonTvShow.tvShow, {
     cascade: ["insert", "update", "remove"],
