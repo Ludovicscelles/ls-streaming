@@ -5,6 +5,7 @@ import {
   OneToMany,
   ManyToOne,
   Index,
+  CreateDateColumn,
 } from "typeorm";
 import { SeriesEntity } from "./series.entity";
 import { SeriesEpisodeEntity } from "./series-episode.entity";
@@ -29,6 +30,9 @@ export class SeriesSeasonEntity {
 
   @Column({ type: "text", nullable: true })
   seasonSynopsis?: string;
+
+  @CreateDateColumn()
+  seasonAddedAt!: Date;
 
   @OneToMany(() => SeriesEpisodeEntity, (episode) => episode.season, {
     cascade: ["insert", "update", "remove"],

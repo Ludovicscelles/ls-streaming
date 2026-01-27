@@ -5,6 +5,7 @@ import {
   OneToMany,
   ManyToOne,
   Index,
+  CreateDateColumn,
 } from "typeorm";
 import { TvShowEntity } from "./tv-show.entity";
 import { TvShowEpisodeEntity } from "./tv-show-episode.entity";
@@ -32,6 +33,9 @@ export class TvShowSeasonEntity {
 
   @Column({ type: "text", nullable: true })
   seasonDescription!: string;
+
+  @CreateDateColumn()
+  seasonAddedAt!: Date;
 
   @OneToMany(
     () => TvShowEpisodeEntity,
