@@ -6,6 +6,7 @@ export const filmsData = [
     image: "/api/images/films/cinquieme-element.png",
     duration: 120,
     releaseDate: "1997",
+    addedAt: "2024-01-15T10:00:00Z",
     director: "Luc Besson",
     synopsis:
       "Dans un futur lointain, un chauffeur de taxi se retrouve mêlé à une mission pour sauver l'humanité avec l'aide d'une mystérieuse femme. Ensemble, ils doivent retrouver les quatre éléments et combattre une force maléfique imminente.",
@@ -17,6 +18,7 @@ export const filmsData = [
     image: "/api/images/films/sueurs-froides.png",
     duration: 128,
     releaseDate: "1958",
+    addedAt: "2024-02-20T14:30:00Z",
     director: "Alfred Hitchcock",
     synopsis:
       "Un ancien détective, souffrant de vertiges, est engagé pour suivre la femme d'un ami. Cependant, il se retrouve entraîné dans une spirale de mystère et de danger lorsqu'il découvre des secrets troublants.",
@@ -28,6 +30,7 @@ export const filmsData = [
     image: "/api/images/films/inception.png",
     duration: 148,
     releaseDate: "2010",
+    addedAt: "2024-04-05T12:00:00Z",
     director: "Christopher Nolan",
     synopsis:
       "Un voleur spécialisé dans l'extraction d'informations à travers les rêves se voit offrir une chance de rédemption en accomplissant l'impossible : implanter une idée dans l'esprit d'une cible. Mais les frontières entre rêve et réalité deviennent floues.",
@@ -39,6 +42,7 @@ export const filmsData = [
     image: "/api/images/films/parrain.png",
     duration: 175,
     releaseDate: "1972",
+    addedAt: "2024-03-10T09:15:00Z",
     director: "Francis Ford Coppola",
     synopsis:
       "L'histoire épique de la famille Corleone, une puissante famille mafieuse italo-américaine. Le film explore les dynamiques de pouvoir, la loyauté et la trahison au sein de la famille et du monde criminel.",
@@ -50,6 +54,7 @@ export const filmsData = [
     image: "/api/images/films/pulp-fiction.png",
     duration: 154,
     releaseDate: "1994",
+    addedAt: "2024-05-01T11:45:00Z",
     director: "Quentin Tarantino",
     synopsis:
       "Un récit non linéaire entrecroisant plusieurs histoires de criminels à Los Angeles. Le film est célèbre pour ses dialogues percutants, son humour noir et sa bande sonore éclectique.",
@@ -61,6 +66,7 @@ export const filmsData = [
     image: "/api/films/forrest-gump.png",
     duration: 142,
     releaseDate: "1994",
+    addedAt: "2024-06-10T15:00:00Z",
     director: "Robert Zemeckis",
     synopsis:
       "L'histoire touchante de Forrest Gump, un homme au QI limité mais au cœur immense, qui traverse des décennies d'histoire américaine tout en influençant les événements majeurs de son époque.",
@@ -72,6 +78,7 @@ export const filmsData = [
     image: "/api/images/films/diaboliques.png",
     duration: 117,
     releaseDate: "1955",
+    addedAt: "2024-06-12T13:20:00Z",
     director: "Henri-Georges Clouzot",
     synopsis:
       "Dans un pensionnat isolé, l'épouse et la maîtresse du directeur conspirent pour le tuer. Cependant, après son meurtre, des événements étranges commencent à se produire, remettant en question la réalité de leur acte.",
@@ -83,6 +90,7 @@ export const filmsData = [
     image: "/api/images/films/fabuleux-destin-amelie-poulain.png",
     duration: 122,
     releaseDate: "2001",
+    addedAt: "2024-06-15T10:30:00Z",
     director: "Jean-Pierre Jeunet",
     synopsis:
       "Amélie, une jeune femme timide et imaginative, décide de changer la vie des gens qui l'entourent pour le mieux, tout en cherchant l'amour et le bonheur pour elle-même dans les rues pittoresques de Montmartre à Paris.",
@@ -94,6 +102,7 @@ export const filmsData = [
     image: "/api/images/films/gladiator.png",
     duration: 155,
     releaseDate: "2000",
+    addedAt: "2024-06-18T16:45:00Z",
     director: "Ridley Scott",
     synopsis:
       "Un général romain trahi devient esclave et gladiateur. Cherchant à venger la mort de sa famille et à restaurer la justice, il se bat pour sa liberté dans l'arène tout en défiant l'empereur corrompu.",
@@ -105,6 +114,7 @@ export const filmsData = [
     image: "/api/images/films/braveheart.png",
     duration: 178,
     releaseDate: "1995",
+    addedAt: "2024-06-20T14:10:00Z",
     director: "Mel Gibson",
     synopsis:
       "L'histoire épique de William Wallace, un héros écossais du XIIIe siècle qui mène son peuple dans une rébellion contre la domination anglaise, inspirant courage et liberté à travers son combat pour l'indépendance.",
@@ -116,6 +126,7 @@ export const filmsData = [
     image: "/api/images/films/oiseaux.png",
     duration: 119,
     releaseDate: "1963",
+    addedAt: "2024-06-22T12:00:00Z",
     director: "Alfred Hitchcock",
     synopsis:
       "Dans une petite ville côtière, des attaques inexplicables d'oiseaux sauvages sèment la terreur parmi les habitants. Une femme et un avocat tentent de comprendre la cause de ces agressions tout en luttant pour leur survie.",
@@ -127,6 +138,7 @@ export const filmsData = [
     image: "/api/images/films/dix-commandements.png",
     duration: 220,
     releaseDate: "1956",
+    addedAt: "2024-06-25T09:30:00Z",
     director: "Cecil B. DeMille",
     synopsis:
       "L'épopée biblique de Moïse, depuis sa naissance miraculeuse jusqu'à la libération des Hébreux de l'esclavage en Égypte, en passant par la réception des Dix Commandements sur le mont Sinaï. Un récit de foi, de courage et de destinée.",
@@ -138,6 +150,7 @@ export const filmsData = [
     image: "/api/images/films/liaisons-dangereuses.png",
     duration: 120,
     releaseDate: "1988",
+    addedAt: "2024-06-28T11:15:00Z",
     director: "Stephen Frears",
     synopsis:
       "Dans la France du XVIIIe siècle, une marquise manipulatrice et un vicomte séducteur conspirent pour détruire la réputation d'une jeune femme innocente, entraînant une série de trahisons et de scandales dans l'aristocratie. Sur fond de passion et de vengeance, le film explore les complexités des relations humaines et les conséquences de la manipulation.",
@@ -149,6 +162,7 @@ export const filmsData = [
     image: "/api/images/films/silence-agneaux.png",
     duration: 118,
     releaseDate: "1991",
+    addedAt: "2024-06-30T13:50:00Z",
     director: "Jonathan Demme",
     synopsis:
       "Une jeune agente du FBI doit consulter un tueur en série emprisonné pour obtenir de l'aide afin de capturer un autre meurtrier en liberté. Un jeu psychologique intense s'ensuit entre les deux, mêlant manipulation et suspense.",
@@ -160,6 +174,7 @@ export const filmsData = [
     image: "/api/images/films/ben-hur.png",
     duration: 212,
     releaseDate: "1959",
+    addedAt: "2024-07-02T10:05:00Z",
     director: "William Wyler",
     synopsis:
       "L'histoire épique de Judah Ben-Hur, un prince juif trahi et réduit en esclavage par les Romains. Après des années de souffrance, il cherche à se venger tout en retrouvant sa foi et son humanité dans un monde en pleine transformation.",
@@ -171,6 +186,7 @@ export const filmsData = [
     image: "/api/images/films/demoiselles-rochefort.png",
     duration: 125,
     releaseDate: "1967",
+    addedAt: "2024-07-05T15:25:00Z",
     director: "Jacques Demy",
     synopsis:
       "Dans la charmante ville de Rochefort, deux sœurs jumelles rêvent de trouver l'amour et le succès. À travers des chansons entraînantes et des danses colorées, le film explore leurs aventures romantiques et les rencontres inattendues qui changent leur vie.",
@@ -182,6 +198,7 @@ export const filmsData = [
     image: "/api/images/films/grand-bleu.png",
     duration: 168,
     releaseDate: "1988",
+    addedAt: "2024-07-08T12:40:00Z",
     director: "Luc Besson",
     synopsis:
       "L'histoire de deux amis d'enfance, passionnés par la plongée en apnée, dont la rivalité et l'amitié sont mises à l'épreuve par leur quête pour battre des records mondiaux. Un film visuellement époustouflant qui explore les profondeurs de l'océan et de l'âme humaine.",
@@ -193,6 +210,7 @@ export const filmsData = [
     image: "/api/images/films/la-la-land.png",
     duration: 128,
     releaseDate: "2016",
+    addedAt: "2024-07-10T14:55:00Z",
     director: "Damien Chazelle",
     synopsis:
       "À Los Angeles, une actrice en herbe et un musicien de jazz ambitieux tombent amoureux tout en poursuivant leurs rêves artistiques. Le film célèbre la magie du cinéma et de la musique à travers des numéros musicaux vibrants et une histoire d'amour poignante.",
@@ -204,6 +222,7 @@ export const filmsData = [
     image: "/api/images/films/interstellar.png",
     duration: 169,
     releaseDate: "2014",
+    addedAt: "2024-07-12T11:30:00Z",
     director: "Christopher Nolan",
     synopsis:
       "Dans un futur proche, la Terre est en crise, et un groupe d'astronautes entreprend un voyage interstellaire à travers un trou de ver pour trouver une nouvelle planète habitable. Le film explore les thèmes de l'amour, du sacrifice et de la survie humaine dans l'immensité de l'univers.",
@@ -215,6 +234,7 @@ export const filmsData = [
     image: "/api/images/films/titanic.png",
     duration: 195,
     releaseDate: "1997",
+    addedAt: "2024-07-15T10:20:00Z",
     director: "James Cameron",
     synopsis:
       "L'histoire d'amour tragique entre Jack et Rose, deux passagers de classes sociales différentes à bord du RMS Titanic. Leur romance naît alors que le navire fait naufrage après avoir heurté un iceberg, mettant en lumière les thèmes de l'amour, du sacrifice et de la survie.",
