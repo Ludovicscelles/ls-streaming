@@ -30,6 +30,7 @@ AppDataSource.initialize().then(async () => {
       image: doc.image,
       duration: doc.duration,
       releaseDate: doc.releaseDate,
+      addedAt: doc.addedAt,
       subject: doc.subject,
       description: doc.description,
     });
@@ -43,6 +44,7 @@ AppDataSource.initialize().then(async () => {
       genre: film.genre,
       image: film.image,
       duration: film.duration,
+      addedAt: film.addedAt,
       releaseDate: film.releaseDate,
       director: film.director,
       synopsis: film.synopsis,
@@ -57,6 +59,7 @@ AppDataSource.initialize().then(async () => {
       genre: serie.genre,
       image: serie.image,
       synopsis: serie.synopsis,
+      addedAt: serie.addedAt,
       seasonEntities: [],
     });
     await seriesRepo.save(serieEntity);
@@ -66,6 +69,7 @@ AppDataSource.initialize().then(async () => {
         seasonYear: season.seasonYear,
         seasonNumber: season.seasonNumber,
         seasonSynopsis: season.seasonSynopsis,
+        seasonAddedAt: season.seasonAddedAt,
         serie: serieEntity,
         episodes: [],
       });
@@ -91,6 +95,7 @@ AppDataSource.initialize().then(async () => {
       genre: tvShow.genre,
       image: tvShow.image,
       description: tvShow.description,
+      addedAt: tvShow.addedAt,
       seasonTvShowEntities: [],
     });
     await tvShowsRepo.save(tvShowEntity);
@@ -101,6 +106,7 @@ AppDataSource.initialize().then(async () => {
         seasonNumber: seasonTvShow.seasonNumber,
         tvHost: seasonTvShow.tvHost,
         seasonDescription: seasonTvShow.seasonDescription,
+        seasonAddedAt: seasonTvShow.seasonAddedAt,
         tvShow: tvShowEntity,
         episodeTvShowEntities: [],
       });
