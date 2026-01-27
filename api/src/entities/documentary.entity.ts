@@ -21,7 +21,7 @@ export class DocumentaryEntity {
   releaseDate!: string;
 
   @CreateDateColumn()
-  createdAt!: Date;
+  addedAt!: Date;
 
   @Column()
   subject!: string;

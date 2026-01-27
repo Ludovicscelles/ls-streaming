@@ -19,7 +19,7 @@ export class SeriesEntity {
   synopsis?: string;
 
   @CreateDateColumn()
-  createdAt!: Date;
+  addedAt!: Date;
 
   @OneToMany(() => SeriesSeasonEntity, (season) => season.serie, {
     cascade: ["insert", "update", "remove"],

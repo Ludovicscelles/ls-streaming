@@ -21,7 +21,7 @@ export class FilmEntity {
   releaseDate!: string;
 
   @CreateDateColumn()
-  createdAt!: Date;
+  addedAt!: Date;
   
   @Column()
   director!: string;
